@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.1.1
+## LostArk Market Watcher 0.1.3
 This app listens to the screenshot folder for new files.
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
 Each segment then is parsed usin Tesseract OCR and classified

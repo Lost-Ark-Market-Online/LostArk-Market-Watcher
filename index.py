@@ -13,7 +13,7 @@ from modules.sound import playCheck, playError, playPulse, playSuccess
 import pystray
 from PIL import Image
 
-version = '0.1.1'
+version = '0.1.3'
 screenshootsdir, region = checkconfig()
 firestore = None
 observer = None
@@ -30,8 +30,8 @@ def on_created(event):
         res = scan(event.src_path)
         for item in res:
             playPulse()
-            firestore.add_entry(name=item['name'], avg_price=item['avgPrice'],
-                               cheapest_remaining=item['cheapestRemaining'], low_price=item['lowPrice'], recent_price=item['recentPrice'])
+            print(item)
+            firestore.add_entry(item)
         playSuccess()
     except:
         playError()

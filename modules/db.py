@@ -67,8 +67,7 @@ class MarketDb:
         else:
             self.login()
 
-    def add_entry(self, name, avg_price, cheapest_remaining, low_price, recent_price):
-        item = get_market_item_by_name(name)
+    def add_entry(self, item):
         item_doc = self.db.collection(self.region).where(
             'name', '==', item['name']).get()
 
@@ -77,11 +76,18 @@ class MarketDb:
                 self.region).add(document_data=item)
         else:
             item_doc = item_doc[0]
+            self.db.collection(self.region).document(item_doc.id).update({
+                'avgPrice': item['avgPrice'],
+                'cheapestRemaining': item['cheapestRemaining'],
+                'lowPrice': item['lowPrice'],
+                'recentPrice': item['recentPrice'],
+                'updatedAt': datetime.utcnow()
+            })
 
         self.db.collection(self.region).document(item_doc.id).collection('entries').add({
-            'avgPrice': avg_price,
-            'cheapestRemaining': cheapest_remaining,
-            'lowPrice': low_price,
-            'recentPrice': recent_price,
+            'avgPrice': item['avgPrice'],
+            'cheapestRemaining': item['cheapestRemaining'],
+            'lowPrice': item['lowPrice'],
+            'recentPrice': item['recentPrice'],
             'createdAt': datetime.utcnow()
         })

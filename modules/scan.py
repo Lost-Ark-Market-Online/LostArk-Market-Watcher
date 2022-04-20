@@ -125,7 +125,7 @@ def scan(filepath, _debug=False):
                 pimg, lang='eng', config='--psm 6 -c tessedit_char_blacklist=!')
         else:
             e_text = pytesseract.image_to_string(
-                pimg, lang='eng', config='--psm 13 --oem 1 -c tessedit_char_whitelist=0123456789,.')
+                pimg, lang='eng', config='--psm 13 --oem 1 -c tessedit_char_whitelist=0123456789.')
 
         return e_text
 
