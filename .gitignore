@@ -1,0 +1,8 @@
+dist/
+debug/
+build/
+.vscode/
+.env/
+__pycache__
+config.ini
+token.json
