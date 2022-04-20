@@ -6,6 +6,10 @@ The information then is collected and published to the LostArk Marketplace fires
 
 In order to contribute to the LostArk Marketplace database, the contributor must be authenticated and aproved. 
 
+### Limitations
+Right now it only works on 1080p and 4K resolutions. 
+Support for 21:9 is on the works.
+
 ### Dependencies
 - TesseractOCR ( A compiled version for Windows x64 is included in this repository )
 - PyTesseract `pip install pytesseract`
