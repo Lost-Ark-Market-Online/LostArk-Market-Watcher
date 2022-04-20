@@ -1,1 +1,1 @@
-pyinstaller .\index.spec
+pyinstaller index.spec
