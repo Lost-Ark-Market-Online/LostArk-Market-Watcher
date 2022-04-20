@@ -1,1 +1,1 @@
-pyinstaller .\index.py --paths=".env/Lib/site-packages" --add-data="assets;assets" --add-data="lib;lib" --onefile --nowindowed --noconsole --icon="assets/icons/favicon.ico"
+pyinstaller .\index.spec
