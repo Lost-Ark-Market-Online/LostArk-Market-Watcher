@@ -3,9 +3,10 @@ import os
 import configparser
 
 regions = [
-    "West North America",
-    "East North America",
-    "Central Europe",
+    "Europe West",
+    "Europe Central",
+    "North America West",
+    "North America East",
     "South America",
 ]
 
