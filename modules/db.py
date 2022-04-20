@@ -72,6 +72,7 @@ class MarketDb:
             'name', '==', item['name']).get()
 
         if(len(item_doc) == 0):
+            item['updatedAt'] = datetime.utcnow()
             _, item_doc = self.db.collection(
                 self.region).add(document_data=item)
         else:
