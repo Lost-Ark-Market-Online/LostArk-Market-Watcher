@@ -13,7 +13,7 @@ from modules.sound import playCheck, playError, playPulse, playSuccess
 import pystray
 from PIL import Image
 
-version = '0.1.0'
+version = '0.1.1'
 screenshootsdir, region = checkconfig()
 firestore = None
 observer = None

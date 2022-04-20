@@ -141,7 +141,7 @@ market_map = {
     'Hunting Crystal': {
         'name': 'Hunting Crystal',
         'amount': 10,
-        'image': 'huntin_crystal.webp',
+        'image': 'hunting_crystal.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 3
