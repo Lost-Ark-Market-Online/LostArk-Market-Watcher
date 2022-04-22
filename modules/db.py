@@ -69,7 +69,7 @@ class MarketDb:
 
     def add_entry(self, item):
         item_doc = self.db.collection(self.region).where(
-            'name', '==', item['name']).get()
+            'name', '==', item['name']).where('rarity', '==', item['rarity']).get()
 
         if(len(item_doc) == 0):
             item['updatedAt'] = datetime.utcnow()

@@ -13,7 +13,7 @@ from modules.sound import playCheck, playError, playPulse, playSuccess
 import pystray
 from PIL import Image
 
-version = '0.1.5'
+version = '0.2.0'
 screenshootsdir, region = checkconfig()
 firestore = None
 observer = None
@@ -33,6 +33,8 @@ def on_created(event):
             print(item)
             firestore.add_entry(item)
         playSuccess()
+        time.sleep(1)
+        os.remove(event.src_path)
     except:
         playError()
         traceback.print_exc()

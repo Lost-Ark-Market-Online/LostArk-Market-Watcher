@@ -1,9 +1,12 @@
+import math
 import cv2
+import numpy as np
 import pytesseract
 import os
 
 from modules.process import process_items
-pytesseract.pytesseract.tesseract_cmd = os.path.abspath(os.path.join(os.path.dirname(__file__),'../lib/Tesseract-OCR/tesseract'))
+pytesseract.pytesseract.tesseract_cmd = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../lib/Tesseract-OCR/tesseract'))
 
 threshold = .8
 
@@ -34,7 +37,8 @@ def scan(filepath, _debug=False):
 
     def matchSearchMarket(screenshoot):
         screenshoot = screenshoot.copy()
-        t_interest = cv2.imread(os.path.abspath(os.path.join(os.path.dirname(__file__),'../assets/search_market.jpg')))
+        t_interest = cv2.imread(os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '../assets/search_market.jpg')))
         t_interest = cv2.cvtColor(t_interest, cv2.COLOR_BGR2HSV)
         t_interest_h, t_interest_s, t_interest_v = cv2.split(t_interest)
 
@@ -63,7 +67,8 @@ def scan(filepath, _debug=False):
 
     def matchInterestList(screenshoot):
         screenshoot = screenshoot.copy()
-        t_interest = cv2.imread(os.path.abspath(os.path.join(os.path.dirname(__file__),'../assets/interest_market.jpg')))
+        t_interest = cv2.imread(os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '../assets/interest_market.jpg')))
         t_interest = cv2.cvtColor(t_interest, cv2.COLOR_BGR2HSV)
         t_interest_h, t_interest_s, t_interest_v = cv2.split(t_interest)
 
@@ -96,6 +101,10 @@ def scan(filepath, _debug=False):
     def process_cropped(screenshoot, rec, i, a):
         recX1, recY1, recX2, recY2 = rec
         cropped_img = screenshoot[recY1:recY2, recX1:recX2]
+
+        if debug:
+            cv2.imwrite(f'debug/cropped/img-{i}-{a}-raw.jpg', cropped_img)
+
         pimg = cv2.cvtColor(cropped_img, cv2.COLOR_BGR2GRAY)
         pimg = cv2.resize(pimg, dsize=(
             int(pimg.shape[1]*3), int(pimg.shape[0]*3)))
@@ -117,7 +126,7 @@ def scan(filepath, _debug=False):
         pimg = cv2.erode(pimg, element, 3)
 
         if debug:
-            cv2.imwrite(f'debug/cropped/img-{i}-{a}.jpg', pimg)
+            cv2.imwrite(f'debug/cropped/img-{i}-{a}-text.jpg', pimg)
 
         e_text = None
         if(a == 0):
@@ -128,6 +137,42 @@ def scan(filepath, _debug=False):
                 pimg, lang='eng', config='--psm 13 --oem 1 -c tessedit_char_whitelist=0123456789.')
 
         return e_text
+
+    def get_rarity(screenshoot, rec, i):
+        recX1, recY1, recX2, recY2 = rec
+        rarity_img = screenshoot[recY1:recY2, recX1:recX2]
+
+        if debug:
+            cv2.imwrite(f'debug/cropped/img-{i}-{a}-cropped.jpg', rarity_img)
+
+        rarity_img = cv2.cvtColor(rarity_img, cv2.COLOR_BGR2HSV)
+        rarity_img_h, rarity_img_s, rarity_img_v = cv2.split(rarity_img)
+        color_value = np.average(rarity_img_h)
+        vibrance_value = np.average(rarity_img_v)
+        saturation_value = np.average(rarity_img_s)
+
+        if debug:
+            cv2.imwrite(f'debug/cropped/img-{i}-{a}-h.jpg', rarity_img_h)
+            print('========================')
+            print(f'Hue - {i}: {color_value}')
+            print(f'Vibrance - {i}: {vibrance_value}')
+            print(f'Saturation - {i}: {saturation_value}')
+
+        if(saturation_value < 50):
+            return 0
+        else:
+            if(color_value < 15):
+                return 5
+            elif(color_value < 20):
+                return 4
+            elif(color_value < 50):
+                return 1
+            elif(color_value < 100):
+                return 2
+            elif(color_value < 150):
+                return 3
+            else:
+                return 0
 
     screenshoot = cv2.imread(filepath)
 
@@ -165,6 +210,7 @@ def scan(filepath, _debug=False):
         text = []
         for i in range(10):
             line = []
+            rarity = None
             for a in range(5):
                 recX1 = int(MPx + scanMap[tab]
                             ['xItemStops'][a])
@@ -181,11 +227,20 @@ def scan(filepath, _debug=False):
                 if item is None:
                     break
 
+                if a == 0:
+                    rarity = get_rarity(
+                        screenshoot, (recX1-5, recY2-5, recX1+5, recY2+5), i)
+                    screenshoot = cv2.rectangle(
+                        screenshoot, (recX1-5, recY2-5), (recX1+5, recY2+5), (255, 255, 0), 1)
+                    print(f'Rarity - {i}: {rarity}')
+
                 line.append(item)
                 screenshoot = cv2.rectangle(
                     screenshoot, (recX1, recY1), (recX2, recY2), (255, 0, 0), 2)
             if len(line) > 0:
+                line.append(rarity)
                 text.append(line)
+                print(line)
         if debug:
             cv2.imwrite(f'debug/areas/screenshoot.jpg', screenshoot)
         return process_items(text)
