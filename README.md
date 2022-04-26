@@ -18,6 +18,8 @@ Support for 21:9 is on the works.
 - EasyGui `pip install easygui`
 - Google Cloud Firestore `pip install google-cloud-firestore`
 - Simpleaudio `pip install simpleaudio`
+- Watchdog 'pip install watchdog'
+- Pystray 'pip install pystray'
 
 ### Assets
 Audio files from [MixKit](https://mixkit.co/)
