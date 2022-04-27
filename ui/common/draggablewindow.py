@@ -7,7 +7,6 @@ class DraggableWindow(QWidget):
 
     def __init__(self, *args, **kwargs):
         QWidget.__init__(self, *args, **kwargs)
-        print('Init DraggableWindow')
 
     def mousePressEvent(self, event):
         self.dragging = True

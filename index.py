@@ -17,7 +17,7 @@ from modules.sound import playCheck, playError, playPulse, playSuccess
 
 from ui.config.config import LostArkMarketWatcherConfig
 
-version = '0.3.0'
+version = '0.3.1'
 
 
 class LostArkMarketWatcher(QApplication):
@@ -36,7 +36,8 @@ class LostArkMarketWatcher(QApplication):
         self.safe_spawn_observer()
 
     def build_menu(self):
-        icon = QIcon('assets/icons/favicon.png')
+        icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                  "assets/icons/favicon.png")))
         self.tray = QSystemTrayIcon()
         menu = QMenu()
         config_action = menu.addAction("Configuration")
@@ -69,6 +70,8 @@ class LostArkMarketWatcher(QApplication):
         self.play_audio, self.delete_screenshots, self.screenshots_directory = get_config()
 
         if self.screenshots_directory == None:
+            if self.play_audio == True:
+                playError()
             raise NotConfigured()
 
         event_handler = FileSystemEventHandler()
@@ -80,7 +83,11 @@ class LostArkMarketWatcher(QApplication):
         self.observer = Observer()
         self.observer.schedule(
             event_handler, self.screenshots_directory, recursive=False)
+
         self.observer.start()
+
+        if self.play_audio == True:
+            playSuccess()
 
     def on_created(self, event):
         try:
