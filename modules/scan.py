@@ -1,9 +1,7 @@
-import math
 import cv2
 import numpy as np
 import pytesseract
 import os
-
 from modules.process import process_items
 pytesseract.pytesseract.tesseract_cmd = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../lib/Tesseract-OCR/tesseract'))
@@ -232,7 +230,6 @@ def scan(filepath, _debug=False):
                         screenshoot, (recX1-5, recY2-5, recX1+5, recY2+5), i)
                     screenshoot = cv2.rectangle(
                         screenshoot, (recX1-5, recY2-5), (recX1+5, recY2+5), (255, 255, 0), 1)
-                    print(f'Rarity - {i}: {rarity}')
 
                 line.append(item)
                 screenshoot = cv2.rectangle(
@@ -240,7 +237,6 @@ def scan(filepath, _debug=False):
             if len(line) > 0:
                 line.append(rarity)
                 text.append(line)
-                print(line)
         if debug:
             cv2.imwrite(f'debug/areas/screenshoot.jpg', screenshoot)
         return process_items(text)

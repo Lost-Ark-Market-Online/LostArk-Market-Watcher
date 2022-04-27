@@ -1,5 +1,4 @@
 import re
-
 from modules.market import get_market_item_by_name
 
 
@@ -50,7 +49,6 @@ def process_items(raw):
 
 
 def process_number(n):
-    print(f'process_number - {n}')
     test = re.search('(\.\d)$', n)
     if(len(n) == 0):
         return None

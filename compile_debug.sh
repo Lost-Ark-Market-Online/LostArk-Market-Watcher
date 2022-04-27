@@ -1,0 +1,1 @@
+pyinstaller debug.spec

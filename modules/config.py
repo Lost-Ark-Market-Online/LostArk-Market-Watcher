@@ -1,80 +1,66 @@
-import easygui
-import os
 import configparser
-
-regions = [
-    "Europe West",
-    "Europe Central",
-    "North America West",
-    "North America East",
-    "South America",
-]
+from modules.errors import NoTokenError, NotConfigured
 
 
-def change_region(old_reg):
+def get_tokens():
     config = configparser.ConfigParser()
     config.read("config.ini")
-    c_region = easygui.choicebox(msg='Select a region', title='Region configuration',
-                                 choices=regions, preselect=regions.index(old_reg), callback=None, run=True)
-    config.set("Config", "region", c_region)
+    if config.has_section("Token") == False:
+        raise NoTokenError()
+    else:
+        return config.get("Token", "id_token"), config.get("Token", "refresh_token"), config.get("Token", "uid")
+
+
+def update_token(token):
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+
+    if config.has_section("Token") == False:
+        config.add_section("Token")
+        config.set("Token", "refresh_token", token["refresh_token"])
+        config.set("Token", "id_token", token["id_token"])
+        config.set("Token", "uid", token["uid"])
+    else:
+        if 'refresh_token' in token:
+            config.set("Token", "refresh_token", token["refresh_token"])
+        if 'id_token' in token:
+            config.set("Token", "id_token", token["id_token"])
+        if 'uid' in token:
+            config.set("Token", "uid", token["uid"])
+
     with open("config.ini", "w") as configfile:
         config.write(configfile)
-    return c_region
 
 
-def change_screenshot_dir(screenshootsdir):
+def get_config():
     config = configparser.ConfigParser()
     config.read("config.ini")
-    c_screenshootsdir = easygui.diropenbox(
-        msg="Select the screenshoots directory - (Steam/steamapps/common/Lost Ark/EFGame/Screenshots)",
-        title="Innitial configuration",
-        default=screenshootsdir
-    )
-    config.set("Config", "screenshootsdir", c_screenshootsdir)
+    if config.has_section("Watcher") == False:
+        raise NotConfigured()
+    else:
+        return config.get("Watcher", "play_audio") == 'True', config.get("Watcher", "delete_screenshots") == 'True', config.get("Watcher", "screenshots_directory")
+
+
+def update_config(new_config):
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+
+    if config.has_section("Watcher") == False:
+        config.add_section("Watcher")
+        config.set("Watcher", "play_audio", new_config["play_audio"])
+        config.set("Watcher", "delete_screenshots",
+                   new_config["delete_screenshots"])
+        config.set("Watcher", "screenshots_directory",
+                   new_config["screenshots_directory"])
+    else:
+        if 'play_audio' in new_config:
+            config.set("Watcher", "play_audio", new_config["play_audio"])
+        if 'delete_screenshots' in new_config:
+            config.set("Watcher", "delete_screenshots",
+                       new_config["delete_screenshots"])
+        if 'screenshots_directory' in new_config:
+            config.set("Watcher", "screenshots_directory",
+                       new_config["screenshots_directory"])
+
     with open("config.ini", "w") as configfile:
         config.write(configfile)
-    return c_screenshootsdir
-
-
-def checkconfig():
-    config = configparser.ConfigParser()
-    config.read("config.ini")
-    screenshootsdir = None
-    region = None
-
-    def set_screenshot_dir_config():
-        c_screenshootsdir = easygui.diropenbox(
-            msg="Select the screenshoots directory - (Steam/steamapps/common/Lost Ark/EFGame/Screenshots)",
-            title="Innitial configuration",
-        )
-        config.set("Config", "screenshootsdir", c_screenshootsdir)
-        with open("config.ini", "w") as configfile:
-            config.write(configfile)
-        return c_screenshootsdir
-
-    def set_region_config():
-        c_region = easygui.choicebox(msg='Select a region', title='Region configuration',
-                                     choices=regions, preselect=0, callback=None, run=True)
-        config.set("Config", "region", c_region)
-        with open("config.ini", "w") as configfile:
-            config.write(configfile)
-        return c_region
-
-    if config.has_section("Config") == False:
-        config.add_section("Config")
-        
-    if(config.has_option("Config", "screenshootsdir") == False):
-        screenshootsdir = set_screenshot_dir_config()
-    else:
-        screenshootsdir = config.get("Config", "screenshootsdir")
-        if os.path.exists(screenshootsdir) == False:
-            screenshootsdir = set_screenshot_dir_config()
-
-    if(config.has_option("Config", "region") == False):
-        region = set_region_config()
-    else:
-        region = config.get("Config", "region")
-        if(region in regions == False):
-            region = set_region_config()
-
-    return screenshootsdir, region

@@ -1,97 +1,111 @@
+import sys
 import time
 import os
-import easygui
 import traceback
+
+from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
+from PySide6.QtGui import QIcon
+
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-from modules.config import change_region, change_screenshot_dir, checkconfig
+from modules.config import get_config
 from modules.db import MarketDb
+from modules.errors import NotConfigured
 from modules.scan import scan
 from modules.sound import playCheck, playError, playPulse, playSuccess
 
-import pystray
-from PIL import Image
+from ui.config.config import LostArkMarketWatcherConfig
 
-version = '0.2.0'
-screenshootsdir, region = checkconfig()
-firestore = None
-observer = None
-
-RUNNING = True
+version = '0.3.0'
 
 
-def on_created(event):
-    try:
-        print('== New screenshoot found ==')
-        time.sleep(2)
-        playCheck()
-        print('== Scanning ==')
-        res = scan(event.src_path)
-        for item in res:
-            playPulse()
-            print(item)
-            firestore.add_entry(item)
-        playSuccess()
-        time.sleep(1)
-        os.remove(event.src_path)
-    except:
-        playError()
-        traceback.print_exc()
+class LostArkMarketWatcher(QApplication):
+    market_db = None
+    observer = None
+    config_form = None
+    play_audio = True
+    delete_screenshots = True
+    screenshots_directory = None
 
+    def __init__(self, *args, **kwargs):
+        QApplication.__init__(self, *args, **kwargs)
+        self.setQuitOnLastWindowClosed(False)
+        self.build_menu()
+        self.market_db = MarketDb()
+        self.safe_spawn_observer()
 
-def spawn_observer():
-    global observer
+    def build_menu(self):
+        icon = QIcon('assets/icons/favicon.png')
+        self.tray = QSystemTrayIcon()
+        menu = QMenu()
+        config_action = menu.addAction("Configuration")
+        config_action.triggered.connect(self.open_config)
+        separator = menu.addSeparator()
+        close_action = menu.addAction("Close")
+        close_action.triggered.connect(self.close_action)
+        self.tray.setIcon(icon)
+        self.tray.setContextMenu(menu)
+        self.tray.show()
+        self.tray.setToolTip("Lost Ark Market Watcher")
 
-    event_handler = FileSystemEventHandler()
-    event_handler.on_created = on_created
+    def open_config(self):
+        self.config_form = LostArkMarketWatcherConfig(
+            version, self.market_db.region, self.play_audio, self.delete_screenshots, self.screenshots_directory
+        )
+        self.config_form.config_updated.connect(self.safe_spawn_observer)
+        self.config_form.ui.show()
 
-    observer = Observer()
-    observer.schedule(event_handler, screenshootsdir, recursive=False)
-    observer.start()
-
-def app_setup():
-    global firestore
-
-    def close_action():
+    def close_action(self):
         os._exit(1)
 
-    def about_action():
-        easygui.msgbox(title=f'Lost Ark Market Watcher - {version}',
-                       msg='App made for scanning the game screenshoots and look for market data to feed the Lost Ark Market Webapp.')
+    def safe_spawn_observer(self):
+        try:
+            self.spawn_observer()
+        except NotConfigured:
+            self.open_config()
 
-    def change_region_action():
-        global region
-        global firestore
-        region = change_region(region)
-        firestore = MarketDb(region)
+    def spawn_observer(self):
+        self.play_audio, self.delete_screenshots, self.screenshots_directory = get_config()
 
-    def change_screenshot_dir_action():
-        global screenshootsdir
-        screenshootsdir = change_screenshot_dir(screenshootsdir)
-        if(observer is not None):
-            observer.stop()
-        spawn_observer()
+        if self.screenshots_directory == None:
+            raise NotConfigured()
 
-    image = Image.open(os.path.abspath(os.path.join(os.path.dirname(__file__),'assets/icons/favicon.png')))
-    firestore = MarketDb(region)
+        event_handler = FileSystemEventHandler()
+        event_handler.on_created = self.on_created
 
-    menu = (
-        pystray.MenuItem('About', about_action),
-        pystray.Menu.SEPARATOR,
-        pystray.MenuItem('Change User', firestore.login),
-        pystray.MenuItem('Change Region', change_region_action),
-        pystray.MenuItem('Change Screenshot File', change_screenshot_dir_action),
-        pystray.Menu.SEPARATOR,
-        pystray.MenuItem('Close', close_action),
-    )
+        if self.observer is not None and self.observer.is_alive() == True:
+            self.observer.stop()
 
-    icon = pystray.Icon("MarketWatcher", image,
-                        "Lost Ark Market Watcher", menu)
+        self.observer = Observer()
+        self.observer.schedule(
+            event_handler, self.screenshots_directory, recursive=False)
+        self.observer.start()
 
-    spawn_observer()
-    icon.run()
+    def on_created(self, event):
+        try:
+            print('== New screenshoot found ==')
+            time.sleep(2)
+            if self.play_audio == True:
+                playCheck()
+
+            print('== Scanning ==')
+            res = scan(event.src_path)
+            for item in res:
+                if self.play_audio == True:
+                    playPulse()
+                print(item)
+                self.market_db.add_entry(item)
+
+            if self.play_audio == True:
+                playSuccess()
+            time.sleep(1)
+            os.remove(event.src_path)
+        except:
+            playError()
+            traceback.print_exc()
 
 
-if __name__ == "__main__":  
-    app_setup()
+if __name__ == "__main__":
+    app = LostArkMarketWatcher([])
+    sys.exit(app.exec())

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LostArkMarketWatcherConfig</class>
+ <widget class="QMainWindow" name="LostArkMarketWatcherConfig">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>483</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>LostArkMarketWatcherConfig</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background-image: url(:/resources/images/background.png);  
+}
+QCheckBox{
+	color: white;
+}
+QLabel{
+  color: white;
+}
+QPushButton#btnSave,
+QPushButton#btnCancel{
+	background-image: url(:/resources/images/btnNormal.png);
+    color: white;
+    height: 32px;
+    border: none;
+}
+QPushButton:hover#btnSave,
+QPushButton:hover#btnCancel{
+	background-image: url(:/resources/images/btnHover.png);
+    height: 32px;
+}
+QPushButton:pressed#btnSave,
+QPushButton:pressed#btnCancel{
+	background-image: url(:/resources/images/btnDown.png);
+    height: 32px;
+}</string>
+  </property>
+  <widget class="DraggableWindow" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>8</number>
+      </property>
+      <property name="topMargin">
+       <number>8</number>
+      </property>
+      <property name="rightMargin">
+       <number>8</number>
+      </property>
+      <property name="bottomMargin">
+       <number>8</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="lblTitle">
+          <property name="text">
+           <string>Lost Ark Market Watcher v0.3.0 - North America East</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnClose">
+          <property name="styleSheet">
+           <string notr="true">QPushButton#btnClose{  
+    qproperty-icon: url(:/resources/images/btnCloseIcon.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnClose.png);
+    border: none;
+	height: 32px;
+	width: 32px;
+}
+
+QPushButton:hover#btnClose{
+    qproperty-icon: url(:/resources/images/btnCloseIconDown.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnCloseHover.png);
+}
+
+QPushButton:pressed#btnClose{
+    qproperty-icon: url(:/resources/images/btnCloseIconDown.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnCloseDown.png);
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblLogo">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/resources/images/logo_p.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="txtFile">
+          <property name="placeholderText">
+           <string>Lost Ark Screenshot Folder</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnFile">
+          <property name="styleSheet">
+           <string notr="true">QPushButton#btnFile{
+	background-image: url(:/resources/images/btnFileNormal.png);
+    color: white;
+    height: 24px;
+	width: 80px;
+    border: none;
+}
+QPushButton:hover#btnFile{
+	background-image: url(:/resources/images/btnFileHover.png);
+}
+QPushButton:pressed#btnFile{
+	background-image: url(:/resources/images/btnFileDown.png);
+}</string>
+          </property>
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="cbPlaySounds">
+        <property name="text">
+         <string>Play sounds</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="cbDeleteScreenshots">
+        <property name="text">
+         <string>Delete market screenshots after processing</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="btnCancel">
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnSave">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DraggableWindow</class>
+   <extends>QWidget</extends>
+   <header>draggablewindow.py</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
