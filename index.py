@@ -19,7 +19,7 @@ from modules.sound import playCheck, playError, playPulse, playSuccess
 
 from ui.config.config import LostArkMarketWatcherConfig
 
-version = '0.4.2'
+version = '0.4.3'
 
 
 class LostArkMarketWatcher(QApplication):

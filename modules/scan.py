@@ -1,3 +1,4 @@
+from shutil import rmtree
 import typing
 import cv2
 import numpy as np
@@ -38,21 +39,37 @@ scanMap = {
 }
 
 
-def get_text(screenshoot, rect: Rect, is_name: bool = False) -> str:
+def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False) -> str:
     """Detect Text inside rect within the screenshot"""
 
     # Crop image
-    cropped_img = screenshoot[rect.y1:rect.y2, rect.x1:rect.x2]
+    cropped_img = screenshot[rect.y1:rect.y2, rect.x1:rect.x2]
+
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-1-cropped.jpg', cropped_img)
 
     # Convert to Grayscale
     pimg = cv2.cvtColor(cropped_img, cv2.COLOR_BGR2GRAY)
+
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-2-gray.jpg', pimg)
 
     # Scale Up cropped text to make detection easier for Tesseract
     pimg = cv2.resize(pimg, dsize=(
         int(pimg.shape[1]*3), int(pimg.shape[0]*3)))
 
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-3-scaled.jpg', pimg)
+
     # Adjust image white levels for feature isolation
     pimg = cv2.addWeighted(pimg, 1.8, pimg, 0, -102)
+
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-4-contrast.jpg', pimg)
 
     # Feature isolation: Detect black space and crop it
     coords = cv2.findNonZero(pimg)
@@ -63,16 +80,32 @@ def get_text(screenshoot, rect: Rect, is_name: bool = False) -> str:
     pimg = cv2.copyMakeBorder(
         pimg, 10, 10, 10, 10, cv2.BORDER_CONSTANT)
 
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-5-isolated.jpg', pimg)
+
     # Invert to White background and Black text
     pimg = cv2.bitwise_not(pimg)
 
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-6-flipped.jpg', pimg)
+
     # Filter fuzziness
     _, pimg = cv2.threshold(pimg, 240, 255, cv2.THRESH_BINARY)
+
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-7-filtered.jpg', pimg)
 
     # Sharpen borders
     element = cv2.getStructuringElement(
         shape=cv2.MORPH_RECT, ksize=(3, 3))
     pimg = cv2.erode(pimg, element, 3)
+
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-8-sharpen.jpg', pimg)
 
     # Process image into text using Tesseract
     e_text = ""
@@ -83,10 +116,13 @@ def get_text(screenshoot, rect: Rect, is_name: bool = False) -> str:
         e_text = pytesseract.image_to_string(
             pimg, lang='eng', config='--psm 13 --oem 1 -c tessedit_char_whitelist=0123456789.').strip()
 
+    if debug:
+        screenshot = cv2.rectangle(
+            screenshot, (rect.x1, rect.y1), (rect.x2, rect.y2), (0, 255, 255), 2)
     return e_text
 
 
-def get_rarity(screenshoot, rect: Rect) -> int:
+def get_rarity(screenshot, rect: Rect, debug:bool = False) -> int:
     """
     Detect Rarity inside rect within the screenshot based on color
     - 0 = Normal
@@ -96,15 +132,29 @@ def get_rarity(screenshoot, rect: Rect) -> int:
     - 4 = Legendary
     - 5 = Relic
     """
+    # Get sample rect from the bottom left corner
+    sample_rect = Rect(rect.x1,rect.y2,rect.x1,rect.y2).add(-5, -5, 5, 5)
 
     # Crop image
-    rarity_img = screenshoot[rect.y1:rect.y2, rect.x1:rect.x2]
+    rarity_img = screenshot[sample_rect.y1:sample_rect.y2, sample_rect.x1:sample_rect.x2]
+    
+    if debug:
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-9-rarity-sample.jpg', rarity_img)
 
     # Convert into Hue Saturation Vibrance
     rarity_img = cv2.cvtColor(rarity_img, cv2.COLOR_BGR2HSV)
 
     # Split values and keep Hue and Saturation
     rarity_img_h, rarity_img_s, _ = cv2.split(rarity_img)
+    
+    if debug:
+        screenshot = cv2.rectangle(
+            screenshot, (sample_rect.x1, sample_rect.y1), (sample_rect.x2, sample_rect.y2), (255, 255, 255), 1)
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-9-rarity-hue.jpg', rarity_img_h)
+        cv2.imwrite(
+            f'debug/inspection/text-{rect.y1}-{rect.x1}-9-rarity-saturation.jpg', rarity_img_s)
 
     # Get value averages for Hue and for Saturation
     color_value = np.average(rarity_img_h)
@@ -128,7 +178,7 @@ def get_rarity(screenshoot, rect: Rect) -> int:
             return 0
 
 
-def process_line_column(screenshoot, tab, anchor, line_index, column_index) -> typing.Tuple[int, str | None] | (str | None):
+def process_line_column(screenshot, tab, anchor, line_index, column_index, debug=False) -> typing.Tuple[int, str | None] | (str | None):
     """Process column from a specific line"""
     # Build column starting point
     rect_start = Point(
@@ -151,16 +201,16 @@ def process_line_column(screenshoot, tab, anchor, line_index, column_index) -> t
     # If it is the first column, also detect rarity
     if column_index == 0:
         rarity = get_rarity(
-            screenshoot, rect.add(-5, -5, 5, 5))
+            screenshot, rect, debug)
         item = get_text(
-            screenshoot, rect, True)
+            screenshot, rect, True, debug)
         return rarity, item
     else:
         return get_text(
-            screenshoot, rect)
+            screenshot, rect, False, debug)
 
 
-def process_line(screenshoot, tab, anchor, line_index) -> MarketLine | None:
+def process_line(screenshot, tab, anchor, line_index, debug=False) -> MarketLine | None:
     """Process line columns using multithreading"""
     # Initialize executor and futures list
     column_futures = []
@@ -169,8 +219,9 @@ def process_line(screenshoot, tab, anchor, line_index) -> MarketLine | None:
     # Push tasks and wait for them to finish
     for column_index in range(5):
         column_futures.append(executor.submit(
-            process_line_column, screenshoot, tab, anchor, line_index, column_index))
+            process_line_column, screenshot, tab, anchor, line_index, column_index, debug))
     wait(column_futures)
+
     # Consolidate results
     columns = [column_future.result() for column_future in column_futures]
 
@@ -198,7 +249,7 @@ def process_line(screenshoot, tab, anchor, line_index) -> MarketLine | None:
     )
 
 
-def process_market_table(screenshot, tab, anchor) -> typing.List[MarketLine]:
+def process_market_table(screenshot, tab, anchor, debug=False) -> typing.List[MarketLine]:
     """Process market table using multithreading"""
     # Initialize executor and futures list
     line_futures = []
@@ -207,14 +258,17 @@ def process_market_table(screenshot, tab, anchor) -> typing.List[MarketLine]:
     # Push tasks and wait for them to finish
     for line_index in range(10):
         line_futures.append(executor.submit(
-            process_line, screenshot, tab, anchor, line_index))
+            process_line, screenshot, tab, anchor, line_index, debug))
     wait(line_futures)
+
+    if debug:
+        cv2.imwrite('debug/4-processed-screenshot.jpg', screenshot)
 
     # Consolidate results
     return [line_future.result() for line_future in line_futures if line_future.result()]
 
 
-def match_market(screenshoot, interest_tab=False) -> typing.Tuple[float, typing.Tuple[int, int]]:
+def match_market(screenshot, interest_tab=False, debug=False) -> typing.Tuple[float, typing.Tuple[int, int]]:
     """Process market table using multithreading"""
     # Read Search Market tab sample
     sample = cv2.imread(os.path.abspath(os.path.join(
@@ -227,21 +281,21 @@ def match_market(screenshoot, interest_tab=False) -> typing.Tuple[float, typing.
     _, _, sample_v = cv2.split(sample)
 
     # Convert screenshot into Hue Saturation Vibrance
-    screenshoot_hsv = cv2.cvtColor(screenshoot, cv2.COLOR_BGR2HSV)
+    screenshot_hsv = cv2.cvtColor(screenshot, cv2.COLOR_BGR2HSV)
 
     # Split screenshot and keep Vibrance
-    _, _, screenshoot_v = cv2.split(
-        screenshoot_hsv)
+    _, _, screenshot_v = cv2.split(
+        screenshot_hsv)
 
     # Perform match template and keep the conficence value and location of the match
     res = cv2.matchTemplate(
-        screenshoot_v, sample_v, cv2.TM_CCOEFF_NORMED)
+        screenshot_v, sample_v, cv2.TM_CCOEFF_NORMED)
     _, maxVal, _, maxLoc = cv2.minMaxLoc(res)
 
     return maxVal, maxLoc
 
 
-def detect_market(screenshot) -> typing.Tuple[str, Point]:
+def detect_market(screenshot, debug=False) -> typing.Tuple[str, Point]:
     """Detect which market tab is open"""
 
     # Get confidence values for matching either search tab or interest tab
@@ -250,6 +304,10 @@ def detect_market(screenshot) -> typing.Tuple[str, Point]:
 
     loc = None
     tab = None
+
+    if debug == True:
+        print(f"interest_list_conf: {interest_list_conf}")
+        print(f"search_market_conf: {search_market_conf}")
 
     # Pick the one with highest confidence
     if(interest_list_conf > search_market_conf):
@@ -265,24 +323,67 @@ def detect_market(screenshot) -> typing.Tuple[str, Point]:
         else:
             raise Exception('NO_MARKET')
 
+    if debug == True:
+        screenshot = cv2.rectangle(
+            screenshot, (loc[0], loc[1]), (loc[0]+316, loc[1]+152), (0, 0, 255), 2)
+        print(f"Found Market tab: {tab}")
+
     return tab, Point(loc[0], loc[1])
 
 
-def scan(filepath) -> typing.List[MarketLine]:
+def crop_image(screenshot, debug=False):
+    """Remove black bars surrounding screenshot"""
+
+    res = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
+    res = cv2.addWeighted(res, 1.8, res, 0, -102)
+    coords = cv2.findNonZero(res)
+    x, y, w, h = cv2.boundingRect(coords)
+    screenshot = screenshot[y:y+h, x:x+w]
+
+    if debug:
+        cv2.imwrite('debug/2-cropped-screenshot.jpg', screenshot)
+
+    return screenshot
+
+
+def resize_screenshot(screenshot, debug=False):
+    """Standarize screenshot size for matching"""
+
+    scale = {
+        'x': screenshot.shape[1] / scanMap['baseRes']['x'],
+        'y': screenshot.shape[0] / scanMap['baseRes']['y']
+    }
+
+    resized = cv2.resize(screenshot, dsize=(
+        int(screenshot.shape[1] / scale['y']), int(screenshot.shape[0] / scale['y'])))
+
+    if debug:
+        cv2.imwrite('debug/3-resized-screenshot.jpg', resized)
+
+    return resized
+
+
+def scan(filepath, debug=False) -> typing.List[MarketLine]:
     """Scan market screenshot"""
+    if debug:
+        print('Directories cleanup')
+        rmtree('debug')
+        os.mkdir('debug')
+        os.mkdir('debug/inspection')
     # Load screenshot
-    screenshoot = cv2.imread(filepath)
+    screenshot = cv2.imread(filepath)
+
+    if debug:
+        cv2.imwrite('debug/1-screenshot.jpg', screenshot)
+
+    # Crop black borders
+    screenshot = crop_image(screenshot, debug)
 
     # Resize into measurements scale
-    scale = {
-        'x': screenshoot.shape[1] / scanMap['baseRes']['x'],
-        'y': screenshoot.shape[0] / scanMap['baseRes']['y']
-    }
-    screenshoot = cv2.resize(screenshoot, dsize=(
-        int(screenshoot.shape[1] / scale['x']), int(screenshoot.shape[0] / scale['y'])))
+    screenshot = resize_screenshot(screenshot, debug)
 
     # Detect which Market tab is open
-    tab, anchor = detect_market(screenshoot)
+    tab, anchor = detect_market(screenshot, debug)
 
     # Process market tab
-    return process_market_table(screenshoot, tab, anchor)
+    return process_market_table(screenshot, tab, anchor, debug)

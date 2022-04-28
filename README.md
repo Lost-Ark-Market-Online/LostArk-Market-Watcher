@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.4.2
+## LostArk Market Watcher 0.4.3
 This app listens to the screenshot folder for new files.
 Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
@@ -25,12 +25,14 @@ Support for 21:9 is on the works.
 Audio files from [MixKit](https://mixkit.co/)
 
 ### ToDo:
-- Support for 21:9 aspect ratio
 - Add Adventure Tome items
 - Add Gold / Royal Crystal / Blue Crystal converstions support
 
 ### Changelog
-### 0.4.1
+### 0.4.3
+- Support for multiple aspect ratios
+
+### 0.4.2
 - Enforce item rarity from dict before pushing
 
 ### 0.4.1
