@@ -6,10 +6,6 @@ def process_items(raw):
     items = []
     for chain in raw:
         name = chain[0].strip()
-        if name.find('[Sold in bundles') > 0:
-            name = name[0:name.find('[Sold in bundles')].strip()
-        if name.find('[Untradable upon') > 0:
-            name = name[0:name.find('[Untradable upon')].strip()
 
         item = get_market_item_by_name(name)
         if item is None:

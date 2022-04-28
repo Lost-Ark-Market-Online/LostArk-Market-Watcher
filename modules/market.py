@@ -1449,8 +1449,12 @@ market_map = {
 }
 
 
-def get_market_item_by_name(name):
-    match = get_close_matches(name, market_map.keys())
+def filter_market_item_name(raw_name: str) -> str | None:
+    match = get_close_matches(raw_name, market_map.keys())
     if(len(match) == 0):
         return None
-    return market_map[match[0]]
+    return match[0]
+
+
+def get_market_item_by_name(name: str) -> dict:
+    return market_map[name]

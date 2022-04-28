@@ -9,6 +9,8 @@ from PySide6.QtGui import QIcon
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+from concurrent.futures import ThreadPoolExecutor, wait
+
 from modules.config import get_config
 from modules.db import MarketDb
 from modules.errors import NotConfigured
@@ -17,7 +19,7 @@ from modules.sound import playCheck, playError, playPulse, playSuccess
 
 from ui.config.config import LostArkMarketWatcherConfig
 
-version = '0.3.1'
+version = '0.4.0'
 
 
 class LostArkMarketWatcher(QApplication):
@@ -27,6 +29,7 @@ class LostArkMarketWatcher(QApplication):
     play_audio = True
     delete_screenshots = True
     screenshots_directory = None
+    screenshot_executor = None
 
     def __init__(self, *args, **kwargs):
         QApplication.__init__(self, *args, **kwargs)
@@ -85,29 +88,36 @@ class LostArkMarketWatcher(QApplication):
             event_handler, self.screenshots_directory, recursive=False)
 
         self.observer.start()
+        self.screenshot_executor = ThreadPoolExecutor(max_workers=1)
 
         if self.play_audio == True:
             playSuccess()
 
     def on_created(self, event):
+        self.screenshot_executor.submit(
+            self.process_screenshot, event.src_path)
+
+    def process_screenshot(self, file):
         try:
             print('== New screenshoot found ==')
             time.sleep(2)
             if self.play_audio == True:
                 playCheck()
 
-            print('== Scanning ==')
-            res = scan(event.src_path)
+            print('== Scanning: Start ==')
+            res = scan(file)
+            print('== Scanning: Finish ==')
+            entry_futures = []
+            entries_executor = ThreadPoolExecutor(max_workers=2)
             for item in res:
-                if self.play_audio == True:
-                    playPulse()
-                print(item)
-                self.market_db.add_entry(item)
-
+                entry_futures.append(entries_executor.submit(
+                    self.market_db.add_entry, item, self.play_audio))
+            wait(entry_futures)
+            print("== Finished ==")
             if self.play_audio == True:
                 playSuccess()
             time.sleep(1)
-            os.remove(event.src_path)
+            os.remove(file)
         except:
             playError()
             traceback.print_exc()
