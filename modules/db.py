@@ -10,7 +10,7 @@ from modules.config import get_tokens
 from modules.errors import NoTokenError
 from modules.market import get_market_item_by_name
 from modules.process import process_item
-from modules.sound import playPulse
+from modules.sound import playError, playPulse
 
 project = 'lostarkmarket-79ddf'
 
@@ -38,14 +38,21 @@ class MarketDb:
 
     def add_entry(self, market_line: MarketLine, play_audio=True):
         try:
+            # Get item data based on dictionary
+            item = process_item(market_line)
+
+            # Update rarity based on market dictionary
+            market_line.rarity = item['rarity']
+
+            # Get Doc
             item_doc_ref = self.db.document(
                 f"{self.region}/{slugify(market_line.name)}-{market_line.rarity}")
-
             item_doc = item_doc_ref.get()
 
             if (item_doc.exists == False):
-                print(f"Create {self.region}/{slugify(market_line.name)}-{market_line.rarity}")
-                item = process_item(market_line)
+                print(
+                    f"Create {self.region}/{slugify(market_line.name)}-{market_line.rarity}")
+
                 item['updatedAt'] = datetime.utcnow()
                 item_doc_ref.create(item)
             else:
@@ -70,4 +77,6 @@ class MarketDb:
                 playPulse()
         except:
             print(f"== Add Entry Failed: {market_line.name} ==")
+            if play_audio == True:
+                playError()
             traceback.print_exc()
