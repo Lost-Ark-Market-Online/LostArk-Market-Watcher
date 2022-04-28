@@ -1,6 +1,7 @@
 
 import traceback
 from datetime import datetime
+from slugify import slugify
 from google.oauth2.credentials import Credentials
 from google.cloud.firestore import Client
 from modules.auth import refresh_token
@@ -8,6 +9,7 @@ from modules.common.market_line import MarketLine
 from modules.config import get_tokens
 from modules.errors import NoTokenError
 from modules.market import get_market_item_by_name
+from modules.process import process_item
 from modules.sound import playPulse
 
 project = 'lostarkmarket-79ddf'
@@ -36,17 +38,18 @@ class MarketDb:
 
     def add_entry(self, market_line: MarketLine, play_audio=True):
         try:
-            item_doc = self.db.collection(self.region).where(
-                'name', '==', market_line.name).where('rarity', '==', market_line.rarity).get()
+            item_doc_ref = self.db.document(
+                f"{self.region}/{slugify(market_line.name)}-{market_line.rarity}")
 
-            if(len(item_doc) == 0):
-                item = get_market_item_by_name(market_line.name)
+            item_doc = item_doc_ref.get()
+
+            if (item_doc.exists == False):
+                print(f"Create {self.region}/{slugify(market_line.name)}-{market_line.rarity}")
+                item = process_item(market_line)
                 item['updatedAt'] = datetime.utcnow()
-                _, item_doc = self.db.collection(
-                    self.region).add(document_data={**market_line.to_json(), **item})
+                item_doc_ref.create(item)
             else:
-                item_doc = item_doc[0]
-                self.db.collection(self.region).document(item_doc.id).update({
+                item_doc_ref.update({
                     'avgPrice': market_line.avg_price,
                     'cheapestRemaining': market_line.cheapest_remaining,
                     'lowPrice': market_line.lowest_price,
@@ -54,7 +57,7 @@ class MarketDb:
                     'updatedAt': datetime.utcnow()
                 })
 
-            self.db.collection(self.region).document(item_doc.id).collection('entries').add({
+            item_doc_ref.collection('entries').add({
                 'avgPrice': market_line.avg_price,
                 'cheapestRemaining': market_line.cheapest_remaining,
                 'lowPrice': market_line.lowest_price,

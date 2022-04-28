@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.4.0
+## LostArk Market Watcher 0.4.1
 This app listens to the screenshot folder for new files.
 Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
@@ -19,6 +19,7 @@ Support for 21:9 is on the works.
 - Google Cloud Firestore `pip install google-cloud-firestore`
 - Simpleaudio `pip install simpleaudio`
 - Watchdog `pip install watchdog`
+- Python Slugify `pip install python-slugify`
 
 ### Assets
 Audio files from [MixKit](https://mixkit.co/)
@@ -29,6 +30,9 @@ Audio files from [MixKit](https://mixkit.co/)
 - Add Gold / Royal Crystal / Blue Crystal converstions support
 
 ### Changelog
+### 0.4.1
+- Critical: Standarized document Ids
+
 ### 0.4.0
 - Multi Threading optimization for scans and uploads
 

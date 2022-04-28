@@ -20,7 +20,7 @@ class MarketLine():
             "rarity": self.rarity,
             "avgPrice": self.avg_price,
             "recentPrice": self.recent_price,
-            "lowestPrice": self.lowest_price,
+            "lowPrice": self.lowest_price,
             "cheapestRemaining": self.cheapest_remaining
         }
 

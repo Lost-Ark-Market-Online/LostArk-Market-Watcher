@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor, wait
 from modules.common.market_line import MarketLine
 from modules.common.point import Point
 from modules.common.rect import Rect
-from modules.market import filter_market_item_name
+from modules.market import filter_market_item_name, get_market_item_by_name
 from modules.process import process_number
 
 pytesseract.pytesseract.tesseract_cmd = os.path.abspath(
@@ -187,7 +187,6 @@ def process_line(screenshoot, tab, anchor, line_index) -> MarketLine | None:
 
     # Filter name with whitelist
     name = filter_market_item_name(name)
-
 
     return MarketLine(
         rarity=columns[0][0],
