@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.4.3
+## LostArk Market Watcher 0.4.4
 This app listens to the screenshot folder for new files.
 Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
@@ -29,6 +29,9 @@ Audio files from [MixKit](https://mixkit.co/)
 - Add Gold / Royal Crystal / Blue Crystal converstions support
 
 ### Changelog
+### 0.4.4
+- Add a logger window and option to write the log into files
+
 ### 0.4.3
 - Support for multiple aspect ratios
 
