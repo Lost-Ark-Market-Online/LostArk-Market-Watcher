@@ -11,11 +11,13 @@ from modules.errors import NoTokenError
 from modules.market import get_market_item_by_name
 from modules.process import process_item
 from modules.sound import playError, playPulse
+from PySide6.QtCore import Signal, QObject
 
 project = 'lostarkmarket-79ddf'
 
 
-class MarketDb:
+class MarketDb(QObject):
+    log = Signal(str)
     region = None
     creds = None
     db = None
@@ -23,6 +25,7 @@ class MarketDb:
 
     def __init__(self):
         try:
+            super(MarketDb, self).__init__() 
             _, self.refresh_token, _ = get_tokens()
             self.id_token, self.refresh_token, self.uid = refresh_token(
                 self.refresh_token)
@@ -50,7 +53,7 @@ class MarketDb:
             item_doc = item_doc_ref.get()
 
             if (item_doc.exists == False):
-                print(
+                self.log.emit(
                     f"Create {self.region}/{slugify(market_line.name)}-{market_line.rarity}")
 
                 item['updatedAt'] = datetime.utcnow()
@@ -72,11 +75,11 @@ class MarketDb:
                 'createdAt': datetime.utcnow()
             })
 
-            print(f"== Updated: {market_line.name} ==")
+            self.log.emit(f"Updated: {market_line.name}")
             if play_audio == True:
                 playPulse()
         except:
-            print(f"== Add Entry Failed: {market_line.name} ==")
+            self.log.emit(f"Add Entry Failed: {market_line.name}")
             if play_audio == True:
                 playError()
             traceback.print_exc()

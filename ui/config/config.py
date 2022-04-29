@@ -13,16 +13,13 @@ from modules.config import update_config
 class LostArkMarketWatcherConfig(QMainWindow):
     config_updated = Signal()
 
-    def __init__(self, version, region, play_audio, delete_screenshots, screenshots_directory):
+    def __init__(self, version, region):
         super(LostArkMarketWatcherConfig, self).__init__()
         self.load_ui()
         self.ui.btnSave.clicked.connect(self.save_config)
         self.ui.btnCancel.clicked.connect(self.cancel)
         self.ui.btnClose.clicked.connect(self.cancel)
         self.ui.btnFile.clicked.connect(self.open_file_dialog)
-        self.ui.txtFile.setText(screenshots_directory)
-        self.ui.cbPlaySounds.setChecked(play_audio)
-        self.ui.cbDeleteScreenshots.setChecked(delete_screenshots)
         self.ui.lblTitle.setText(
             f'Lost Ark Market Watcher v{version} - {region}')
 
@@ -47,9 +44,17 @@ class LostArkMarketWatcherConfig(QMainWindow):
             "play_audio": str(self.ui.cbPlaySounds.isChecked()),
             "delete_screenshots": str(self.ui.cbDeleteScreenshots.isChecked()),
             "screenshots_directory": self.ui.txtFile.text(),
+            "save_log": str(self.ui.cbLog.isChecked()),
         })
         self.config_updated.emit()
         self.ui.close()
 
     def cancel(self):
         self.ui.close()
+
+    def show(self, play_audio, delete_screenshots, screenshots_directory, save_log):
+        self.ui.txtFile.setText(screenshots_directory)
+        self.ui.cbPlaySounds.setChecked(play_audio)
+        self.ui.cbDeleteScreenshots.setChecked(delete_screenshots)
+        self.ui.cbLog.setChecked(save_log)
+        self.ui.show()

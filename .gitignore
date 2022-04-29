@@ -7,3 +7,5 @@ test/
 __pycache__
 config.ini
 token.json
+*.log
+*.error

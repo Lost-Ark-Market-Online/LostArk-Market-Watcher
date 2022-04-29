@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>483</width>
-    <height>320</height>
+    <height>356</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QMainWindow{
 	background-image: url(:/resources/images/background.png);  
+	border: none;
 }
 QCheckBox{
 	color: white;
@@ -80,7 +81,7 @@ QPushButton:pressed#btnCancel{
         <item>
          <widget class="QLabel" name="lblTitle">
           <property name="text">
-           <string>Lost Ark Market Watcher v0.3.0 - North America East</string>
+           <string>Lost Ark Market Watcher v{version} - {region} - Config</string>
           </property>
          </widget>
         </item>
@@ -250,6 +251,16 @@ QPushButton:pressed#btnFile{
        <widget class="QCheckBox" name="cbDeleteScreenshots">
         <property name="text">
          <string>Delete market screenshots after processing</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="cbLog">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Save log into .log file</string>
         </property>
        </widget>
       </item>

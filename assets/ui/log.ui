@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LostArkMarketWatcherLog</class>
+ <widget class="QMainWindow" name="LostArkMarketWatcherLog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>483</width>
+    <height>266</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>LostArkMarketWatcherLog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background-image: url(:/resources/images/background.png);  
+	border: none;
+}
+QLabel{
+  color: white;
+}</string>
+  </property>
+  <widget class="DraggableWindow" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="lblTitle">
+        <property name="text">
+         <string>Lost Ark Market Watcher v{version} - {region} - Log</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnClose">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#btnClose{  
+    qproperty-icon: url(:/resources/images/btnCloseIcon.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnClose.png);
+    border: none;
+	height: 32px;
+	width: 32px;
+}
+
+QPushButton:hover#btnClose{
+    qproperty-icon: url(:/resources/images/btnCloseIconDown.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnCloseHover.png);
+}
+
+QPushButton:pressed#btnClose{
+    qproperty-icon: url(:/resources/images/btnCloseIconDown.png);
+    qproperty-iconSize: 24px 24px; 
+	background-image: url(:/resources/images/btnCloseDown.png);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QListWidget" name="lLog">
+      <property name="styleSheet">
+       <string notr="true">QListWidget{
+    background-color: rgba(255, 255, 255, 50);
+}
+
+ QScrollBar:vertical {
+     border: none;
+     background: rgba(255, 255, 255, 30);
+     width: 12px;
+     margin: 0px;
+     padding: 2px;
+ }
+ QScrollBar::handle:vertical {
+     background: rgba(255, 255, 255, 80);
+     min-height: 20px;
+     border-radius: 4px;   
+ }
+ QScrollBar::add-line:vertical {
+    height: 0px;
+ }
+
+ QScrollBar::sub-line:vertical {
+    height: 0px;
+ }
+
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     border:none;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="isWrapping" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DraggableWindow</class>
+   <extends>QWidget</extends>
+   <header>draggablewindow.py</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

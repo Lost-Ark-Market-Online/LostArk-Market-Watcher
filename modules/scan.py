@@ -39,7 +39,7 @@ scanMap = {
 }
 
 
-def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False) -> str:
+def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> str:
     """Detect Text inside rect within the screenshot"""
 
     # Crop image
@@ -122,7 +122,7 @@ def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False)
     return e_text
 
 
-def get_rarity(screenshot, rect: Rect, debug:bool = False) -> int:
+def get_rarity(screenshot, rect: Rect, debug: bool = False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> int:
     """
     Detect Rarity inside rect within the screenshot based on color
     - 0 = Normal
@@ -133,11 +133,12 @@ def get_rarity(screenshot, rect: Rect, debug:bool = False) -> int:
     - 5 = Relic
     """
     # Get sample rect from the bottom left corner
-    sample_rect = Rect(rect.x1,rect.y2,rect.x1,rect.y2).add(-5, -5, 5, 5)
+    sample_rect = Rect(rect.x1, rect.y2, rect.x1, rect.y2).add(-5, -5, 5, 5)
 
     # Crop image
-    rarity_img = screenshot[sample_rect.y1:sample_rect.y2, sample_rect.x1:sample_rect.x2]
-    
+    rarity_img = screenshot[sample_rect.y1:sample_rect.y2,
+                            sample_rect.x1:sample_rect.x2]
+
     if debug:
         cv2.imwrite(
             f'debug/inspection/text-{rect.y1}-{rect.x1}-9-rarity-sample.jpg', rarity_img)
@@ -147,7 +148,7 @@ def get_rarity(screenshot, rect: Rect, debug:bool = False) -> int:
 
     # Split values and keep Hue and Saturation
     rarity_img_h, rarity_img_s, _ = cv2.split(rarity_img)
-    
+
     if debug:
         screenshot = cv2.rectangle(
             screenshot, (sample_rect.x1, sample_rect.y1), (sample_rect.x2, sample_rect.y2), (255, 255, 255), 1)
@@ -178,7 +179,7 @@ def get_rarity(screenshot, rect: Rect, debug:bool = False) -> int:
             return 0
 
 
-def process_line_column(screenshot, tab, anchor, line_index, column_index, debug=False) -> typing.Tuple[int, str | None] | (str | None):
+def process_line_column(screenshot, tab, anchor, line_index, column_index, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[int, str | None] | (str | None):
     """Process column from a specific line"""
     # Build column starting point
     rect_start = Point(
@@ -210,7 +211,7 @@ def process_line_column(screenshot, tab, anchor, line_index, column_index, debug
             screenshot, rect, False, debug)
 
 
-def process_line(screenshot, tab, anchor, line_index, debug=False) -> MarketLine | None:
+def process_line(screenshot, tab, anchor, line_index, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> MarketLine | None:
     """Process line columns using multithreading"""
     # Initialize executor and futures list
     column_futures = []
@@ -249,7 +250,7 @@ def process_line(screenshot, tab, anchor, line_index, debug=False) -> MarketLine
     )
 
 
-def process_market_table(screenshot, tab, anchor, debug=False) -> typing.List[MarketLine]:
+def process_market_table(screenshot, tab, anchor, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.List[MarketLine]:
     """Process market table using multithreading"""
     # Initialize executor and futures list
     line_futures = []
@@ -268,7 +269,7 @@ def process_market_table(screenshot, tab, anchor, debug=False) -> typing.List[Ma
     return [line_future.result() for line_future in line_futures if line_future.result()]
 
 
-def match_market(screenshot, interest_tab=False, debug=False) -> typing.Tuple[float, typing.Tuple[int, int]]:
+def match_market(screenshot, interest_tab=False, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[float, typing.Tuple[int, int]]:
     """Process market table using multithreading"""
     # Read Search Market tab sample
     sample = cv2.imread(os.path.abspath(os.path.join(
@@ -295,7 +296,7 @@ def match_market(screenshot, interest_tab=False, debug=False) -> typing.Tuple[fl
     return maxVal, maxLoc
 
 
-def detect_market(screenshot, debug=False) -> typing.Tuple[str, Point]:
+def detect_market(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[str, Point]:
     """Detect which market tab is open"""
 
     # Get confidence values for matching either search tab or interest tab
@@ -306,8 +307,8 @@ def detect_market(screenshot, debug=False) -> typing.Tuple[str, Point]:
     tab = None
 
     if debug == True:
-        print(f"interest_list_conf: {interest_list_conf}")
-        print(f"search_market_conf: {search_market_conf}")
+        log_cb(f"interest_list_conf: {interest_list_conf}")
+        log_cb(f"search_market_conf: {search_market_conf}")
 
     # Pick the one with highest confidence
     if(interest_list_conf > search_market_conf):
@@ -326,12 +327,12 @@ def detect_market(screenshot, debug=False) -> typing.Tuple[str, Point]:
     if debug == True:
         screenshot = cv2.rectangle(
             screenshot, (loc[0], loc[1]), (loc[0]+316, loc[1]+152), (0, 0, 255), 2)
-        print(f"Found Market tab: {tab}")
+        log_cb(f"Found Market tab: {tab}")
 
     return tab, Point(loc[0], loc[1])
 
 
-def crop_image(screenshot, debug=False):
+def crop_image(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
     """Remove black bars surrounding screenshot"""
 
     res = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
@@ -346,7 +347,7 @@ def crop_image(screenshot, debug=False):
     return screenshot
 
 
-def resize_screenshot(screenshot, debug=False):
+def resize_screenshot(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
     """Standarize screenshot size for matching"""
 
     scale = {
@@ -363,10 +364,10 @@ def resize_screenshot(screenshot, debug=False):
     return resized
 
 
-def scan(filepath, debug=False) -> typing.List[MarketLine]:
+def scan(filepath, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.List[MarketLine]:
     """Scan market screenshot"""
     if debug:
-        print('Directories cleanup')
+        log_cb('Directories cleanup')
         rmtree('debug')
         os.mkdir('debug')
         os.mkdir('debug/inspection')
