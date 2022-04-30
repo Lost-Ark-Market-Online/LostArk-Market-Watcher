@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem
+from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QListWidget
 from PySide6.QtCore import QFile, Qt, Signal
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QColor
@@ -30,6 +30,8 @@ class LostArkMarketWatcherLog(QMainWindow):
         self.ui.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.ui.btnClose.clicked.connect(self.close)
         self.ui.lLog.setWordWrap(True)
+        self.ui.lLog.setAutoScroll(True)
+        self.ui.lLog.setAutoScrollMargin(20)
         self.ui.lblTitle.setText(
             f"Lost Ark Market Watcher v{self.version} - {self.region} - Log")
         ui_file.close()
@@ -53,6 +55,7 @@ class LostArkMarketWatcherLog(QMainWindow):
                 with open(f'{datetime.now().strftime("%m-%d-%Y")}.log', "a") as file_object:
                     file_object.write(f"{log_txt}\n")
         self.ui.lLog.addItem(i)
+        self.ui.lLog.scrollToBottom()
 
 
 if __name__ == "__main__":
