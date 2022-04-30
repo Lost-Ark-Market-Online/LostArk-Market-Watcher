@@ -21,7 +21,7 @@ from modules.sound import playCheck, playError, playSuccess
 from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog
 
-version = '0.4.4'
+version = '0.4.5'
 debug = False
 
 
@@ -126,7 +126,7 @@ class LostArkMarketWatcher(QApplication):
                 entry_futures.append(entries_executor.submit(
                     self.market_db.add_entry, item, self.play_audio))
             wait(entry_futures)
-            self.write_log("== Finished ==")
+            self.write_log("Finished")
             if self.play_audio == True:
                 playSuccess()
             time.sleep(1)

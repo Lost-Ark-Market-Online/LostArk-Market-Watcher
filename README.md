@@ -25,10 +25,12 @@ Support for 21:9 is on the works.
 Audio files from [MixKit](https://mixkit.co/)
 
 ### ToDo:
-- Add Adventure Tome items
 - Add Gold / Royal Crystal / Blue Crystal converstions support
 
 ### Changelog
+### 0.4.5
+- Add Adventure Tome items
+
 ### 0.4.4
 - Add a logger window and option to write the log into files
 
