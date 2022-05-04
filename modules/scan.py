@@ -335,14 +335,20 @@ def detect_market(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt)
 def crop_image(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
     """Remove black bars surrounding screenshot"""
 
-    res = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
+    screenshot_middle = int(screenshot.shape[1] / 2)
+    crop_detect_sc = screenshot[0:screenshot.shape[0],screenshot_middle-100:screenshot_middle+100]    
+
+    if debug:
+        cv2.imwrite('debug/2.1-crop_detect_sc.jpg', crop_detect_sc)
+
+    res = cv2.cvtColor(crop_detect_sc, cv2.COLOR_BGR2GRAY)
     res = cv2.addWeighted(res, 1.8, res, 0, -102)
     coords = cv2.findNonZero(res)
     x, y, w, h = cv2.boundingRect(coords)
-    screenshot = screenshot[y:y+h, x:x+w]
+    screenshot = screenshot[y:y+h, 0:screenshot.shape[1]]
 
     if debug:
-        cv2.imwrite('debug/2-cropped-screenshot.jpg', screenshot)
+        cv2.imwrite('debug/2.2-cropped-screenshot.jpg', screenshot)
 
     return screenshot
 

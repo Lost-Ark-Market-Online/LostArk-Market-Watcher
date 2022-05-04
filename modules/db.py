@@ -96,7 +96,8 @@ class MarketDb(QObject):
                 'cheapestRemaining': market_line.cheapest_remaining,
                 'lowPrice': market_line.lowest_price,
                 'recentPrice': market_line.recent_price,
-                'createdAt': datetime.utcnow()
+                'createdAt': datetime.utcnow(),
+                'author': self.uid
             })
 
             self.log.emit(f"Updated: {market_line.name}")
