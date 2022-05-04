@@ -76,6 +76,13 @@ class MarketDb(QObject):
                 f"{self.region}/{slugify(market_line.name)}-{market_line.rarity}")
             item_doc = item_doc_ref.get()
 
+            if (
+                market_line.lowest_price == None or 
+                market_line.recent_price == None or 
+                market_line.cheapest_remaining == None 
+            ):
+                raise Exception('NO_VALID_PRICE_FOUND')
+
             if (item_doc.exists == False):
                 self.log.emit(
                     f"Create {self.region}/{slugify(market_line.name)}-{market_line.rarity}")
@@ -83,13 +90,22 @@ class MarketDb(QObject):
                 item['updatedAt'] = datetime.utcnow()
                 item_doc_ref.create(item)
             else:
-                item_doc_ref.update({
-                    'avgPrice': market_line.avg_price,
-                    'cheapestRemaining': market_line.cheapest_remaining,
-                    'lowPrice': market_line.lowest_price,
-                    'recentPrice': market_line.recent_price,
-                    'updatedAt': datetime.utcnow()
-                })
+                to_update = {}
+                if market_line.avg_price:
+                    to_update['avgPrice'] = market_line.avg_price
+                
+                if market_line.cheapest_remaining:
+                    to_update['cheapestRemaining'] = market_line.cheapest_remaining
+                
+                if market_line.lowest_price:
+                    to_update['lowPrice'] = market_line.lowest_price
+                
+                if market_line.recent_price:
+                    to_update['recentPrice'] = market_line.recent_price
+                
+                to_update['updatedAt'] = datetime.utcnow()
+
+                item_doc_ref.update(to_update)
 
             item_doc_ref.collection('entries').add({
                 'avgPrice': market_line.avg_price,
