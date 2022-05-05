@@ -109,7 +109,7 @@ class MarketDb(QObject):
                 
                 to_update['updatedAt'] = datetime.utcnow()
                 to_update['author'] = self.uid
-                to_update['watcher-version'] = self.version
+                to_update['watcher_version'] = self.version
 
                 item_doc_ref.update(to_update)
 
@@ -120,7 +120,7 @@ class MarketDb(QObject):
                 'recentPrice': market_line.recent_price,
                 'createdAt': datetime.utcnow(),
                 'author': self.uid,
-                'watcher-version': self.version
+                'watcher_version': self.version
             })
 
             self.log.emit(f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")

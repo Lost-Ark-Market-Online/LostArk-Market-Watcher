@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import pytesseract
 import os
+import re
 
 from concurrent.futures import ThreadPoolExecutor, wait
 from modules.common.market_line import MarketLine
@@ -232,10 +233,17 @@ def process_line(screenshot, tab, anchor, line_index, debug=False, log_cb=lambda
     if name is None:
         return None
 
-    if name.find('[Sold in bundles') > 0:
-        name = name[0:name.find('[Sold in bundles')].strip()
-    if name.find('[Untradable upon') > 0:
-        name = name[0:name.find('[Untradable upon')].strip()
+    if debug:
+        log_cb(f"Raw Name: {name}")
+
+
+    name = re.sub(f"\n*[\(\[]Sold in bundles.*","",name)
+
+    name = re.sub(f"\n*[\(\[]Untradable upon.*","",name)
+
+    if debug:
+        log_cb(f"Filtered Name: {name}")
+        log_cb(f"=================================")
 
     # Filter name with whitelist
     name = filter_market_item_name(name)
