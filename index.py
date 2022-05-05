@@ -21,8 +21,8 @@ from modules.sound import playCheck, playError, playSuccess
 from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog
 
-version = '0.4.9'
-debug = False
+version = '0.4.10'
+debug = True
 
 
 class LostArkMarketWatcher(QApplication):
