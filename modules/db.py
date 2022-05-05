@@ -122,7 +122,7 @@ class MarketDb(QObject):
                 'watcher-version': self.version
             })
 
-            self.log.emit(f"Updated: {market_line.name}")
+            self.log.emit(f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             if play_audio == True:
                 playPulse()
         except:
