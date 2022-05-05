@@ -22,7 +22,7 @@ from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog
 
 version = '0.4.12'
-debug = True
+debug = False
 
 
 class LostArkMarketWatcher(QApplication):
