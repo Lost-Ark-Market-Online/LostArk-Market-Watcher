@@ -21,7 +21,7 @@ from modules.sound import playCheck, playError, playSuccess
 from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog
 
-version = '0.4.8'
+version = '0.4.9'
 debug = False
 
 
@@ -39,7 +39,7 @@ class LostArkMarketWatcher(QApplication):
         QApplication.__init__(self, *args, **kwargs)
         self.setQuitOnLastWindowClosed(False)
         self.build_menu()
-        self.market_db = MarketDb()
+        self.market_db = MarketDb(version)
         self.log_view = LostArkMarketWatcherLog(version, self.market_db.region)
         self.config_form = LostArkMarketWatcherConfig(
             version, self.market_db.region)

@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.4.8
+## LostArk Market Watcher 0.4.9
 This app listens to the screenshot folder for new files.
 Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
@@ -6,10 +6,6 @@ Each segment then is parsed usin Tesseract OCR and classified
 The information then is collected and published to the LostArk Marketplace firestore database.
 
 In order to contribute to the LostArk Marketplace database, the contributor must be authenticated and aproved. 
-
-### Limitations
-Right now it only works on 1080p and 4K resolutions. 
-Support for 21:9 is on the works.
 
 ### Dependencies
 - TesseractOCR ( A compiled version for Windows x64 is included in this repository )
@@ -24,10 +20,10 @@ Support for 21:9 is on the works.
 ### Assets
 Audio files from [MixKit](https://mixkit.co/)
 
-### ToDo:
-- Add Gold / Royal Crystal / Blue Crystal converstions support
-
 ### Changelog
+### 0.4.9
+- Stricter validation and more metadata for updates and entries
+
 ### 0.4.8
 - Price validation before pushing
 

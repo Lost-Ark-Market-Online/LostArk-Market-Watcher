@@ -25,11 +25,13 @@ class MarketDb(QObject):
     creds: Credentials = None
     db: Client = None
     last_refresh: datetime = None
+    version: str = None
 
-    def __init__(self):
+    def __init__(self, version):
         try:
             super(MarketDb, self).__init__()
             self.refresh_credentials()
+            self.version = version
             self.db = Client(project=project, credentials=self.creds)
             self.region = self.db.document(
                 f'collaborators/{self.uid}').get().get('region')
@@ -79,7 +81,8 @@ class MarketDb(QObject):
             if (
                 market_line.lowest_price == None or 
                 market_line.recent_price == None or 
-                market_line.cheapest_remaining == None 
+                market_line.cheapest_remaining == None or 
+                market_line.avg_price == None 
             ):
                 raise Exception('NO_VALID_PRICE_FOUND')
 
@@ -104,6 +107,8 @@ class MarketDb(QObject):
                     to_update['recentPrice'] = market_line.recent_price
                 
                 to_update['updatedAt'] = datetime.utcnow()
+                to_update['author'] = self.uid
+                to_update['watcher-version'] = self.version
 
                 item_doc_ref.update(to_update)
 
@@ -113,7 +118,8 @@ class MarketDb(QObject):
                 'lowPrice': market_line.lowest_price,
                 'recentPrice': market_line.recent_price,
                 'createdAt': datetime.utcnow(),
-                'author': self.uid
+                'author': self.uid,
+                'watcher-version': self.version
             })
 
             self.log.emit(f"Updated: {market_line.name}")
