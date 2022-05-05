@@ -32,11 +32,14 @@ def process_item(market_line: MarketLine) -> dict:
     }
 
 def process_number(n):
-    test = re.search('(\.\d)$', n)
-    if(len(n) == 0):
+    try:
+        test = re.search('(\.\d)$', n)
+        if(len(n) == 0):
+            return None
+        if test is not None:
+            return (int(n[0:test.start(0)].replace('.', '')) +
+                    (int(n[test.start(0)+1:]) / 10))
+        else:
+            return int(n.replace('.', ''))
+    except:
         return None
-    if test is not None:
-        return (int(n[0:test.start(0)].replace('.', '')) +
-                (int(n[test.start(0)+1:]) / 10))
-    else:
-        return int(n.replace('.', ''))

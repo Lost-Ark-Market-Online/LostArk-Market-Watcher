@@ -82,10 +82,8 @@ class MarketDb(QObject):
             if (
                 market_line.lowest_price == None or 
                 market_line.recent_price == None or 
-                market_line.cheapest_remaining == None or 
-                market_line.avg_price == None 
+                market_line.cheapest_remaining == None
             ):
-                self.error.emit(f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
                 raise Exception('NO_VALID_PRICE_FOUND')
 
             if (item_doc.exists == False):
@@ -98,16 +96,12 @@ class MarketDb(QObject):
                 to_update = {}
                 if market_line.avg_price:
                     to_update['avgPrice'] = market_line.avg_price
+                else:
+                    to_update['avgPrice'] = market_line.lowest_price
                 
-                if market_line.cheapest_remaining:
-                    to_update['cheapestRemaining'] = market_line.cheapest_remaining
-                
-                if market_line.lowest_price:
-                    to_update['lowPrice'] = market_line.lowest_price
-                
-                if market_line.recent_price:
-                    to_update['recentPrice'] = market_line.recent_price
-                
+                to_update['cheapestRemaining'] = market_line.cheapest_remaining            
+                to_update['lowPrice'] = market_line.lowest_price            
+                to_update['recentPrice'] = market_line.recent_price                
                 to_update['updatedAt'] = datetime.utcnow()
                 to_update['author'] = self.uid
                 to_update['watcher_version'] = self.version
@@ -128,7 +122,7 @@ class MarketDb(QObject):
             if play_audio == True:
                 playPulse()
         except:
-            self.error.emit(f"Add Entry Failed: {market_line.name}")
+            self.error.emit(f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             self.error.emit(traceback.format_exc())
             if play_audio == True:
                 playError()
