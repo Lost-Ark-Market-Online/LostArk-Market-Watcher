@@ -76,7 +76,7 @@ class MarketDb(QObject):
 
             # Get Doc
             item_doc_ref = self.db.document(
-                f"{self.region}/{slugify(market_line.name)}-{market_line.rarity}")
+                f"{self.region}/{slugify(item['name'])}-{market_line.rarity}")
             item_doc = item_doc_ref.get()
 
             if (
@@ -85,11 +85,12 @@ class MarketDb(QObject):
                 market_line.cheapest_remaining == None or 
                 market_line.avg_price == None 
             ):
+                self.error.emit(f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
                 raise Exception('NO_VALID_PRICE_FOUND')
 
             if (item_doc.exists == False):
                 self.log.emit(
-                    f"Create {self.region}/{slugify(market_line.name)}-{market_line.rarity}")
+                    f"Create {self.region}/{slugify(item['name'])}-{market_line.rarity}")
 
                 item['updatedAt'] = datetime.utcnow()
                 item_doc_ref.create(item)
