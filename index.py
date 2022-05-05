@@ -21,7 +21,7 @@ from modules.sound import playCheck, playError, playSuccess
 from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog
 
-version = '0.4.10'
+version = '0.4.11'
 debug = True
 
 
@@ -45,6 +45,7 @@ class LostArkMarketWatcher(QApplication):
             version, self.market_db.region)
         self.config_form.config_updated.connect(self.spawn_observer)
         self.market_db.log.connect(self.write_log)
+        self.market_db.error.connect(self.write_error)
         self.spawn_observer()
 
     def get_config(self):

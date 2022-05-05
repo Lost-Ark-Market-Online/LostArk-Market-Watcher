@@ -18,6 +18,7 @@ project = 'lostarkmarket-79ddf'
 
 class MarketDb(QObject):
     log: Signal = Signal(str)
+    error: Signal = Signal(str)
     region: str = None
     id_token: str = None
     refresh_token: str = None
