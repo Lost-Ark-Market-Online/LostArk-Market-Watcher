@@ -10,6 +10,7 @@ from modules.market_data.sailing import sailing
 from modules.market_data.pets import pets
 from modules.market_data.mount import mount
 from modules.market_data.gem_chest import gem_chest
+from modules.market_data.currency_exchange import currency_exchange
 
 market_map = {
     **engraving_recipe,
@@ -22,6 +23,7 @@ market_map = {
     **pets,
     **mount,
     **gem_chest,
+    **currency_exchange
 }
 
 

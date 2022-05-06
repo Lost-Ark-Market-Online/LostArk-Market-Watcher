@@ -1,6 +1,8 @@
+from operator import itemgetter
 from shutil import rmtree
 import typing
 import cv2
+from cv2 import log
 import numpy as np
 import pytesseract
 import os
@@ -26,12 +28,24 @@ scanMap = {
         'xItemStops': [130, 1230, 1570, 1900, 2300],
         'xItemWidths': [700, 240, 220, 215, 330]
     },
-    'searchMarket': {
+    'market': {
         'yMargin': 338,
         'yItemSpacing': 114,
         'itemHeight': 90,
         'xItemStops': [630, 1248, 1590, 1920, 2320],
         'xItemWidths': [500, 240, 220, 215, 330]
+    },
+    'purchase_gold': {
+        'x': 1300,
+        'y': 210,
+        'w': 165,
+        'h': 70
+    },
+    'buy_crystals': {
+        'x': 1300,
+        'y': 210,
+        'w': 165,
+        'h': 70
     },
     'baseRes': {
         'x': 3840,
@@ -203,13 +217,13 @@ def process_line_column(screenshot, tab, anchor, line_index, column_index, debug
     # If it is the first column, also detect rarity
     if column_index == 0:
         rarity = get_rarity(
-            screenshot, rect, debug)
+            screenshot, rect, debug, log_cb, error_cb)
         item = get_text(
-            screenshot, rect, True, debug)
+            screenshot, rect, True, debug, log_cb, error_cb)
         return rarity, item
     else:
         return get_text(
-            screenshot, rect, False, debug)
+            screenshot, rect, False, debug, log_cb, error_cb)
 
 
 def process_line(screenshot, tab, anchor, line_index, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> MarketLine | None:
@@ -221,7 +235,7 @@ def process_line(screenshot, tab, anchor, line_index, debug=False, log_cb=lambda
     # Push tasks and wait for them to finish
     for column_index in range(5):
         column_futures.append(executor.submit(
-            process_line_column, screenshot, tab, anchor, line_index, column_index, debug))
+            process_line_column, screenshot, tab, anchor, line_index, column_index, debug, log_cb, error_cb))
     wait(column_futures)
 
     # Consolidate results
@@ -236,10 +250,9 @@ def process_line(screenshot, tab, anchor, line_index, debug=False, log_cb=lambda
     if debug:
         log_cb(f"Raw Name: {name}")
 
+    name = re.sub(f"\n*[\(\[]Sold in bundles.*", "", name)
 
-    name = re.sub(f"\n*[\(\[]Sold in bundles.*","",name)
-
-    name = re.sub(f"\n*[\(\[]Untradable upon.*","",name)
+    name = re.sub(f"\n*[\(\[]Untradable upon.*", "", name)
 
     if debug:
         log_cb(f"Filtered Name: {name}")
@@ -267,7 +280,7 @@ def process_market_table(screenshot, tab, anchor, debug=False, log_cb=lambda log
     # Push tasks and wait for them to finish
     for line_index in range(10):
         line_futures.append(executor.submit(
-            process_line, screenshot, tab, anchor, line_index, debug))
+            process_line, screenshot, tab, anchor, line_index, debug, log_cb, error_cb))
     wait(line_futures)
 
     if debug:
@@ -277,11 +290,24 @@ def process_market_table(screenshot, tab, anchor, debug=False, log_cb=lambda log
     return [line_future.result() for line_future in line_futures if line_future.result()]
 
 
-def match_market(screenshot, interest_tab=False, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[float, typing.Tuple[int, int]]:
+def match_market(screenshot, tab="market", debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[float, typing.Tuple[int, int]]:
     """Process market table using multithreading"""
     # Read Search Market tab sample
+    sample_file = ""
+    match tab:
+        case "market":
+            sample_file = "../assets/search_market.jpg"
+        case "interest":
+            sample_file = "../assets/interest_market.jpg"
+        case "purchase_gold":
+            sample_file = "../assets/purchase_gold.jpg"
+        case "buy_crystals":
+            sample_file = "../assets/buy_crystals.jpg"
+        case _:
+            raise Exception("Invalid tab")
+
     sample = cv2.imread(os.path.abspath(os.path.join(
-        os.path.dirname(__file__), '../assets/interest_market.jpg' if interest_tab == True else '../assets/search_market.jpg')))
+        os.path.dirname(__file__), sample_file)))
 
     # Convert sample into Hue Saturation Vibrance
     sample = cv2.cvtColor(sample, cv2.COLOR_BGR2HSV)
@@ -301,41 +327,37 @@ def match_market(screenshot, interest_tab=False, debug=False, log_cb=lambda log_
         screenshot_v, sample_v, cv2.TM_CCOEFF_NORMED)
     _, maxVal, _, maxLoc = cv2.minMaxLoc(res)
 
-    return maxVal, maxLoc
+    if debug == True:
+        print(f"{tab}: {maxVal}")
+        if maxVal > threshold:
+            screenshot = cv2.rectangle(
+                screenshot, (maxLoc[0], maxLoc[1]), (maxLoc[0]+sample.shape[1], maxLoc[1]+sample.shape[0]), (0, 0, 255), 2)
+            log_cb(f"Found Market tab: {tab}")
+
+    return maxVal, maxLoc, tab
 
 
 def detect_market(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[str, Point]:
     """Detect which market tab is open"""
 
     # Get confidence values for matching either search tab or interest tab
-    interest_list_conf, interest_list_loc = match_market(screenshot, True)
-    search_market_conf, search_market_loc = match_market(screenshot)
+    matches = []
+    matches.append(match_market(
+        screenshot, "interest", debug, log_cb, error_cb))
 
-    loc = None
-    tab = None
+    matches.append(match_market(
+        screenshot, "market", debug, log_cb, error_cb))
 
-    if debug == True:
-        log_cb(f"interest_list_conf: {interest_list_conf}")
-        log_cb(f"search_market_conf: {search_market_conf}")
+    matches.append(match_market(
+        screenshot, "buy_crystals", debug, log_cb, error_cb))
 
-    # Pick the one with highest confidence
-    if(interest_list_conf > search_market_conf):
-        if(interest_list_conf > threshold):
-            loc = interest_list_loc
-            tab = 'interest'
-        else:
-            raise Exception('NO_MARKET')
-    else:
-        if(search_market_conf > threshold):
-            loc = search_market_loc
-            tab = 'searchMarket'
-        else:
-            raise Exception('NO_MARKET')
+    matches.append(match_market(
+        screenshot, "purchase_gold", debug, log_cb, error_cb))
 
-    if debug == True:
-        screenshot = cv2.rectangle(
-            screenshot, (loc[0], loc[1]), (loc[0]+316, loc[1]+152), (0, 0, 255), 2)
-        log_cb(f"Found Market tab: {tab}")
+    match_conf, loc, tab = max(matches, key=itemgetter(0))
+
+    if(match_conf < threshold):
+        raise Exception('NO_MARKET')
 
     return tab, Point(loc[0], loc[1])
 
@@ -344,14 +366,15 @@ def crop_image(screenshot, debug=False, log_cb=lambda log_txt: print(log_txt), e
     """Remove black bars surrounding screenshot"""
 
     screenshot_middle = int(screenshot.shape[1] / 2)
-    crop_detect_sc = screenshot[0:screenshot.shape[0],screenshot_middle-100:screenshot_middle+100]    
+    crop_detect_sc = screenshot[0:screenshot.shape[0],
+                                screenshot_middle-int(screenshot.shape[1]/4):screenshot_middle+int(screenshot.shape[1]/4)]
 
     if debug:
         cv2.imwrite('debug/2.1-crop_detect_sc.jpg', crop_detect_sc)
 
     res = cv2.cvtColor(crop_detect_sc, cv2.COLOR_BGR2GRAY)
     res = cv2.addWeighted(res, 1.8, res, 0, -20)
-    
+
     if debug:
         cv2.imwrite('debug/2.2-crop_detect_sc_contrast.jpg', res)
 
@@ -382,6 +405,34 @@ def resize_screenshot(screenshot, debug=False, log_cb=lambda log_txt: print(log_
     return resized
 
 
+def process_crystal_table(screenshot, tab, anchor, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
+    rect_start = Point(
+        x=int(anchor.x + scanMap[tab]['x']),
+        y=int(anchor.y + (scanMap[tab]['y']))
+    )
+    rect = Rect(rect_start.x, rect_start.y,
+                rect_start.x + scanMap[tab]['w'], rect_start.y + scanMap[tab]['h'])
+
+    price = int(get_text(screenshot, rect, False, debug, log_cb, error_cb))
+
+    if debug:
+        screenshot = cv2.rectangle(
+            screenshot, (rect.x1, rect.y1), (rect.x2, rect.y2), (255, 255, 255), 1)
+        cv2.imwrite('debug/4-processed-screenshot.jpg.jpg', screenshot)
+
+    match tab:
+        case "purchase_gold":
+            name = "Royal Crystal"
+            log_cb(f"Raw - {name}: {price}")
+            price = round(price/238, 2)
+        case "buy_crystals":
+            name = "Blue Crystal"
+            log_cb(f"Raw - {name}: {price}")
+            price = round(price/95, 2)
+
+    return [MarketLine(0, name, price, price, price, 1)]
+
+
 def scan(filepath, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.List[MarketLine]:
     """Scan market screenshot"""
     if debug:
@@ -396,13 +447,21 @@ def scan(filepath, debug=False, log_cb=lambda log_txt: print(log_txt), error_cb=
         cv2.imwrite('debug/1-screenshot.jpg', screenshot)
 
     # Crop black borders
-    screenshot = crop_image(screenshot, debug)
+    screenshot = crop_image(screenshot, debug, log_cb, error_cb)
 
     # Resize into measurements scale
-    screenshot = resize_screenshot(screenshot, debug)
+    screenshot = resize_screenshot(screenshot, debug, log_cb, error_cb)
 
     # Detect which Market tab is open
-    tab, anchor = detect_market(screenshot, debug)
+    tab, anchor = detect_market(screenshot, debug, log_cb, error_cb)
 
+    match tab:
+        case "market":
+            return process_market_table(screenshot, tab, anchor, debug, log_cb, error_cb)
+        case "interest":
+            return process_market_table(screenshot, tab, anchor, debug, log_cb, error_cb)
+        case "buy_crystals":
+            return process_crystal_table(screenshot, tab, anchor, debug, log_cb, error_cb)
+        case "purchase_gold":
+            return process_crystal_table(screenshot, tab, anchor, debug, log_cb, error_cb)
     # Process market tab
-    return process_market_table(screenshot, tab, anchor, debug)

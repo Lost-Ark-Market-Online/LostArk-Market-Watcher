@@ -21,6 +21,9 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.6.0
+- Add support for Scanning Blue Crystal and Royal Crystal prices from Currency Exchange
+
 ### 0.5.1
 - lower strict entry rules, now avg price is optional and filled with lower price
 
