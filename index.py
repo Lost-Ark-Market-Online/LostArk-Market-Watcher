@@ -3,8 +3,9 @@ import sys
 import time
 import os
 import traceback
+import ctypes
 
-from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
+from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QMessageBox
 from PySide6.QtGui import QIcon
 
 from watchdog.observers import Observer
@@ -14,14 +15,13 @@ from concurrent.futures import ThreadPoolExecutor, wait
 
 from modules.config import get_config
 from modules.db import MarketDb
-from modules.errors import NotConfigured
 from modules.scan import scan
 from modules.sound import playCheck, playError, playSuccess
 
 from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog
 
-version = '0.6.1'
+version = '0.6.2'
 debug = False
 
 
@@ -46,6 +46,7 @@ class LostArkMarketWatcher(QApplication):
         self.config_form.config_updated.connect(self.spawn_observer)
         self.market_db.log.connect(self.write_log)
         self.market_db.error.connect(self.write_error)
+        self.market_db.new_version.connect(self.new_version)
         self.spawn_observer()
 
     def get_config(self):
@@ -69,14 +70,15 @@ class LostArkMarketWatcher(QApplication):
         self.tray.setToolTip("Lost Ark Market Watcher")
 
     def open_log(self):
-        self.log_view.ui.show()
+        self.log_view.show()
 
     def open_config(self):
         self.get_config()
-        self.config_form.show(self.play_audio, self.delete_screenshots,
-                              self.screenshots_directory, self.save_log)
+        self.config_form.show_ui(self.play_audio, self.delete_screenshots,
+                                 self.screenshots_directory, self.save_log)
 
     def close_action(self):
+        self.tray.hide()
         os._exit(1)
 
     def spawn_observer(self):
@@ -141,8 +143,21 @@ class LostArkMarketWatcher(QApplication):
 
     def write_error(self, txt):
         self.log_view.log(txt, True, self.save_log)
+    
+    def new_version(self, new_version):
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle("Lost Ark Market Online")
+        msgBox.setText(f"New version v{new_version} available.")
+        msgBox.setInformativeText("Please close the app and run the launcher to download the new version.")
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.exec()
 
 
 if __name__ == "__main__":
+    myappid = f'lostarkmarketonline.watcher.app.{version}'
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     app = LostArkMarketWatcher([])
+    icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                "assets/icons/favicon.png")))
+    app.setWindowIcon(icon)
     sys.exit(app.exec())

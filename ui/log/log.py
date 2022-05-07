@@ -5,10 +5,10 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QListWidget
 from PySide6.QtCore import QFile, Qt, Signal
-from PySide6.QtUiTools import QUiLoader
 from PySide6.QtGui import QColor
 from datetime import datetime
 from ui.common.draggablewindow import DraggableWindow
+from ui.common.uiloader import UiLoader
 import ui.log.resources
 
 
@@ -18,26 +18,28 @@ class LostArkMarketWatcherLog(QMainWindow):
         self.version = version
         self.region = region
         self.load_ui()
+        self.setWindowTitle("Log - LostArkMarketOnline")
 
     def load_ui(self):
-        loader = QUiLoader()
+        loader = UiLoader(self)
         loader.registerCustomWidget(DraggableWindow)
         path = os.fspath(Path(__file__).resolve().parent /
                          "../../assets/ui/log.ui")
         ui_file = QFile(path)
         ui_file.open(QFile.ReadOnly)
-        self.ui = loader.load(ui_file, self)
-        self.ui.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
-        self.ui.btnClose.clicked.connect(self.close)
-        self.ui.lLog.setWordWrap(True)
-        self.ui.lLog.setAutoScroll(True)
-        self.ui.lLog.setAutoScrollMargin(20)
-        self.ui.lblTitle.setText(
+        widget = loader.load(ui_file)
+        widget.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        widget.btnClose.clicked.connect(self.close)
+        widget.lLog.setWordWrap(True)
+        widget.lLog.setAutoScroll(True)
+        widget.lLog.setAutoScrollMargin(20)
+        widget.lblTitle.setText(
             f"Lost Ark Market Watcher v{self.version} - {self.region} - Log")
         ui_file.close()
+        return widget
 
     def close(self):
-        self.ui.hide()
+        self.hide()
 
     def log(self, txt, error=False, save_log=False):
         log_txt = f'{datetime.now().strftime("%m/%d/%Y-%H:%M:%S")} - {txt}'
@@ -54,8 +56,8 @@ class LostArkMarketWatcherLog(QMainWindow):
             if save_log:
                 with open(f'{datetime.now().strftime("%m-%d-%Y")}.log', "a") as file_object:
                     file_object.write(f"{log_txt}\n")
-        self.ui.lLog.addItem(i)
-        self.ui.lLog.scrollToBottom()
+        self.lLog.addItem(i)
+        self.lLog.scrollToBottom()
 
 
 if __name__ == "__main__":

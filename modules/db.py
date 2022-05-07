@@ -12,6 +12,7 @@ from modules.market import get_market_item_by_name
 from modules.process import process_item
 from modules.sound import playError, playPulse
 from PySide6.QtCore import Signal, QObject
+from PySide6.QtWidgets import QMessageBox
 
 project = 'lostarkmarket-79ddf'
 
@@ -19,6 +20,7 @@ project = 'lostarkmarket-79ddf'
 class MarketDb(QObject):
     log: Signal = Signal(str)
     error: Signal = Signal(str)
+    new_version: Signal = Signal(str)
     region: str = None
     id_token: str = None
     refresh_token: str = None
@@ -36,6 +38,9 @@ class MarketDb(QObject):
             self.db = Client(project=project, credentials=self.creds)
             self.region = self.db.document(
                 f'collaborators/{self.uid}').get().get('region')
+            self.db.document(
+                "app-info/market-watcher").on_snapshot(self.new_version_cb)
+
         except NoTokenError:
             traceback.print_exc()
 
@@ -45,11 +50,11 @@ class MarketDb(QObject):
             needs_refresh = True
         elif self.last_refresh + timedelta(minutes=30) < datetime.now():
             needs_refresh = True
-        
+
         if needs_refresh:
             self.log.emit(f"Refresh credentials")
-            try:            
-                if self.refresh_token is None:            
+            try:
+                if self.refresh_token is None:
                     _, self.refresh_token, _ = get_tokens()
                 self.id_token, self.refresh_token, self.uid = refresh_token(
                     self.refresh_token)
@@ -79,8 +84,8 @@ class MarketDb(QObject):
             item_doc = item_doc_ref.get()
 
             if (
-                market_line.lowest_price == None or 
-                market_line.recent_price == None or 
+                market_line.lowest_price == None or
+                market_line.recent_price == None or
                 market_line.cheapest_remaining == None
             ):
                 raise Exception('NO_VALID_PRICE_FOUND')
@@ -97,10 +102,10 @@ class MarketDb(QObject):
                     to_update['avgPrice'] = market_line.avg_price
                 else:
                     to_update['avgPrice'] = market_line.lowest_price
-                
-                to_update['cheapestRemaining'] = market_line.cheapest_remaining            
-                to_update['lowPrice'] = market_line.lowest_price            
-                to_update['recentPrice'] = market_line.recent_price                
+
+                to_update['cheapestRemaining'] = market_line.cheapest_remaining
+                to_update['lowPrice'] = market_line.lowest_price
+                to_update['recentPrice'] = market_line.recent_price
                 to_update['updatedAt'] = datetime.utcnow()
                 to_update['author'] = self.uid
                 to_update['watcher_version'] = self.version
@@ -117,11 +122,19 @@ class MarketDb(QObject):
                 'watcher_version': self.version
             })
 
-            self.log.emit(f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
+            self.log.emit(
+                f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             if play_audio == True:
                 playPulse()
         except:
-            self.error.emit(f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
+            self.error.emit(
+                f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             self.error.emit(traceback.format_exc())
             if play_audio == True:
                 playError()
+
+    def new_version_cb(self, snapshot, changes, read_time):
+        for doc in snapshot:
+            new_version = doc.get("version")
+            if(self.version < new_version):
+                self.new_version.emit(new_version)
