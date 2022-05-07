@@ -62,7 +62,6 @@ class MarketDb(QObject):
                 self.error.emit("Error getting credentials")
                 self.error.emit(traceback.format_exc)
 
-
     def add_entry(self, market_line: MarketLine, play_audio=True):
         try:
             # Refresh credentials if needed

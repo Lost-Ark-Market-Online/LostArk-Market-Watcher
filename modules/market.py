@@ -1,4 +1,4 @@
-from difflib import get_close_matches
+from thefuzz import process
 
 from modules.market_data.engraving_recipe import engraving_recipe
 from modules.market_data.enhancement_material import enhancement_material
@@ -28,10 +28,11 @@ market_map = {
 
 
 def filter_market_item_name(raw_name: str) -> str | None:
-    match = get_close_matches(raw_name, market_map.keys())
-    if(len(match) == 0):
+    result, confidence = process.extractOne(
+        raw_name, market_map.keys(), scorer=process.fuzz.token_sort_ratio)
+    if confidence < 55:
         return None
-    return match[0]
+    return result
 
 
 def get_market_item_by_name(name: str) -> dict:
