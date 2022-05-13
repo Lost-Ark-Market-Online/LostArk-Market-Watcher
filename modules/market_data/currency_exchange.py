@@ -1,7 +1,7 @@
 currency_exchange={
   "Blue Crystal":{
     "name":"Blue Crystal",
-    "image": "blue_crystal.webp",
+    "image": "blue-crystal.webp",
     "rarity": 0,
     "category": "Currency Exchange",
     "amount": 1,
@@ -9,7 +9,7 @@ currency_exchange={
   },
   "Royal Crystal":{
     "name":"Royal Crystal",
-    "image": "royal_crystal.webp",
+    "image": "royal-crystal.webp",
     "rarity": 0,
     "category": "Currency Exchange",
     "amount": 1,

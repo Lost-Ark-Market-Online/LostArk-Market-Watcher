@@ -2,7 +2,7 @@ trader = {
     'Fresh Mushroom': {
         'name': 'Fresh Mushroom',
         'amount': 10,
-        'image': 'fresh_mushroom.webp',
+        'image': 'fresh-mushroom.webp',
         'category': 'Trader',
         'subcategory': 'Foraging Rewards',
         'rarity': 1
@@ -10,7 +10,7 @@ trader = {
     'Shy Wild Flower': {
         'name': 'Shy Wild Flower',
         'amount': 10,
-        'image': 'shy_wild_flower.webp',
+        'image': 'shy-wild-flower.webp',
         'category': 'Trader',
         'subcategory': 'Foraging Rewards',
         'rarity': 1
@@ -18,7 +18,7 @@ trader = {
     'Exquisite Mushroom': {
         'name': 'Exquisite Mushroom',
         'amount': 10,
-        'image': 'exquisite_mushroom.webp',
+        'image': 'exquisite-mushroom.webp',
         'category': 'Trader',
         'subcategory': 'Foraging Rewards',
         'rarity': 2
@@ -26,7 +26,7 @@ trader = {
     'Bright Wild Flower': {
         'name': 'Bright Wild Flower',
         'amount': 10,
-        'image': 'bright_wild_flower.webp',
+        'image': 'bright-wild-flower.webp',
         'category': 'Trader',
         'subcategory': 'Foraging Rewards',
         'rarity': 2
@@ -34,7 +34,7 @@ trader = {
     'Crude Mushroom': {
         'name': 'Crude Mushroom',
         'amount': 100,
-        'image': 'crude_mushroom.webp',
+        'image': 'crude-mushroom.webp',
         'category': 'Trader',
         'subcategory': 'Foraging Rewards',
         'rarity': 0
@@ -42,7 +42,7 @@ trader = {
     'Wild Flower': {
         'name': 'Wild Flower',
         'amount': 100,
-        'image': 'wild_flower.webp',
+        'image': 'wild-flower.webp',
         'category': 'Trader',
         'subcategory': 'Foraging Rewards',
         'rarity': 0
@@ -50,7 +50,7 @@ trader = {
     'Tender Timber': {
         'name': 'Tender Timber',
         'amount': 10,
-        'image': 'tender_timber.webp',
+        'image': 'tender-timber.webp',
         'category': 'Trader',
         'subcategory': 'Logging Loot',
         'rarity': 1
@@ -58,7 +58,7 @@ trader = {
     'Sturdy Timber': {
         'name': 'Sturdy Timber',
         'amount': 10,
-        'image': 'sturdy_timber.webp',
+        'image': 'sturdy-timber.webp',
         'category': 'Trader',
         'subcategory': 'Logging Loot',
         'rarity': 2
@@ -74,7 +74,7 @@ trader = {
     'Heavy Iron Ore': {
         'name': 'Heavy Iron Ore',
         'amount': 10,
-        'image': 'heavy_iron_ore.webp',
+        'image': 'heavy-iron-ore.webp',
         'category': 'Trader',
         'subcategory': 'Mining Loot',
         'rarity': 1
@@ -82,7 +82,7 @@ trader = {
     'Strong Iron Ore': {
         'name': 'Strong Iron Ore',
         'amount': 10,
-        'image': 'strong_iron_ore.webp',
+        'image': 'strong-iron-ore.webp',
         'category': 'Trader',
         'subcategory': 'Mining Loot',
         'rarity': 2
@@ -90,7 +90,7 @@ trader = {
     'Iron Ore': {
         'name': 'Iron Ore',
         'amount': 100,
-        'image': 'iron_ore.webp',
+        'image': 'iron-ore.webp',
         'category': 'Trader',
         'subcategory': 'Mining Loot',
         'rarity': 0
@@ -98,7 +98,7 @@ trader = {
     'Treated Meat': {
         'name': 'Treated Meat',
         'amount': 10,
-        'image': 'treated_meat.webp',
+        'image': 'treated-meat.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 1
@@ -106,7 +106,7 @@ trader = {
     'Tough Leather': {
         'name': 'Tough Leather',
         'amount': 10,
-        'image': 'tough_leather.webp',
+        'image': 'tough-leather.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 1
@@ -114,7 +114,7 @@ trader = {
     'Caldarr Thick Raw Meat': {
         'name': 'Caldarr Thick Raw Meat',
         'amount': 10,
-        'image': 'caldarr_thick_raw_meat.webp',
+        'image': 'caldarr-thick-raw-meat.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 2
@@ -122,7 +122,7 @@ trader = {
     'Oreha Thick Meat': {
         'name': 'Oreha Thick Meat',
         'amount': 10,
-        'image': 'oreha_thick_meat.webp',
+        'image': 'oreha-thick-meat.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 2
@@ -130,7 +130,7 @@ trader = {
     'Thick Raw Meat': {
         'name': 'Thick Raw Meat',
         'amount': 100,
-        'image': 'thick_raw_meat.webp',
+        'image': 'thick-raw-meat.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 0
@@ -138,7 +138,7 @@ trader = {
     'Hunting Crystal': {
         'name': 'Hunting Crystal',
         'amount': 10,
-        'image': 'hunting_crystal.webp',
+        'image': 'hunting-crystal.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 3
@@ -146,7 +146,7 @@ trader = {
     'Natural Pearl': {
         'name': 'Natural Pearl',
         'amount': 10,
-        'image': 'natural_pearl.webp',
+        'image': 'natural-pearl.webp',
         'category': 'Trader',
         'subcategory': 'Fishing Loot',
         'rarity': 1
@@ -154,7 +154,7 @@ trader = {
     'Redflesh Fish': {
         'name': 'Redflesh Fish',
         'amount': 10,
-        'image': 'redflesh_fish.webp',
+        'image': 'redflesh-fish.webp',
         'category': 'Trader',
         'subcategory': 'Fishing Loot',
         'rarity': 1
@@ -162,7 +162,7 @@ trader = {
     'Caldarr Solar Carp': {
         'name': 'Caldarr Solar Carp',
         'amount': 10,
-        'image': 'caldarr_solar_carp.webp',
+        'image': 'caldarr-solar-carp.webp',
         'category': 'Trader',
         'subcategory': 'Fishing Loot',
         'rarity': 2
@@ -170,7 +170,7 @@ trader = {
     'Oreha Solar Carp': {
         'name': 'Oreha Solar Carp',
         'amount': 10,
-        'image': 'oreha_solar_carp.webp',
+        'image': 'oreha-solar-carp.webp',
         'category': 'Trader',
         'subcategory': 'Fishing Loot',
         'rarity': 2
@@ -186,7 +186,7 @@ trader = {
     'Fishing Crystal': {
         'name': 'Fishing Crystal',
         'amount': 10,
-        'image': 'fishing_crystal.webp',
+        'image': 'fishing-crystal.webp',
         'category': 'Trader',
         'subcategory': 'Fishing Loot',
         'rarity': 3
@@ -194,7 +194,7 @@ trader = {
     'Oreha Relic': {
         'name': 'Oreha Relic',
         'amount': 10,
-        'image': 'oreha_relic.webp',
+        'image': 'oreha-relic.webp',
         'category': 'Trader',
         'subcategory': 'Excavating Loot',
         'rarity': 2
@@ -202,7 +202,7 @@ trader = {
     'Caldarr Relic': {
         'name': 'Caldarr Relic',
         'amount': 10,
-        'image': 'caldarr_relic.webp',
+        'image': 'caldarr-relic.webp',
         'category': 'Trader',
         'subcategory': 'Excavating Loot',
         'rarity': 2
@@ -210,7 +210,7 @@ trader = {
     'Rare Relic': {
         'name': 'Rare Relic',
         'amount': 10,
-        'image': 'rare_relic.webp',
+        'image': 'rare-relic.webp',
         'category': 'Trader',
         'subcategory': 'Excavating Loot',
         'rarity': 1
@@ -218,7 +218,7 @@ trader = {
     'Excavating Crystal': {
         'name': 'Excavating Crystal',
         'amount': 10,
-        'image': 'excavating_crystal.webp',
+        'image': 'excavating-crystal.webp',
         'category': 'Trader',
         'subcategory': 'Excavating Loot',
         'rarity': 3
@@ -226,7 +226,7 @@ trader = {
     'Ancient Relic': {
         'name': 'Ancient Relic',
         'amount': 100,
-        'image': 'ancient_relic.webp',
+        'image': 'ancient-relic.webp',
         'category': 'Trader',
         'subcategory': 'Excavating Loot',
         'rarity': 0
@@ -234,7 +234,7 @@ trader = {
     'Apprentice Craft Kit': {
         'name': 'Apprentice Craft Kit',
         'amount': 1,
-        'image': 'apprentice_craft_kit.webp',
+        'image': 'apprentice-craft-kit.webp',
         'category': 'Trader',
         'subcategory': 'Other',
         'rarity': 2
@@ -242,7 +242,7 @@ trader = {
     'Adept Craft Kit': {
         'name': 'Adept Craft Kit',
         'amount': 1,
-        'image': 'adept_craft_kit.webp',
+        'image': 'adept-craft-kit.webp',
         'category': 'Trader',
         'subcategory': 'Other',
         'rarity': 3
@@ -250,7 +250,7 @@ trader = {
     'Tool Crafting Part': {
         'name': 'Tool Crafting Part',
         'amount': 1,
-        'image': 'tool_crafting_part.webp',
+        'image': 'tool-crafting-part.webp',
         'category': 'Trader',
         'subcategory': 'Other',
         'rarity': 1
@@ -258,7 +258,7 @@ trader = {
     'Expert Craft Kit': {
         'name': 'Expert Craft Kit',
         'amount': 1,
-        'image': 'expert_craft_kit.webp',
+        'image': 'expert-craft-kit.webp',
         'category': 'Trader',
         'subcategory': 'Other',
         'rarity': 4
@@ -266,7 +266,7 @@ trader = {
     'Master Craft Kit': {
         'name': 'Master Craft Kit',
         'amount': 1,
-        'image': 'master_craft_kit.webp',
+        'image': 'master-craft-kit.webp',
         'category': 'Trader',
         'subcategory': 'Other',
         'rarity': 5

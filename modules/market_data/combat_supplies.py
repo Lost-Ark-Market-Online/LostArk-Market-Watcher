@@ -2,7 +2,7 @@ combat_supplies = {
     'Adrophine Potion': {
         'name': 'Adrophine Potion',
         'amount': 10,
-        'image': 'adrophine_potion.webp',
+        'image': 'adrophine-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 3
@@ -10,7 +10,7 @@ combat_supplies = {
     'Awakening Potion': {
         'name': 'Awakening Potion',
         'amount': 10,
-        'image': 'awakening_potion.webp',
+        'image': 'awakening-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 3
@@ -18,7 +18,7 @@ combat_supplies = {
     'Marching Flag': {
         'name': 'Marching Flag',
         'amount': 10,
-        'image': 'marching_flag.webp',
+        'image': 'marching-flag.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
@@ -26,7 +26,7 @@ combat_supplies = {
     'Protective Potion': {
         'name': 'Protective Potion',
         'amount': 10,
-        'image': 'protective_potion.webp',
+        'image': 'protective-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
@@ -34,7 +34,7 @@ combat_supplies = {
     'Splendid Marching Flag': {
         'name': 'Splendid Marching Flag',
         'amount': 10,
-        'image': 'splendid_marching_flag.webp',
+        'image': 'splendid-marching-flag.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
@@ -42,7 +42,7 @@ combat_supplies = {
     'Splendid Protective Potion': {
         'name': 'Splendid Protective Potion',
         'amount': 10,
-        'image': 'splendid_protective_potion.webp',
+        'image': 'splendid-protective-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
@@ -50,7 +50,7 @@ combat_supplies = {
     'Splendid Swift Robe': {
         'name': 'Splendid Swift Robe',
         'amount': 10,
-        'image': 'splendid_swift_robe.webp',
+        'image': 'splendid-swift-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
@@ -58,7 +58,7 @@ combat_supplies = {
     'Swiftness Robe': {
         'name': 'Swiftness Robe',
         'amount': 10,
-        'image': 'swiftness_robe.webp',
+        'image': 'swiftness-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
@@ -66,7 +66,7 @@ combat_supplies = {
     'Clay Grenade': {
         'name': 'Clay Grenade',
         'amount': 10,
-        'image': 'clay_grenade.webp',
+        'image': 'clay-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -74,7 +74,7 @@ combat_supplies = {
     'Corrosive Bomb': {
         'name': 'Corrosive Bomb',
         'amount': 10,
-        'image': 'corrosive_bomb.webp',
+        'image': 'corrosive-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -82,7 +82,7 @@ combat_supplies = {
     'Dark Grenade': {
         'name': 'Dark Grenade',
         'amount': 10,
-        'image': 'dark_grenade.webp',
+        'image': 'dark-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -90,7 +90,7 @@ combat_supplies = {
     'Destruction Bomb': {
         'name': 'Destruction Bomb',
         'amount': 10,
-        'image': 'destruction_bomb.webp',
+        'image': 'destruction-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -98,7 +98,7 @@ combat_supplies = {
     'Electric Grenade': {
         'name': 'Electric Grenade',
         'amount': 10,
-        'image': 'electric_grenade.webp',
+        'image': 'electric-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -106,7 +106,7 @@ combat_supplies = {
     'Flame Grenade': {
         'name': 'Flame Grenade',
         'amount': 10,
-        'image': 'flame_grenade.webp',
+        'image': 'flame-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -114,7 +114,7 @@ combat_supplies = {
     'Flash Grenade': {
         'name': 'Flash Grenade',
         'amount': 10,
-        'image': 'flash_grenade.webp',
+        'image': 'flash-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -122,7 +122,7 @@ combat_supplies = {
     'Frost Grenade': {
         'name': 'Frost Grenade',
         'amount': 10,
-        'image': 'frost_grenade.webp',
+        'image': 'frost-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -130,7 +130,7 @@ combat_supplies = {
     'Pheromone Bomb': {
         'name': 'Pheromone Bomb',
         'amount': 10,
-        'image': 'pheromone_bomb.webp',
+        'image': 'pheromone-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -138,7 +138,7 @@ combat_supplies = {
     'Sacred Bomb': {
         'name': 'Sacred Bomb',
         'amount': 10,
-        'image': 'sacred_bomb.webp',
+        'image': 'sacred-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -146,7 +146,7 @@ combat_supplies = {
     'Sleep Bomb': {
         'name': 'Sleep Bomb',
         'amount': 10,
-        'image': 'sleep_bomb.webp',
+        'image': 'sleep-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -154,7 +154,7 @@ combat_supplies = {
     'Splendid Clay Grenade': {
         'name': 'Splendid Clay Grenade',
         'amount': 10,
-        'image': 'splendid_clay_grenade.webp',
+        'image': 'splendid-clay-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -162,7 +162,7 @@ combat_supplies = {
     'Splendid Corrosion Bomb': {
         'name': 'Splendid Corrosion Bomb',
         'amount': 10,
-        'image': 'splendid_corrosion_bomb.webp',
+        'image': 'splendid-corrosion-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -170,7 +170,7 @@ combat_supplies = {
     'Splendid Dark Grenade': {
         'name': 'Splendid Dark Grenade',
         'amount': 10,
-        'image': 'splendid_dark_grenade.webp',
+        'image': 'splendid-dark-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -178,7 +178,7 @@ combat_supplies = {
     'Splendid Destruction Bomb': {
         'name': 'Splendid Destruction Bomb',
         'amount': 10,
-        'image': 'splendid_destruction_bomb.webp',
+        'image': 'splendid-destruction-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -186,7 +186,7 @@ combat_supplies = {
     'Splendid Flame Grenade': {
         'name': 'Splendid Flame Grenade',
         'amount': 10,
-        'image': 'splendid_flame_grenade.webp',
+        'image': 'splendid-flame-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -194,7 +194,7 @@ combat_supplies = {
     'Splendid Flash Grenade': {
         'name': 'Splendid Flash Grenade',
         'amount': 10,
-        'image': 'splendid_flash_grenade.webp',
+        'image': 'splendid-flash-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -202,7 +202,7 @@ combat_supplies = {
     'Splendid Frost Grenade': {
         'name': 'Splendid Frost Grenade',
         'amount': 10,
-        'image': 'splendid_frost_grenade.webp',
+        'image': 'splendid-frost-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -210,7 +210,7 @@ combat_supplies = {
     'Splendid Lightening Grenade': {
         'name': 'Splendid Lightening Grenade',
         'amount': 10,
-        'image': 'splendid_lightening_grenade.webp',
+        'image': 'splendid-lightening-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -218,7 +218,7 @@ combat_supplies = {
     'Splendid Sacred Bomb': {
         'name': 'Splendid Sacred Bomb',
         'amount': 10,
-        'image': 'splendid_sacred_bomb.webp',
+        'image': 'splendid-sacred-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -226,7 +226,7 @@ combat_supplies = {
     'Splendid Sleep Bomb': {
         'name': 'Splendid Sleep Bomb',
         'amount': 10,
-        'image': 'splendid_sleep_bomb.webp',
+        'image': 'splendid-sleep-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -234,7 +234,7 @@ combat_supplies = {
     'Splendid Thunder Potion': {
         'name': 'Splendid Thunder Potion',
         'amount': 10,
-        'image': 'splendid_thunder_potion.webp',
+        'image': 'splendid-thunder-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -242,7 +242,7 @@ combat_supplies = {
     'Splendid Whirlwind Grenade': {
         'name': 'Splendid Whirlwind Grenade',
         'amount': 10,
-        'image': 'splendid_whirlwind_grenade.webp',
+        'image': 'splendid-whirlwind-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -250,7 +250,7 @@ combat_supplies = {
     'Thunder Potion': {
         'name': 'Thunder Potion',
         'amount': 10,
-        'image': 'thunder_potion.webp',
+        'image': 'thunder-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -258,7 +258,7 @@ combat_supplies = {
     'Whirlwind Grenade': {
         'name': 'Whirlwind Grenade',
         'amount': 10,
-        'image': 'whirlwind_grenade.webp',
+        'image': 'whirlwind-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -266,7 +266,7 @@ combat_supplies = {
     'Elemental HP Potion': {
         'name': 'Elemental HP Potion',
         'amount': 10,
-        'image': 'elemental_hp_potion.webp',
+        'image': 'elemental-hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
         'rarity': 3
@@ -274,7 +274,7 @@ combat_supplies = {
     'Splendid Elemental HP Potion': {
         'name': 'Splendid Elemental HP Potion',
         'amount': 10,
-        'image': 'splendid_elemental_hp_potion.webp',
+        'image': 'splendid-elemental-hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
         'rarity': 3
@@ -282,7 +282,7 @@ combat_supplies = {
     'Major HP Potion': {
         'name': 'Major HP Potion',
         'amount': 10,
-        'image': 'major_hp_potion.webp',
+        'image': 'major-hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
         'rarity': 2
@@ -290,7 +290,7 @@ combat_supplies = {
     'HP Potion': {
         'name': 'HP Potion',
         'amount': 10,
-        'image': 'hp_potion.webp',
+        'image': 'hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
         'rarity': 1
@@ -298,7 +298,7 @@ combat_supplies = {
     'Luterra\'s Horn': {
         'name': 'Luterra\'s Horn',
         'amount': 10,
-        'image': 'luterras_horn.webp',
+        'image': 'luterras-horn.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 3
@@ -306,7 +306,7 @@ combat_supplies = {
     'Splendid Stealth Robe': {
         'name': 'Splendid Stealth Robe',
         'amount': 10,
-        'image': 'splendid_stealth_robe.webp',
+        'image': 'splendid-stealth-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 3
@@ -314,7 +314,7 @@ combat_supplies = {
     'Stealth Robe': {
         'name': 'Stealth Robe',
         'amount': 10,
-        'image': 'stealth_robe.webp',
+        'image': 'stealth-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 3
@@ -322,7 +322,7 @@ combat_supplies = {
     'Time Stop Potion': {
         'name': 'Time Stop Potion',
         'amount': 10,
-        'image': 'time_stop_potion.webp',
+        'image': 'time-stop-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 3
@@ -330,7 +330,7 @@ combat_supplies = {
     'Camouflage Robe': {
         'name': 'Camouflage Robe',
         'amount': 10,
-        'image': 'camouflage_robe.webp',
+        'image': 'camouflage-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -354,7 +354,7 @@ combat_supplies = {
     'Repair Shop Portal Scroll': {
         'name': 'Repair Shop Portal Scroll',
         'amount': 10,
-        'image': 'repair_shop_portal_scroll.webp',
+        'image': 'repair-shop-portal-scroll.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -362,7 +362,7 @@ combat_supplies = {
     'Sacred Charm': {
         'name': 'Sacred Charm',
         'amount': 10,
-        'image': 'sacred_charm.webp',
+        'image': 'sacred-charm.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -370,7 +370,7 @@ combat_supplies = {
     'Splendid Campfire': {
         'name': 'Splendid Campfire',
         'amount': 10,
-        'image': 'splendid_campfire.webp',
+        'image': 'splendid-campfire.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -378,7 +378,7 @@ combat_supplies = {
     'Splendid Disguise Robe': {
         'name': 'Splendid Disguise Robe',
         'amount': 10,
-        'image': 'splendid_disguise_robe.webp',
+        'image': 'splendid-disguise-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -386,7 +386,7 @@ combat_supplies = {
     'Splendid Panacea': {
         'name': 'Splendid Panacea',
         'amount': 10,
-        'image': 'splendid_panacea.webp',
+        'image': 'splendid-panacea.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -394,7 +394,7 @@ combat_supplies = {
     'Splendid Sacred Charm': {
         'name': 'Splendid Sacred Charm',
         'amount': 10,
-        'image': 'splendid_sacred_charm.webp',
+        'image': 'splendid-sacred-charm.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -402,7 +402,7 @@ combat_supplies = {
     'Splendid Taunting Scarecrow': {
         'name': 'Splendid Taunting Scarecrow',
         'amount': 10,
-        'image': 'splendid_taunting_scarecrow.webp',
+        'image': 'splendid-taunting-scarecrow.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -410,7 +410,7 @@ combat_supplies = {
     'Taunting Scarecrow': {
         'name': 'Taunting Scarecrow',
         'amount': 10,
-        'image': 'taunting_scarecrow.webp',
+        'image': 'taunting-scarecrow.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
@@ -426,7 +426,7 @@ combat_supplies = {
     'Splendid Flare': {
         'name': 'Splendid Flare',
         'amount': 10,
-        'image': 'splendid_flare.webp',
+        'image': 'splendid-flare.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 1

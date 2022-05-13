@@ -2,7 +2,7 @@ enhancement_material={
     'Destruction Stone Fragment': {
         'name': 'Destruction Stone Fragment',
         'amount': 10,
-        'image': 'destruction_stone_fragment.webp',
+        'image': 'destruction-stone-fragment.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
@@ -10,7 +10,7 @@ enhancement_material={
     'Guardian Stone Fragment': {
         'name': 'Guardian Stone Fragment',
         'amount': 10,
-        'image': 'guardian_stone_fragment.webp',
+        'image': 'guardian-stone-fragment.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
@@ -18,7 +18,7 @@ enhancement_material={
     'Guardian Stone': {
         'name': 'Guardian Stone',
         'amount': 10,
-        'image': 'guardian_stone.webp',
+        'image': 'guardian-stone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
@@ -26,7 +26,7 @@ enhancement_material={
     'Destruction Stone': {
         'name': 'Destruction Stone',
         'amount': 10,
-        'image': 'destruction_stone.webp',
+        'image': 'destruction-stone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
@@ -34,7 +34,7 @@ enhancement_material={
     'Guardian Stone Crystal': {
         'name': 'Guardian Stone Crystal',
         'amount': 10,
-        'image': 'guardian_stone_crystal.webp',
+        'image': 'guardian-stone-crystal.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
@@ -42,7 +42,7 @@ enhancement_material={
     'Destruction Stone Crystal': {
         'name': 'Destruction Stone Crystal',
         'amount': 10,
-        'image': 'destruction_stone_crystal.webp',
+        'image': 'destruction-stone-crystal.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
@@ -50,7 +50,7 @@ enhancement_material={
     'Simple Oreha Fusion Material': {
         'name': 'Simple Oreha Fusion Material',
         'amount': 1,
-        'image': 'simple_oreha_fusion_material.webp',
+        'image': 'simple-oreha-fusion-material.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 1
@@ -58,7 +58,7 @@ enhancement_material={
     'Harmony Shard Pouch (S)': {
         'name': 'Harmony Shard Pouch (S)',
         'amount': 1,
-        'image': 'harmony_shard_pouch_s.webp',
+        'image': 'harmony-shard-pouch-s.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 1
@@ -66,7 +66,7 @@ enhancement_material={
     'Life Shard Pouch (S)': {
         'name': 'Life Shard Pouch (S)',
         'amount': 1,
-        'image': 'life_shard_pouch_s.webp',
+        'image': 'life-shard-pouch-s.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 1
@@ -74,7 +74,7 @@ enhancement_material={
     'Honor Shard Pouch (S)': {
         'name': 'Honor Shard Pouch (S)',
         'amount': 1,
-        'image': 'honor_shard_pouch_s.webp',
+        'image': 'honor-shard-pouch-s.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 1
@@ -82,7 +82,7 @@ enhancement_material={
     'Caldarr Fusion Material': {
         'name': 'Caldarr Fusion Material',
         'amount': 1,
-        'image': 'caldarr_fusion_material.webp',
+        'image': 'caldarr-fusion-material.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 2
@@ -90,7 +90,7 @@ enhancement_material={
     'Basic Oreha Fusion Material': {
         'name': 'Basic Oreha Fusion Material',
         'amount': 1,
-        'image': 'basic_oreha_fusion_material.webp',
+        'image': 'basic-oreha-fusion-material.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 2
@@ -98,7 +98,7 @@ enhancement_material={
     'Harmony Shard Pouch (M)': {
         'name': 'Harmony Shard Pouch (M)',
         'amount': 1,
-        'image': 'harmony_shard_pouch_m.webp',
+        'image': 'harmony-shard-pouch-m.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 2
@@ -106,7 +106,7 @@ enhancement_material={
     'Life Shard Pouch (M)': {
         'name': 'Life Shard Pouch (M)',
         'amount': 1,
-        'image': 'life_shard_pouch_m.webp',
+        'image': 'life-shard-pouch-m.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 2
@@ -114,7 +114,7 @@ enhancement_material={
     'Honor Shard Pouch (M)': {
         'name': 'Honor Shard Pouch (M)',
         'amount': 1,
-        'image': 'honor_shard_pouch_m.webp',
+        'image': 'honor-shard-pouch-m.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 2
@@ -122,7 +122,7 @@ enhancement_material={
     'Harmony Shard Pouch (L)': {
         'name': 'Harmony Shard Pouch (L)',
         'amount': 1,
-        'image': 'harmony_shard_pouch_l.webp',
+        'image': 'harmony-shard-pouch-l.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 3
@@ -130,7 +130,7 @@ enhancement_material={
     'Life Shard Pouch (L)': {
         'name': 'Life Shard Pouch (L)',
         'amount': 1,
-        'image': 'life_shard_pouch_l.webp',
+        'image': 'life-shard-pouch-l.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 3
@@ -138,7 +138,7 @@ enhancement_material={
     'Honor Shard Pouch (L)': {
         'name': 'Honor Shard Pouch (L)',
         'amount': 1,
-        'image': 'honor_shard_pouch_l.webp',
+        'image': 'honor-shard-pouch-l.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 3
@@ -146,7 +146,7 @@ enhancement_material={
     'Solar Grace': {
         'name': 'Solar Grace',
         'amount': 1,
-        'image': 'solar_grace.webp',
+        'image': 'solar-grace.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 1
@@ -154,7 +154,7 @@ enhancement_material={
     'Harmony Leapstone': {
         'name': 'Harmony Leapstone',
         'amount': 1,
-        'image': 'harmony_leapstone.webp',
+        'image': 'harmony-leapstone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 2
@@ -162,7 +162,7 @@ enhancement_material={
     'Life Leapstone': {
         'name': 'Life Leapstone',
         'amount': 1,
-        'image': 'life_leapstone.webp',
+        'image': 'life-leapstone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 2
@@ -170,7 +170,7 @@ enhancement_material={
     'Honor Leapstone': {
         'name': 'Honor Leapstone',
         'amount': 1,
-        'image': 'honor_leapstone.webp',
+        'image': 'honor-leapstone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 2
@@ -178,7 +178,7 @@ enhancement_material={
     'Great Honor Leapstone': {
         'name': 'Great Honor Leapstone',
         'amount': 1,
-        'image': 'great_honor_leapstone.webp',
+        'image': 'great-honor-leapstone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 2
@@ -186,7 +186,7 @@ enhancement_material={
     'Solar Blessing': {
         'name': 'Solar Blessing',
         'amount': 1,
-        'image': 'solar_blessing.webp',
+        'image': 'solar-blessing.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 2
@@ -194,7 +194,7 @@ enhancement_material={
     'Star\'s Breath': {
         'name': 'Star\'s Breath',
         'amount': 1,
-        'image': 'stars_breath.webp',
+        'image': 'stars-breath.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -202,7 +202,7 @@ enhancement_material={
     'Tailoring: Basic Design': {
         'name': 'Tailoring: Basic Design',
         'amount': 1,
-        'image': 'tailoring_basic_design.webp',
+        'image': 'tailoring-basic-design.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -210,7 +210,7 @@ enhancement_material={
     'Metallurgy Basic Casting': {
         'name': 'Metallurgy Basic Casting',
         'amount': 1,
-        'image': 'metallurgy_basic_casting.webp',
+        'image': 'metallurgy-basic-casting.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -218,7 +218,7 @@ enhancement_material={
     'Moon\'s Breath': {
         'name': 'Moon\'s Breath',
         'amount': 1,
-        'image': 'moons_breath.webp',
+        'image': 'moons-breath.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -226,7 +226,7 @@ enhancement_material={
     'Tailoring: Basic Knots': {
         'name': 'Tailoring: Basic Knots',
         'amount': 1,
-        'image': 'tailoring_basic_knots.webp',
+        'image': 'tailoring-basic-knots.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -234,7 +234,7 @@ enhancement_material={
     'Metallurgy: Basic Folding': {
         'name': 'Metallurgy: Basic Folding',
         'amount': 1,
-        'image': 'metallurgy_basic_folding.webp',
+        'image': 'metallurgy-basic-folding.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -242,7 +242,7 @@ enhancement_material={
     'Solar Protection': {
         'name': 'Solar Protection',
         'amount': 1,
-        'image': 'solar_protection.webp',
+        'image': 'solar-protection.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -250,7 +250,7 @@ enhancement_material={
     'Tailoring: Basic Mending': {
         'name': 'Tailoring: Basic Mending',
         'amount': 1,
-        'image': 'tailoring_basic_mending.webp',
+        'image': 'tailoring-basic-mending.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -258,7 +258,7 @@ enhancement_material={
     'Metallurgy: Basic Welding': {
         'name': 'Metallurgy: Basic Welding',
         'amount': 1,
-        'image': 'metallurgy_basic_welding.webp',
+        'image': 'metallurgy-basic-welding.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
@@ -266,7 +266,7 @@ enhancement_material={
     'Powder of Sage': {
         'name': 'Powder of Sage',
         'amount': 1,
-        'image': 'powder_sage.webp',
+        'image': 'powder-sage.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Other Materials',
         'rarity': 3

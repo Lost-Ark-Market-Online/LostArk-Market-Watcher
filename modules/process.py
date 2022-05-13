@@ -16,7 +16,7 @@ def process_item(market_line: MarketLine) -> dict:
         elif market_line.rarity >= 4:
             variant = 3
             market_line.rarity = 4
-        image = f'engraving_{variant}.webp'
+        image = f'engraving-{variant}.webp'
 
     return {
         'name': item['name'],
