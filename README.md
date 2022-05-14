@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.7.0
+## LostArk Market Watcher 0.7.1
 This app listens to the screenshot folder for new files.
 Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
@@ -17,11 +17,16 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 - Watchdog `pip install watchdog`
 - Python Slugify `pip install python-slugify`
 - TheFuzz `pip install thefuzz[speedup]`
+- lxml `pip install lxml`
+- pycaw `pip install pycaw`
 
 ### Assets
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.7.1
+- Fix win32api dependency, changed to ctypes windll
+
 ### 0.7.0
 - Add Threading controls to config
 - Add Volume controls to config

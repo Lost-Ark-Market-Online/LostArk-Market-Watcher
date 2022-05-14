@@ -1,7 +1,16 @@
 import os
 import re
-import win32api
+import string
+from ctypes import windll
 
+def get_drives():
+    drives = []
+    bitmask = windll.kernel32.GetLogicalDrives()
+    for letter in string.ascii_uppercase:
+        if bitmask & 1:
+            drives.append(f"{letter}:\\")
+        bitmask >>= 1
+    return drives
 
 def find_file(root_folder, rex):
     for root, _, files in os.walk(root_folder):
@@ -13,7 +22,7 @@ def find_file(root_folder, rex):
 
 def find_file_in_all_drives(file_name):
     rex = re.compile(file_name)
-    for drive in win32api.GetLogicalDriveStrings().split('\000')[:-1]:
+    for drive in get_drives():
         return find_file(drive, rex)
 
 
