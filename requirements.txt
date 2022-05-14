@@ -1,0 +1,10 @@
+pytesseract
+opencv-python
+PySide6
+google-cloud-firestore
+simpleaudio
+watchdog
+python-slugify
+thefuzz[speedup]
+lxml
+pycaw

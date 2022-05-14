@@ -26,6 +26,7 @@ Audio files from [MixKit](https://mixkit.co/)
 ### Changelog
 ### 0.7.1
 - Fix win32api dependency, changed to ctypes windll
+- Remove window flashes
 
 ### 0.7.0
 - Add Threading controls to config
