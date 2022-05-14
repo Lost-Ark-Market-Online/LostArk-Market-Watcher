@@ -1,18 +1,18 @@
 
 import traceback
 from datetime import datetime, timedelta
+from cv2 import trace
 from slugify import slugify
 from google.oauth2.credentials import Credentials
 from google.cloud.firestore import Client
 from modules.auth import refresh_token
 from modules.common.market_line import MarketLine
-from modules.config import get_tokens
+from modules.config import Config
 from modules.errors import NoTokenError
-from modules.market import get_market_item_by_name
 from modules.process import process_item
 from modules.sound import playError, playPulse
 from PySide6.QtCore import Signal, QObject
-from PySide6.QtWidgets import QMessageBox
+from packaging import version
 
 project = 'lostarkmarket-79ddf'
 
@@ -21,23 +21,17 @@ class MarketDb(QObject):
     log: Signal = Signal(str)
     error: Signal = Signal(str)
     new_version: Signal = Signal(str)
-    region: str = None
-    id_token: str = None
-    refresh_token: str = None
-    uid: str = None
     creds: Credentials = None
     db: Client = None
     last_refresh: datetime = None
-    version: str = None
 
-    def __init__(self, version):
+    def __init__(self):
         try:
             super(MarketDb, self).__init__()
             self.refresh_credentials()
-            self.version = version
             self.db = Client(project=project, credentials=self.creds)
-            self.region = self.db.document(
-                f'collaborators/{self.uid}').get().get('region')
+            Config().region = self.db.document(
+                f'collaborators/{Config().uid}').get().get('region')
             self.db.document(
                 "app-info/market-watcher").on_snapshot(self.new_version_cb)
 
@@ -45,29 +39,20 @@ class MarketDb(QObject):
             traceback.print_exc()
 
     def refresh_credentials(self):
-        needs_refresh = False
-        if self.last_refresh is None:
-            needs_refresh = True
-        elif self.last_refresh + timedelta(minutes=30) < datetime.now():
-            needs_refresh = True
-
-        if needs_refresh:
+        if (self.last_refresh is None) or (self.last_refresh + timedelta(minutes=30) < datetime.now()):
             self.log.emit(f"Refresh credentials")
             try:
-                if self.refresh_token is None:
-                    _, self.refresh_token, _ = get_tokens()
-                self.id_token, self.refresh_token, self.uid = refresh_token(
-                    self.refresh_token)
+                refresh_token()
                 self.creds = Credentials(
-                    token=self.id_token,
-                    refresh_token=self.refresh_token
+                    token=Config().id_token,
+                    refresh_token=Config().refresh_token
                 )
                 self.last_refresh = datetime.now()
             except:
                 self.error.emit("Error getting credentials")
                 self.error.emit(traceback.format_exc)
 
-    def add_entry(self, market_line: MarketLine, play_audio=True):
+    def add_entry(self, market_line: MarketLine):
         try:
             # Refresh credentials if needed
             self.refresh_credentials()
@@ -80,7 +65,7 @@ class MarketDb(QObject):
 
             # Get Doc
             item_doc_ref = self.db.document(
-                f"{self.region}/{slugify(item['name'])}-{market_line.rarity}")
+                f"{Config().region}/{slugify(item['name'])}-{market_line.rarity}")
             item_doc = item_doc_ref.get()
 
             if (
@@ -92,7 +77,7 @@ class MarketDb(QObject):
 
             if (item_doc.exists == False):
                 self.log.emit(
-                    f"Create {self.region}/{slugify(item['name'])}-{market_line.rarity}")
+                    f"Create {Config().region}/{slugify(item['name'])}-{market_line.rarity}")
 
                 item['updatedAt'] = datetime.utcnow()
                 item_doc_ref.create(item)
@@ -107,8 +92,8 @@ class MarketDb(QObject):
                 to_update['lowPrice'] = market_line.lowest_price
                 to_update['recentPrice'] = market_line.recent_price
                 to_update['updatedAt'] = datetime.utcnow()
-                to_update['author'] = self.uid
-                to_update['watcher_version'] = self.version
+                to_update['author'] = Config().uid
+                to_update['watcher_version'] = Config().version
 
                 item_doc_ref.update(to_update)
 
@@ -118,23 +103,23 @@ class MarketDb(QObject):
                 'lowPrice': market_line.lowest_price,
                 'recentPrice': market_line.recent_price,
                 'createdAt': datetime.utcnow(),
-                'author': self.uid,
-                'watcher_version': self.version
+                'author': Config().uid,
+                'watcher_version': Config().version
             })
 
             self.log.emit(
                 f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
-            if play_audio == True:
+            if Config().play_audio:
                 playPulse()
         except:
             self.error.emit(
                 f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             self.error.emit(traceback.format_exc())
-            if play_audio == True:
+            if Config().play_audio:
                 playError()
 
     def new_version_cb(self, snapshot, changes, read_time):
         for doc in snapshot:
             new_version = doc.get("version")
-            if(self.version < new_version):
+            if(version.parse(Config().version) < version.parse(new_version)):
                 self.new_version.emit(new_version)

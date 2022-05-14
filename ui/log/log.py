@@ -7,16 +7,15 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QListW
 from PySide6.QtCore import QFile, Qt, Signal
 from PySide6.QtGui import QColor
 from datetime import datetime
+from modules.config import Config
 from ui.common.draggablewindow import DraggableWindow
 from ui.common.uiloader import UiLoader
 import ui.log.resources
 
 
 class LostArkMarketWatcherLog(QMainWindow):
-    def __init__(self, version, region):
+    def __init__(self):
         super(LostArkMarketWatcherLog, self).__init__()
-        self.version = version
-        self.region = region
         self.load_ui()
         self.setWindowTitle("Log - LostArkMarketOnline")
 
@@ -34,26 +33,26 @@ class LostArkMarketWatcherLog(QMainWindow):
         widget.lLog.setAutoScroll(True)
         widget.lLog.setAutoScrollMargin(20)
         widget.lblTitle.setText(
-            f"Lost Ark Market Watcher v{self.version} - {self.region} - Log")
+            f"Lost Ark Market Watcher v{Config().version} - {Config().region} - Log")
         ui_file.close()
         return widget
 
     def close(self):
         self.hide()
 
-    def log(self, txt, error=False, save_log=False):
+    def log(self, txt, error=False):
         log_txt = f'{datetime.now().strftime("%m/%d/%Y-%H:%M:%S")} - {txt}'
         print(log_txt)
         i = QListWidgetItem(log_txt)
         if error:
             i.setForeground(QColor('#FFFFFF'))
             i.setBackground(QColor('#ED4337'))
-            if save_log:
+            if Config().save_log:
                 with open(f'{datetime.now().strftime("%m-%d-%Y")}.error', "a") as file_object:
                     file_object.write(f"{log_txt}\n")
         else:
             i.setForeground(QColor('#00FF00'))
-            if save_log:
+            if Config().save_log:
                 with open(f'{datetime.now().strftime("%m-%d-%Y")}.log', "a") as file_object:
                     file_object.write(f"{log_txt}\n")
         self.lLog.addItem(i)

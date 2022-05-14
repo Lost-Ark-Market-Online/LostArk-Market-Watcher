@@ -1,7 +1,7 @@
 combat_supplies = {  
     'Adrophine Potion': {
         'name': 'Adrophine Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'adrophine-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -9,7 +9,7 @@ combat_supplies = {
     },
     'Awakening Potion': {
         'name': 'Awakening Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'awakening-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -17,7 +17,7 @@ combat_supplies = {
     },
     'Marching Flag': {
         'name': 'Marching Flag',
-        'amount': 10,
+        'amount': 1,
         'image': 'marching-flag.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -25,7 +25,7 @@ combat_supplies = {
     },
     'Protective Potion': {
         'name': 'Protective Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'protective-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -33,7 +33,7 @@ combat_supplies = {
     },
     'Splendid Marching Flag': {
         'name': 'Splendid Marching Flag',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-marching-flag.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -41,7 +41,7 @@ combat_supplies = {
     },
     'Splendid Protective Potion': {
         'name': 'Splendid Protective Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-protective-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -49,7 +49,7 @@ combat_supplies = {
     },
     'Splendid Swift Robe': {
         'name': 'Splendid Swift Robe',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-swift-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -57,7 +57,7 @@ combat_supplies = {
     },
     'Swiftness Robe': {
         'name': 'Swiftness Robe',
-        'amount': 10,
+        'amount': 1,
         'image': 'swiftness-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
@@ -65,7 +65,7 @@ combat_supplies = {
     },
     'Clay Grenade': {
         'name': 'Clay Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'clay-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -73,7 +73,7 @@ combat_supplies = {
     },
     'Corrosive Bomb': {
         'name': 'Corrosive Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'corrosive-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -81,7 +81,7 @@ combat_supplies = {
     },
     'Dark Grenade': {
         'name': 'Dark Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'dark-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -89,7 +89,7 @@ combat_supplies = {
     },
     'Destruction Bomb': {
         'name': 'Destruction Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'destruction-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -97,7 +97,7 @@ combat_supplies = {
     },
     'Electric Grenade': {
         'name': 'Electric Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'electric-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -105,7 +105,7 @@ combat_supplies = {
     },
     'Flame Grenade': {
         'name': 'Flame Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'flame-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -113,7 +113,7 @@ combat_supplies = {
     },
     'Flash Grenade': {
         'name': 'Flash Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'flash-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -121,7 +121,7 @@ combat_supplies = {
     },
     'Frost Grenade': {
         'name': 'Frost Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'frost-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -129,7 +129,7 @@ combat_supplies = {
     },
     'Pheromone Bomb': {
         'name': 'Pheromone Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'pheromone-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -137,7 +137,7 @@ combat_supplies = {
     },
     'Sacred Bomb': {
         'name': 'Sacred Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'sacred-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -145,7 +145,7 @@ combat_supplies = {
     },
     'Sleep Bomb': {
         'name': 'Sleep Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'sleep-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -153,7 +153,7 @@ combat_supplies = {
     },
     'Splendid Clay Grenade': {
         'name': 'Splendid Clay Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-clay-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -161,7 +161,7 @@ combat_supplies = {
     },
     'Splendid Corrosion Bomb': {
         'name': 'Splendid Corrosion Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-corrosion-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -169,7 +169,7 @@ combat_supplies = {
     },
     'Splendid Dark Grenade': {
         'name': 'Splendid Dark Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-dark-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -177,7 +177,7 @@ combat_supplies = {
     },
     'Splendid Destruction Bomb': {
         'name': 'Splendid Destruction Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-destruction-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -185,7 +185,7 @@ combat_supplies = {
     },
     'Splendid Flame Grenade': {
         'name': 'Splendid Flame Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-flame-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -193,7 +193,7 @@ combat_supplies = {
     },
     'Splendid Flash Grenade': {
         'name': 'Splendid Flash Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-flash-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -201,7 +201,7 @@ combat_supplies = {
     },
     'Splendid Frost Grenade': {
         'name': 'Splendid Frost Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-frost-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -209,7 +209,7 @@ combat_supplies = {
     },
     'Splendid Lightening Grenade': {
         'name': 'Splendid Lightening Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-lightening-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -217,7 +217,7 @@ combat_supplies = {
     },
     'Splendid Sacred Bomb': {
         'name': 'Splendid Sacred Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-sacred-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -225,7 +225,7 @@ combat_supplies = {
     },
     'Splendid Sleep Bomb': {
         'name': 'Splendid Sleep Bomb',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-sleep-bomb.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -233,7 +233,7 @@ combat_supplies = {
     },
     'Splendid Thunder Potion': {
         'name': 'Splendid Thunder Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-thunder-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -241,7 +241,7 @@ combat_supplies = {
     },
     'Splendid Whirlwind Grenade': {
         'name': 'Splendid Whirlwind Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-whirlwind-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -249,7 +249,7 @@ combat_supplies = {
     },
     'Thunder Potion': {
         'name': 'Thunder Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'thunder-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -257,7 +257,7 @@ combat_supplies = {
     },
     'Whirlwind Grenade': {
         'name': 'Whirlwind Grenade',
-        'amount': 10,
+        'amount': 1,
         'image': 'whirlwind-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
@@ -265,7 +265,7 @@ combat_supplies = {
     },
     'Elemental HP Potion': {
         'name': 'Elemental HP Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'elemental-hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
@@ -273,7 +273,7 @@ combat_supplies = {
     },
     'Splendid Elemental HP Potion': {
         'name': 'Splendid Elemental HP Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-elemental-hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
@@ -281,7 +281,7 @@ combat_supplies = {
     },
     'Major HP Potion': {
         'name': 'Major HP Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'major-hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
@@ -289,7 +289,7 @@ combat_supplies = {
     },
     'HP Potion': {
         'name': 'HP Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'hp-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Recovery',
@@ -297,7 +297,7 @@ combat_supplies = {
     },
     'Luterra\'s Horn': {
         'name': 'Luterra\'s Horn',
-        'amount': 10,
+        'amount': 1,
         'image': 'luterras-horn.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -305,7 +305,7 @@ combat_supplies = {
     },
     'Splendid Stealth Robe': {
         'name': 'Splendid Stealth Robe',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-stealth-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -313,7 +313,7 @@ combat_supplies = {
     },
     'Stealth Robe': {
         'name': 'Stealth Robe',
-        'amount': 10,
+        'amount': 1,
         'image': 'stealth-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -321,7 +321,7 @@ combat_supplies = {
     },
     'Time Stop Potion': {
         'name': 'Time Stop Potion',
-        'amount': 10,
+        'amount': 1,
         'image': 'time-stop-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -329,7 +329,7 @@ combat_supplies = {
     },
     'Camouflage Robe': {
         'name': 'Camouflage Robe',
-        'amount': 10,
+        'amount': 1,
         'image': 'camouflage-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -337,7 +337,7 @@ combat_supplies = {
     },
     'Campfire': {
         'name': 'Campfire',
-        'amount': 10,
+        'amount': 1,
         'image': 'campfire.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -345,7 +345,7 @@ combat_supplies = {
     },
     'Panacea': {
         'name': 'Panacea',
-        'amount': 10,
+        'amount': 1,
         'image': 'panacea.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -353,7 +353,7 @@ combat_supplies = {
     },
     'Repair Shop Portal Scroll': {
         'name': 'Repair Shop Portal Scroll',
-        'amount': 10,
+        'amount': 1,
         'image': 'repair-shop-portal-scroll.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -361,7 +361,7 @@ combat_supplies = {
     },
     'Sacred Charm': {
         'name': 'Sacred Charm',
-        'amount': 10,
+        'amount': 1,
         'image': 'sacred-charm.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -369,7 +369,7 @@ combat_supplies = {
     },
     'Splendid Campfire': {
         'name': 'Splendid Campfire',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-campfire.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -377,7 +377,7 @@ combat_supplies = {
     },
     'Splendid Disguise Robe': {
         'name': 'Splendid Disguise Robe',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-disguise-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -385,7 +385,7 @@ combat_supplies = {
     },
     'Splendid Panacea': {
         'name': 'Splendid Panacea',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-panacea.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -393,7 +393,7 @@ combat_supplies = {
     },
     'Splendid Sacred Charm': {
         'name': 'Splendid Sacred Charm',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-sacred-charm.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -401,7 +401,7 @@ combat_supplies = {
     },
     'Splendid Taunting Scarecrow': {
         'name': 'Splendid Taunting Scarecrow',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-taunting-scarecrow.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -409,7 +409,7 @@ combat_supplies = {
     },
     'Taunting Scarecrow': {
         'name': 'Taunting Scarecrow',
-        'amount': 10,
+        'amount': 1,
         'image': 'taunting-scarecrow.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -417,7 +417,7 @@ combat_supplies = {
     },
     'Flare': {
         'name': 'Flare',
-        'amount': 10,
+        'amount': 1,
         'image': 'flare.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
@@ -425,7 +425,7 @@ combat_supplies = {
     },
     'Splendid Flare': {
         'name': 'Splendid Flare',
-        'amount': 10,
+        'amount': 1,
         'image': 'splendid-flare.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
