@@ -33,6 +33,7 @@ class LostArkMarketWatcher(QApplication):
     screenshot_executor = None
     message_box = Signal(dict)
     message_box_handler: MessageBoxHandler
+    volume_controller: VolumeController
 
     def __init__(self, *args, **kwargs):
         QApplication.__init__(self, *args, **kwargs)
@@ -42,6 +43,7 @@ class LostArkMarketWatcher(QApplication):
         self.message_box_handler = MessageBoxHandler(self.message_box)
         self.log_view = LostArkMarketWatcherLog()
         self.config_form = LostArkMarketWatcherConfig()
+        self.volume_controller = VolumeController()
         self.config_form.config_updated.connect(self.spawn_observer)
         self.market_db.log.connect(self.write_log)
         self.market_db.error.connect(self.write_error)
@@ -89,7 +91,6 @@ class LostArkMarketWatcher(QApplication):
                     playError()
                 self.open_config()
                 return
-        print(screenshots_directory)
         event_handler = FileSystemEventHandler()
         event_handler.on_created = self.on_created
 
@@ -116,7 +117,13 @@ class LostArkMarketWatcher(QApplication):
             self.screenshot_executor.submit(
                 self.process_screenshot, event.src_path)
         else:
-            self.message_box.emit({"type": "REGION"})
+            if Config().game_directory is None:
+                if Config().play_audio == True:
+                    playError()
+                self.open_config()
+                self.message_box.emit({"type": "GAME_DIRECTORY"})
+            else:
+                self.message_box.emit({"type": "REGION"})
 
     def process_screenshot(self, file):
         try:
@@ -163,6 +170,4 @@ if __name__ == "__main__":
     icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
                                               "assets/icons/favicon.png")))
     app.setWindowIcon(icon)
-    time.sleep(2)
-    VolumeController()
     sys.exit(app.exec())

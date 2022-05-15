@@ -22,6 +22,9 @@ class MessageBoxHandler(QObject):
             case "REGION":
                 self.wrong_region()
                 return
+            case "GAME_DIRECTORY":
+                self.game_directory_not_found()
+                return
             case "VERSION":
                 self.new_version(data)
                 return
@@ -33,17 +36,22 @@ class MessageBoxHandler(QObject):
         self.msgBox.setInformativeText(
             f"Your account is authorized to post in the {Config().region} region, but your current region is {Config().game_region}")
         self.msgBox.setIcon(QMessageBox.Warning)
-        # self.msgBox.show()
-        # self.msgBox.activateWindow()
-        # self.msgBox.raise_()
-        # self.app.setActiveWindow(self.msgBox)
+        self.msgBox.exec()
+
+    def game_directory_not_found(self):        
+        self.msgBox.setWindowFlags(Qt.WindowStaysOnTopHint)
+        self.msgBox.setWindowTitle("Lost Ark Market Online")
+        self.msgBox.setText(f"Game Directory not found")
+        self.msgBox.setInformativeText(
+            f"The app couldn't find the game directory, please select it manually. Ex: C:\\Program Files (x86)\\Steam\\steamapps\\common\\Lost Ark")
+        self.msgBox.setIcon(QMessageBox.Warning)
         self.msgBox.exec()
 
     def new_version(self, data):
-        msgBox = QMessageBox()
-        msgBox.setWindowTitle("Lost Ark Market Online")
-        msgBox.setText(f"New version v{data['new_version']} available.")
-        msgBox.setInformativeText(
+        self.msgBox.setWindowFlags(Qt.WindowStaysOnTopHint)
+        self.msgBox.setWindowTitle("Lost Ark Market Online")
+        self.msgBox.setText(f"New version v{data['new_version']} available.")
+        self.msgBox.setInformativeText(
             "Please close the app and run the launcher to download the new version.")
-        msgBox.setIcon(QMessageBox.Information)
-        msgBox.exec()
+        self.msgBox.setIcon(QMessageBox.Information)
+        self.msgBox.exec()

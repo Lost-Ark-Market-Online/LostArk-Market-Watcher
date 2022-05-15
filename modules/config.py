@@ -13,8 +13,9 @@ game_region_map = {
     "WE": "Europe West"
 }
 
+
 class Config(metaclass=Singleton):
-    version = "0.7.1"
+    version = "0.7.3"
     region: str
     game_region: str
     debug = False
@@ -108,7 +109,7 @@ class Config(metaclass=Singleton):
                     "Watcher", "game_directory")
             else:
                 self.game_directory = find_lostark_directory()
-                changes = True            
+                changes = True
 
             self.get_game_region()
 
@@ -116,7 +117,6 @@ class Config(metaclass=Singleton):
                 self.update_config_file()
 
     def update_config_file(self):
-
         if self._config.has_section("Token") == False:
             self._config.add_section("Token")
         self._config.set("Token", "refresh_token", self.refresh_token)
@@ -125,25 +125,42 @@ class Config(metaclass=Singleton):
 
         if self._config.has_section("Watcher") == False:
             self._config.add_section("Watcher")
-        self._config.set("Watcher", "play_audio", str(self.play_audio))
-        self._config.set("Watcher", "volume", str(self.volume))
-        self._config.set("Watcher", "delete_screenshots",
-                         str(self.delete_screenshots))
-        self._config.set("Watcher", "save_log", str(self.save_log))
-        self._config.set("Watcher", "scan_threads", str(self.scan_threads))
-        self._config.set("Watcher", "screenshot_threads",
-                         str(self.screenshot_threads))
-        self._config.set("Watcher", "upload_threads", str(self.upload_threads))
-        self._config.set("Watcher", "game_directory", self.game_directory)
-
-        if self.screenshots_directory:
-            self._config.set("Watcher", "screenshots_directory",
-                             self.screenshots_directory)
-        else:
-            self._config.remove_option("Watcher", "screenshots_directory")
-
+        
+        self.set_or_remove_config_option(
+            "Watcher", "play_audio", self.play_audio
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "volume", self.volume
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "delete_screenshots", self.delete_screenshots
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "save_log", self.save_log
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "scan_threads", self.scan_threads
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "screenshot_threads", self.screenshot_threads
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "upload_threads", self.upload_threads
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "game_directory", self.game_directory
+        )
+        self.set_or_remove_config_option(
+            "Watcher", "screenshots_directory", self.screenshots_directory
+        )
         with open("config.ini", "w") as configfile:
             self._config.write(configfile)
+
+    def set_or_remove_config_option(self, section, option, value):
+        if value:
+            self._config.set(section, option, str(value))
+        else:
+            self._config.remove_option(section, option)
 
     def update_token(self, token):
         self.id_token = token["id_token"]
@@ -173,11 +190,16 @@ class Config(metaclass=Singleton):
         self.update_config_file()
 
     def get_game_region(self):
-        tree = ET.parse(os.path.abspath(os.path.join(
-            self.game_directory, 'EFGame', 'Config','UserOption.xml')))
-        root = tree.getroot()
-        game_region_id = root.find('SaveAccountOptionData').findtext('RegionID')
-        self.game_region = game_region_map.get(game_region_id)
+        try:
+            tree = ET.parse(os.path.abspath(os.path.join(
+                self.game_directory, 'EFGame', 'Config', 'UserOption.xml')))
+            root = tree.getroot()
+            game_region_id = root.find(
+                'SaveAccountOptionData').findtext('RegionID')
+            self.game_region = game_region_map.get(game_region_id)
+        except:
+            self.game_directory = None
+            self.game_region = None
 
 
 Config()

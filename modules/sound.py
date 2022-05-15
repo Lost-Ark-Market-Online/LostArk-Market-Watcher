@@ -4,6 +4,8 @@ import simpleaudio as sa
 from threading import Thread
 from pycaw.pycaw import AudioUtilities
 
+from PySide6.QtCore import QObject
+
 from modules.common.singleton import Singleton
 from modules.config import Config
 
@@ -47,19 +49,21 @@ class VolumeController(metaclass=Singleton):
     volume = 1.0
 
     def __init__(self):
+        self.searchProcess()
+        
+    def searchProcess(self):
         sessions = AudioUtilities.GetAllSessions()
         file_name = os.path.basename(sys.executable)
-
+        
         for session in sessions:
-            sav = session.SimpleAudioVolume
             if session.Process and session.Process.name() == file_name:
-                self.audio = sav
+                self.audio = session.SimpleAudioVolume
                 self.volume = self.audio.GetMasterVolume()
                 self.setVolume(Config().volume/100)
                 break
-        if self.audio == None:
-            raise Exception('Could not find process')
 
     def setVolume(self, volume):
         if self.audio:
             self.audio.SetMasterVolume(volume, None)
+        else:
+            self.searchProcess()
