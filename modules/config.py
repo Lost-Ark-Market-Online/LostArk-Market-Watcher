@@ -15,7 +15,7 @@ game_region_map = {
 
 
 class Config(metaclass=Singleton):
-    version = "0.7.4"
+    version = "0.7.5"
     region: str
     game_region: str
     debug = False
@@ -60,7 +60,7 @@ class Config(metaclass=Singleton):
                 self.volume = float(self._config.get(
                     "Watcher", "volume"))
             else:
-                self.volume = 1.0
+                self.volume = 100
                 changes = True
 
             if self._config.has_option("Watcher", "delete_screenshots"):
@@ -112,9 +112,20 @@ class Config(metaclass=Singleton):
                 changes = True
 
             self.get_game_region()
+        else:
+            self.play_audio = True
+            self.volume = 100
+            self.delete_screenshots = False
+            self.save_log = False
+            self.scan_threads = 2
+            self.screenshot_threads = 1
+            self.upload_threads = 2
+            self.screenshots_directory = None
+            self.game_directory = find_lostark_directory()
+            changes = True        
 
-            if changes:
-                self.update_config_file()
+        if changes:
+            self.update_config_file()
 
     def update_config_file(self):
         if self._config.has_section("Token") == False:
@@ -157,10 +168,10 @@ class Config(metaclass=Singleton):
             self._config.write(configfile)
 
     def set_or_remove_config_option(self, section, option, value):
-        if value:
-            self._config.set(section, option, str(value))
-        else:
+        if value is None:
             self._config.remove_option(section, option)
+        else:
+            self._config.set(section, option, str(value))
 
     def update_token(self, token):
         self.id_token = token["id_token"]

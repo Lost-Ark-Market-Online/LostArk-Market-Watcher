@@ -49,6 +49,7 @@ class MarketDb(QObject):
                 )
                 self.last_refresh = datetime.now()
             except:
+                traceback.print_exc()
                 self.error.emit("Error getting credentials")
                 self.error.emit(traceback.format_exc)
 
