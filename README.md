@@ -1,4 +1,4 @@
-## LostArk Market Watcher 0.7.5
+## LostArk Market Watcher 0.7.6
 This app listens to the screenshot folder for new files.
 Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
@@ -24,6 +24,9 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.7.6
+- Bugfix: Config modal open segmentation fault
+
 ### 0.7.5
 - Bugfix: Configuration handling
 

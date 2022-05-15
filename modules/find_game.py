@@ -17,7 +17,8 @@ def find_file(root_folder, rex):
         for f in files:
             result = rex.search(f)
             if result:
-                return os.path.join(root, f)
+                return None
+                #return os.path.join(root, f)
     return None
 
 

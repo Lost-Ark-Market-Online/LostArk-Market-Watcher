@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import traceback
 
 from PySide6.QtWidgets import QMainWindow, QFileDialog
 from PySide6.QtCore import QFile, Qt, Signal
@@ -15,10 +16,11 @@ from modules.config import Config
 class LostArkMarketWatcherConfig(QMainWindow):
     config_updated = Signal()
 
-    def __init__(self):
+    def __init__(self, open_config):
         super(LostArkMarketWatcherConfig, self).__init__()
         self.load_ui()
         self.setWindowTitle("Config - LostArkMarketOnline")
+        open_config.connect(self.show_ui)
 
     def load_ui(self):
         loader = UiLoader(self)
@@ -96,24 +98,28 @@ class LostArkMarketWatcherConfig(QMainWindow):
         self.close()
 
     def show_ui(self):
-        self.txtGameFolder.setText(Config().game_directory)
-        if(Config().screenshots_directory):
-            self.txtCustomScreenshotFolder.setText(
-                Config().screenshots_directory)
-            self.cbCustomScreenshotFolder.setChecked(True)
-            self.txtCustomScreenshotFolder.setVisible(1)
-            self.btnCustomScreenshotFolder.setVisible(1)
-        else:
-            self.cbCustomScreenshotFolder.setChecked(False)
-            self.txtCustomScreenshotFolder.setVisible(0)
-            self.btnCustomScreenshotFolder.setVisible(0)
+        print("show_ui")
+        try:
+            self.txtGameFolder.setText(Config().game_directory)
+            if(Config().screenshots_directory):
+                self.txtCustomScreenshotFolder.setText(
+                    Config().screenshots_directory)
+                self.cbCustomScreenshotFolder.setChecked(True)
+                self.txtCustomScreenshotFolder.setVisible(1)
+                self.btnCustomScreenshotFolder.setVisible(1)
+            else:
+                self.cbCustomScreenshotFolder.setChecked(False)
+                self.txtCustomScreenshotFolder.setVisible(0)
+                self.btnCustomScreenshotFolder.setVisible(0)
 
-        self.cbDeleteScreenshots.setChecked(Config().delete_screenshots)
-        self.cbLog.setChecked(Config().save_log)
-        self.sbScreenshotThreads.setValue(Config().screenshot_threads)
-        self.sbScanningThreads.setValue(Config().scan_threads)
-        self.sbUploadingThreads.setValue(Config().upload_threads)
+            self.cbDeleteScreenshots.setChecked(Config().delete_screenshots)
+            self.cbLog.setChecked(Config().save_log)
+            self.sbScreenshotThreads.setValue(Config().screenshot_threads)
+            self.sbScanningThreads.setValue(Config().scan_threads)
+            self.sbUploadingThreads.setValue(Config().upload_threads)
 
-        self.cbPlaySounds.setChecked(Config().play_audio)
-        self.slVolume.setValue(Config().volume)
-        self.show()
+            self.cbPlaySounds.setChecked(Config().play_audio)
+            self.slVolume.setValue(Config().volume)
+            self.show()
+        except:
+            traceback.print_exc()

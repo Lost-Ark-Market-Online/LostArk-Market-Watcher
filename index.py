@@ -32,6 +32,7 @@ class LostArkMarketWatcher(QApplication):
     config_form = None
     screenshot_executor = None
     message_box = Signal(dict)
+    open_config = Signal()
     message_box_handler: MessageBoxHandler
     volume_controller: VolumeController
 
@@ -42,7 +43,7 @@ class LostArkMarketWatcher(QApplication):
         self.market_db = MarketDb()
         self.message_box_handler = MessageBoxHandler(self.message_box)
         self.log_view = LostArkMarketWatcherLog()
-        self.config_form = LostArkMarketWatcherConfig()
+        self.config_form = LostArkMarketWatcherConfig(self.open_config)
         self.volume_controller = VolumeController()
         self.config_form.config_updated.connect(self.spawn_observer)
         self.market_db.log.connect(self.write_log)
@@ -56,7 +57,7 @@ class LostArkMarketWatcher(QApplication):
         self.tray = QSystemTrayIcon()
         menu = QMenu()
         config_action = menu.addAction("Configuration")
-        config_action.triggered.connect(self.open_config)
+        config_action.triggered.connect(self.open_config_form)
         log_action = menu.addAction("Log")
         log_action.triggered.connect(self.open_log)
         menu.addSeparator()
@@ -70,8 +71,8 @@ class LostArkMarketWatcher(QApplication):
     def open_log(self):
         self.log_view.show()
 
-    def open_config(self):
-        self.config_form.show_ui()
+    def open_config_form(self):
+        self.open_config.emit()
 
     def close_action(self):
         self.tray.hide()
@@ -89,7 +90,7 @@ class LostArkMarketWatcher(QApplication):
                 self.write_log('Screenshots directory not found')
                 if Config().play_audio == True:
                     playError()
-                self.open_config()
+                self.open_config.emit()
                 return
         event_handler = FileSystemEventHandler()
         event_handler.on_created = self.on_created
@@ -112,26 +113,29 @@ class LostArkMarketWatcher(QApplication):
 
     def on_created(self, event):
         # Region Check
+        self.write_log('New screenshoot found')
         Config().get_game_region()
-        if Config().game_region == Config().region:
+        self.write_log(f'Game Region Detected: {Config().game_region}')
+        if Config().game_directory and (Config().game_region == Config().region):
+            self.write_log('Region check successful')
             self.screenshot_executor.submit(
                 self.process_screenshot, event.src_path)
         else:
             if Config().game_directory is None:
+                self.write_log('No Game Directory')
                 if Config().play_audio == True:
                     playError()
-                self.open_config()
+                self.open_config.emit()
                 self.message_box.emit({"type": "GAME_DIRECTORY"})
             else:
+                self.write_log('Game Directory found, wrong region')
                 self.message_box.emit({"type": "REGION"})
 
     def process_screenshot(self, file):
         try:
-            self.write_log('New screenshoot found')
             time.sleep(2)
             if Config().play_audio == True:
                 playCheck()
-
             self.write_log('Scanning: Start')
             res = scan(file, self.write_log, self.write_error)
             self.write_log('Scanning: Finish')
