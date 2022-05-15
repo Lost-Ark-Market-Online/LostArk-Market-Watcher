@@ -18,6 +18,7 @@ def find_file(root_folder, rex):
             result = rex.search(f)
             if result:
                 return os.path.join(root, f)
+    return None
 
 
 def find_file_in_all_drives(file_name):
@@ -28,5 +29,7 @@ def find_file_in_all_drives(file_name):
 
 def find_lostark_directory():
     lostark_file = find_file_in_all_drives('LOSTARK\.exe')
-    return os.path.abspath(os.path.join(os.path.dirname(lostark_file), '..', '..'))
+    if lostark_file:
+        return os.path.abspath(os.path.join(os.path.dirname(lostark_file), '..', '..'))
+    return None
 
