@@ -98,15 +98,15 @@ class LostArkMarketWatcherConfig(QMainWindow):
         self.close()
 
     def show_ui(self):
-        print("show_ui")
         try:
             self.txtGameFolder.setText(Config().game_directory)
+            
             if(Config().screenshots_directory):
+                self.cbCustomScreenshotFolder.setChecked(True)
+                self.btnCustomScreenshotFolder.setVisible(1)
+                self.txtCustomScreenshotFolder.setVisible(1)
                 self.txtCustomScreenshotFolder.setText(
                     Config().screenshots_directory)
-                self.cbCustomScreenshotFolder.setChecked(True)
-                self.txtCustomScreenshotFolder.setVisible(1)
-                self.btnCustomScreenshotFolder.setVisible(1)
             else:
                 self.cbCustomScreenshotFolder.setChecked(False)
                 self.txtCustomScreenshotFolder.setVisible(0)
