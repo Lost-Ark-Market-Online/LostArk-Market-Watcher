@@ -112,3 +112,9 @@ class AppLogger(metaclass=Singleton):
         if self.signal_handler_error:
             self.logger.removeHandler(self.signal_handler_error)
             self.signal_handler_error = None
+
+    def refresh_handlers(self):
+        if Config().save_log:
+            self.file_enable()
+        else:
+            self.file_disable()

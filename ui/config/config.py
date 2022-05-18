@@ -84,6 +84,7 @@ class LostArkMarketWatcherConfig(QMainWindow):
         Config().update_config({
             "play_audio": self.cbPlaySounds.isChecked(),
             "delete_screenshots": self.cbDeleteScreenshots.isChecked(),
+            "save_log": self.cbLog.isChecked(),
             "screenshots_directory": self.txtCustomScreenshotFolder.text() if self.cbCustomScreenshotFolder.isChecked() else None,
             "game_directory": self.txtGameFolder.text(),
             "screenshot_threads": self.sbScreenshotThreads.value(),

@@ -80,6 +80,8 @@ class LostArkMarketWatcher(QApplication):
         os._exit(1)
 
     def spawn_observer(self):
+
+        AppLogger().refresh_handlers()
         screenshots_directory = None
         if Config().screenshots_directory:
             screenshots_directory = Config().screenshots_directory
