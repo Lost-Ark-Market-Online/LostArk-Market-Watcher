@@ -74,6 +74,7 @@ class AppLogger(metaclass=Singleton):
                 LOG_FILE_INFO, mode='a')
             self.file_handler_info.setFormatter(self.log_formatter)
             self.file_handler_info.setLevel(logging.DEBUG)
+            self.file_handler_info.addFilter(LoggingFilter(logging.INFO))
             self.logger.addHandler(self.file_handler_info)
 
         if self.file_handler_error is None:
@@ -81,6 +82,7 @@ class AppLogger(metaclass=Singleton):
                 LOG_FILE_ERROR, mode='a')
             self.file_handler_error.setFormatter(self.log_formatter)
             self.file_handler_error.setLevel(logging.ERROR)
+            self.file_handler_error.addFilter(LoggingFilter(logging.ERROR))
             self.logger.addHandler(self.file_handler_error)
 
     def file_disable(self):
@@ -95,13 +97,15 @@ class AppLogger(metaclass=Singleton):
         if self.signal_handler_info is None:
             self.signal_handler_info = SignalHandler(signal)
             self.signal_handler_info.setFormatter(self.log_formatter)
-            self.signal_handler_info.setLevel(logging.INFO)
+            self.signal_handler_info.setLevel(logging.DEBUG)
+            self.signal_handler_info.addFilter(LoggingFilter(logging.INFO))
             self.logger.addHandler(self.signal_handler_info)
 
         if self.file_handler_error is None:
             self.file_handler_error = SignalHandler(signal)
             self.file_handler_error.setFormatter(self.log_formatter)
             self.file_handler_error.setLevel(logging.ERROR)
+            self.file_handler_error.addFilter(LoggingFilter(logging.ERROR))
             self.logger.addHandler(self.file_handler_error)
 
     def signal_disable(self):
