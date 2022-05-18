@@ -1,5 +1,5 @@
 import modules.single_instance
-
+import faulthandler
 from datetime import datetime
 import sys
 import time
@@ -17,6 +17,7 @@ from watchdog.events import FileSystemEventHandler
 from concurrent.futures import ThreadPoolExecutor, wait
 
 from modules.config import Config
+from modules.logging import AppLogger
 from modules.db import MarketDb
 from modules.messagebox import MessageBoxHandler
 from modules.scan import scan
@@ -42,12 +43,12 @@ class LostArkMarketWatcher(QApplication):
         self.build_menu()
         self.market_db = MarketDb()
         self.message_box_handler = MessageBoxHandler(self.message_box)
+
         self.log_view = LostArkMarketWatcherLog()
+        AppLogger().signal_enable(self.log_view.signal)
         self.config_form = LostArkMarketWatcherConfig(self.open_config)
         self.volume_controller = VolumeController()
         self.config_form.config_updated.connect(self.spawn_observer)
-        self.market_db.log.connect(self.write_log)
-        self.market_db.error.connect(self.write_error)
         self.market_db.new_version.connect(self.new_version)
         self.spawn_observer()
 
@@ -87,7 +88,7 @@ class LostArkMarketWatcher(QApplication):
                 screenshots_directory = os.path.abspath(os.path.join(
                     Config().game_directory, 'EFGame', 'Screenshots'))
             else:
-                self.write_log('Screenshots directory not found')
+                AppLogger().error('Screenshots directory not found')
                 if Config().play_audio == True:
                     playError()
                 self.open_config.emit()
@@ -96,14 +97,14 @@ class LostArkMarketWatcher(QApplication):
         event_handler.on_created = self.on_created
 
         if self.observer is not None and self.observer.is_alive() == True:
-            self.write_log('Watcher unloaded')
+            AppLogger().info('Watcher unloaded')
             self.observer.stop()
 
         self.observer = Observer()
         self.observer.schedule(
             event_handler, screenshots_directory, recursive=False)
 
-        self.write_log('Watcher Started')
+        AppLogger().info('Watcher Started')
         self.observer.start()
         self.screenshot_executor = ThreadPoolExecutor(
             max_workers=Config().screenshot_threads)
@@ -113,22 +114,22 @@ class LostArkMarketWatcher(QApplication):
 
     def on_created(self, event):
         # Region Check
-        self.write_log('New screenshoot found')
+        AppLogger().info('New screenshoot found')
         Config().get_game_region()
-        self.write_log(f'Game Region Detected: {Config().game_region}')
+        AppLogger().info(f'Game Region Detected: {Config().game_region}')
         if Config().game_directory and (Config().game_region == Config().region):
-            self.write_log('Region check successful')
+            AppLogger().info('Region check successful')
             self.screenshot_executor.submit(
                 self.process_screenshot, event.src_path)
         else:
             if Config().game_directory is None:
-                self.write_log('No Game Directory')
+                AppLogger().error('No Game Directory')
                 if Config().play_audio == True:
                     playError()
                 self.open_config.emit()
                 self.message_box.emit({"type": "GAME_DIRECTORY"})
             else:
-                self.write_log('Game Directory found, wrong region')
+                AppLogger().error('Game Directory found, wrong region')
                 self.message_box.emit({"type": "REGION"})
 
     def process_screenshot(self, file):
@@ -136,9 +137,9 @@ class LostArkMarketWatcher(QApplication):
             time.sleep(2)
             if Config().play_audio == True:
                 playCheck()
-            self.write_log('Scanning: Start')
-            res = scan(file, self.write_log, self.write_error)
-            self.write_log('Scanning: Finish')
+            AppLogger().info('Scanning: Start')
+            res = scan(file)
+            AppLogger().info('Scanning: Finish')
             entry_futures = []
             entries_executor = ThreadPoolExecutor(
                 max_workers=Config().upload_threads)
@@ -146,7 +147,7 @@ class LostArkMarketWatcher(QApplication):
                 entry_futures.append(entries_executor.submit(
                     self.market_db.add_entry, item))
             wait(entry_futures)
-            self.write_log("Finished")
+            AppLogger().info("Finished")
             if Config().play_audio == True:
                 playSuccess()
             time.sleep(1)
@@ -155,23 +156,21 @@ class LostArkMarketWatcher(QApplication):
         except:
             if Config().play_audio == True:
                 playError()
-            self.write_error(traceback.format_exc())
-
-    def write_log(self, txt):
-        self.log_view.log(txt, False)
-
-    def write_error(self, txt):
-        self.log_view.log(txt, True)
+            AppLogger().error(traceback.format_exc())
 
     def new_version(self, new_version):
         self.message_box.emit({"type": "REGION", "new_version": new_version})
 
 
 if __name__ == "__main__":
-    myappid = f'lostarkmarketonline.watcher.app.{Config().version}'
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-    app = LostArkMarketWatcher([])
-    icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                              "assets/icons/favicon.png")))
-    app.setWindowIcon(icon)
-    sys.exit(app.exec())
+    AppLogger()
+    try:
+        myappid = f'lostarkmarketonline.watcher.app.{Config().version}'
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        app = LostArkMarketWatcher([])
+        icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                  "assets/icons/favicon.png")))
+        app.setWindowIcon(icon)
+        sys.exit(app.exec())
+    except Exception as e:
+        AppLogger().exception(e)

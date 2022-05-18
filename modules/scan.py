@@ -13,6 +13,7 @@ from modules.common.market_line import MarketLine
 from modules.common.point import Point
 from modules.common.rect import Rect
 from modules.config import Config
+from modules.logging import AppLogger
 from modules.market import filter_market_item_name
 from modules.process import process_number
 
@@ -55,7 +56,7 @@ scanMap = {
 }
 
 
-def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> str:
+def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False) -> str:
     """Detect Text inside rect within the screenshot"""
 
     # Crop image
@@ -138,7 +139,7 @@ def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False,
     return e_text
 
 
-def get_rarity(screenshot, rect: Rect, debug: bool = False, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> int:
+def get_rarity(screenshot, rect: Rect, debug: bool = False) -> int:
     """
     Detect Rarity inside rect within the screenshot based on color
     - 0 = Normal
@@ -195,7 +196,7 @@ def get_rarity(screenshot, rect: Rect, debug: bool = False, log_cb=lambda log_tx
             return 0
 
 
-def process_line_column(screenshot, tab, anchor, line_index, column_index, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[int, str | None] | (str | None):
+def process_line_column(screenshot, tab, anchor, line_index, column_index) -> typing.Tuple[int, str | None] | (str | None):
     """Process column from a specific line"""
     # Build column starting point
     rect_start = Point(
@@ -218,16 +219,16 @@ def process_line_column(screenshot, tab, anchor, line_index, column_index, log_c
     # If it is the first column, also detect rarity
     if column_index == 0:
         rarity = get_rarity(
-            screenshot, rect, log_cb, error_cb)
+            screenshot, rect)
         item = get_text(
-            screenshot, rect, True, log_cb, error_cb)
+            screenshot, rect, True)
         return rarity, item
     else:
         return get_text(
-            screenshot, rect, False, log_cb, error_cb)
+            screenshot, rect, False)
 
 
-def process_line(screenshot, tab, anchor, line_index, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> MarketLine | None:
+def process_line(screenshot, tab, anchor, line_index) -> MarketLine | None:
     """Process line columns using multithreading"""
     # Initialize executor and futures list
     column_futures = []
@@ -236,7 +237,7 @@ def process_line(screenshot, tab, anchor, line_index, log_cb=lambda log_txt: pri
     # Push tasks and wait for them to finish
     for column_index in range(5):
         column_futures.append(executor.submit(
-            process_line_column, screenshot, tab, anchor, line_index, column_index, log_cb, error_cb))
+            process_line_column, screenshot, tab, anchor, line_index, column_index))
     wait(column_futures)
 
     # Consolidate results
@@ -249,15 +250,15 @@ def process_line(screenshot, tab, anchor, line_index, log_cb=lambda log_txt: pri
         return None
 
     if Config().debug:
-        log_cb(f"Raw Name: {name}")
+        AppLogger().debug(f"Raw Name: {name}")
 
     name = re.sub(f"\n*[\(\[]Sold in bundles.*", "", name)
 
     name = re.sub(f"\n*[\(\[]Untradable upon.*", "", name)
 
     if Config().debug:
-        log_cb(f"Filtered Name: {name}")
-        log_cb(f"=================================")
+        AppLogger().debug(f"Filtered Name: {name}")
+        AppLogger().debug(f"=================================")
 
     # Filter name with whitelist
     name = filter_market_item_name(name)
@@ -272,7 +273,7 @@ def process_line(screenshot, tab, anchor, line_index, log_cb=lambda log_txt: pri
     )
 
 
-def process_market_table(screenshot, tab, anchor, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.List[MarketLine]:
+def process_market_table(screenshot, tab, anchor) -> typing.List[MarketLine]:
     """Process market table using multithreading"""
     # Initialize executor and futures list
     line_futures = []
@@ -281,7 +282,7 @@ def process_market_table(screenshot, tab, anchor, log_cb=lambda log_txt: print(l
     # Push tasks and wait for them to finish
     for line_index in range(10):
         line_futures.append(executor.submit(
-            process_line, screenshot, tab, anchor, line_index, log_cb, error_cb))
+            process_line, screenshot, tab, anchor, line_index))
     wait(line_futures)
 
     if Config().debug:
@@ -291,7 +292,7 @@ def process_market_table(screenshot, tab, anchor, log_cb=lambda log_txt: print(l
     return [line_future.result() for line_future in line_futures if line_future.result()]
 
 
-def match_market(screenshot, tab="market", log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[float, typing.Tuple[int, int]]:
+def match_market(screenshot, tab="market") -> typing.Tuple[float, typing.Tuple[int, int]]:
     """Process market table using multithreading"""
     # Read Search Market tab sample
     sample_file = ""
@@ -333,27 +334,27 @@ def match_market(screenshot, tab="market", log_cb=lambda log_txt: print(log_txt)
         if maxVal > threshold:
             screenshot = cv2.rectangle(
                 screenshot, (maxLoc[0], maxLoc[1]), (maxLoc[0]+sample.shape[1], maxLoc[1]+sample.shape[0]), (0, 0, 255), 2)
-            log_cb(f"Found Market tab: {tab}")
+            AppLogger().debug(f"Found Market tab: {tab}")
 
     return maxVal, maxLoc, tab
 
 
-def detect_market(screenshot, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.Tuple[str, Point]:
+def detect_market(screenshot) -> typing.Tuple[str, Point]:
     """Detect which market tab is open"""
 
     # Get confidence values for matching either search tab or interest tab
     matches = []
     matches.append(match_market(
-        screenshot, "interest", log_cb, error_cb))
+        screenshot, "interest"))
 
     matches.append(match_market(
-        screenshot, "market", log_cb, error_cb))
+        screenshot, "market"))
 
     matches.append(match_market(
-        screenshot, "buy_crystals", log_cb, error_cb))
+        screenshot, "buy_crystals"))
 
     matches.append(match_market(
-        screenshot, "purchase_gold", log_cb, error_cb))
+        screenshot, "purchase_gold"))
 
     match_conf, loc, tab = max(matches, key=itemgetter(0))
 
@@ -363,7 +364,7 @@ def detect_market(screenshot, log_cb=lambda log_txt: print(log_txt), error_cb=la
     return tab, Point(loc[0], loc[1])
 
 
-def crop_image(screenshot, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
+def crop_image(screenshot):
     """Remove black bars surrounding screenshot"""
 
     screenshot_middle = int(screenshot.shape[1] / 2)
@@ -389,7 +390,7 @@ def crop_image(screenshot, log_cb=lambda log_txt: print(log_txt), error_cb=lambd
     return screenshot
 
 
-def resize_screenshot(screenshot, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
+def resize_screenshot(screenshot):
     """Standarize screenshot size for matching"""
 
     scale = {
@@ -406,7 +407,7 @@ def resize_screenshot(screenshot, log_cb=lambda log_txt: print(log_txt), error_c
     return resized
 
 
-def process_crystal_table(screenshot, tab, anchor, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)):
+def process_crystal_table(screenshot, tab, anchor):
     rect_start = Point(
         x=int(anchor.x + scanMap[tab]['x']),
         y=int(anchor.y + (scanMap[tab]['y']))
@@ -414,7 +415,7 @@ def process_crystal_table(screenshot, tab, anchor, log_cb=lambda log_txt: print(
     rect = Rect(rect_start.x, rect_start.y,
                 rect_start.x + scanMap[tab]['w'], rect_start.y + scanMap[tab]['h'])
 
-    price = int(get_text(screenshot, rect, False, log_cb, error_cb))
+    price = int(get_text(screenshot, rect, False))
 
     if Config().debug:
         screenshot = cv2.rectangle(
@@ -424,20 +425,20 @@ def process_crystal_table(screenshot, tab, anchor, log_cb=lambda log_txt: print(
     match tab:
         case "purchase_gold":
             name = "Royal Crystal"
-            log_cb(f"Raw - {name}: {price}")
+            AppLogger().debug(f"Raw - {name}: {price}")
             price = round(price/238, 2)
         case "buy_crystals":
             name = "Blue Crystal"
-            log_cb(f"Raw - {name}: {price}")
+            AppLogger().debug(f"Raw - {name}: {price}")
             price = round(price/95, 2)
 
     return [MarketLine(0, name, price, price, price, 1)]
 
 
-def scan(filepath, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_txt: print(error_txt)) -> typing.List[MarketLine]:
+def scan(filepath) -> typing.List[MarketLine]:
     """Scan market screenshot"""
     if Config().debug:
-        log_cb('Directories cleanup')
+        AppLogger().debug('Directories cleanup')
         rmtree('debug')
         os.mkdir('debug')
         os.mkdir('debug/inspection')
@@ -448,21 +449,21 @@ def scan(filepath, log_cb=lambda log_txt: print(log_txt), error_cb=lambda error_
         cv2.imwrite('debug/1-screenshot.jpg', screenshot)
 
     # Crop black borders
-    screenshot = crop_image(screenshot, log_cb, error_cb)
+    screenshot = crop_image(screenshot)
 
     # Resize into measurements scale
-    screenshot = resize_screenshot(screenshot, log_cb, error_cb)
+    screenshot = resize_screenshot(screenshot)
 
     # Detect which Market tab is open
-    tab, anchor = detect_market(screenshot, log_cb, error_cb)
+    tab, anchor = detect_market(screenshot)
 
     match tab:
         case "market":
-            return process_market_table(screenshot, tab, anchor, log_cb, error_cb)
+            return process_market_table(screenshot, tab, anchor)
         case "interest":
-            return process_market_table(screenshot, tab, anchor, log_cb, error_cb)
+            return process_market_table(screenshot, tab, anchor)
         case "buy_crystals":
-            return process_crystal_table(screenshot, tab, anchor, log_cb, error_cb)
+            return process_crystal_table(screenshot, tab, anchor)
         case "purchase_gold":
-            return process_crystal_table(screenshot, tab, anchor, log_cb, error_cb)
+            return process_crystal_table(screenshot, tab, anchor)
     # Process market tab

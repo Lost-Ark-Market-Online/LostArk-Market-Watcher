@@ -208,7 +208,7 @@ enhancement_material={
         'rarity': 3
     },
     'Metallurgy Basic Casting': {
-        'name': 'Metallurgy Basic Casting',
+        'name': 'Metallurgy: Basic Casting',
         'amount': 1,
         'image': 'metallurgy-basic-casting.webp',
         'category': 'Enhancement Material',

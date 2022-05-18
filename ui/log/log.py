@@ -1,4 +1,5 @@
 # This Python file uses the following encoding: utf-8
+import logging
 import os
 from pathlib import Path
 import sys
@@ -8,16 +9,20 @@ from PySide6.QtCore import QFile, Qt, Signal
 from PySide6.QtGui import QColor
 from datetime import datetime
 from modules.config import Config
+from modules.logging import AppLogger
 from ui.common.draggablewindow import DraggableWindow
 from ui.common.uiloader import UiLoader
 import ui.log.resources
 
 
 class LostArkMarketWatcherLog(QMainWindow):
+    signal = Signal(str, int)
+
     def __init__(self):
         super(LostArkMarketWatcherLog, self).__init__()
         self.load_ui()
         self.setWindowTitle("Log - LostArkMarketOnline")
+        self.signal.connect(self.log)
 
     def load_ui(self):
         loader = UiLoader(self)
@@ -40,21 +45,13 @@ class LostArkMarketWatcherLog(QMainWindow):
     def close(self):
         self.hide()
 
-    def log(self, txt, error=False):
-        log_txt = f'{datetime.now().strftime("%m/%d/%Y-%H:%M:%S")} - {txt}'
-        print(log_txt)
-        i = QListWidgetItem(log_txt)
-        if error:
+    def log(self, txt, level):
+        i = QListWidgetItem(txt)
+        if level <= logging.INFO:
+            i.setForeground(QColor('#00FF00'))
+        else:
             i.setForeground(QColor('#FFFFFF'))
             i.setBackground(QColor('#ED4337'))
-            if Config().save_log:
-                with open(f'{datetime.now().strftime("%m-%d-%Y")}.error', "a") as file_object:
-                    file_object.write(f"{log_txt}\n")
-        else:
-            i.setForeground(QColor('#00FF00'))
-            if Config().save_log:
-                with open(f'{datetime.now().strftime("%m-%d-%Y")}.log', "a") as file_object:
-                    file_object.write(f"{log_txt}\n")
         self.lLog.addItem(i)
         self.lLog.scrollToBottom()
 

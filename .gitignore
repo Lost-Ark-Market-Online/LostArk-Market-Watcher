@@ -9,3 +9,4 @@ config.ini
 token.json
 *.log
 *.error
+logs/

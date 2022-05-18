@@ -9,6 +9,7 @@ from modules.auth import refresh_token
 from modules.common.market_line import MarketLine
 from modules.config import Config
 from modules.errors import NoTokenError
+from modules.logging import AppLogger
 from modules.process import process_item
 from modules.sound import playError, playPulse
 from PySide6.QtCore import Signal, QObject
@@ -18,8 +19,6 @@ project = 'lostarkmarket-79ddf'
 
 
 class MarketDb(QObject):
-    log: Signal = Signal(str)
-    error: Signal = Signal(str)
     new_version: Signal = Signal(str)
     creds: Credentials = None
     db: Client = None
@@ -32,15 +31,15 @@ class MarketDb(QObject):
             self.db = Client(project=project, credentials=self.creds)
             Config().region = self.db.document(
                 f'collaborators/{Config().uid}').get().get('region')
+            AppLogger().info(f"Got Watcher Region: '{Config().region}'")
             self.db.document(
                 "app-info/market-watcher").on_snapshot(self.new_version_cb)
-
         except NoTokenError:
-            traceback.print_exc()
+            AppLogger().error(traceback.format_exc)
 
     def refresh_credentials(self):
         if (self.last_refresh is None) or (self.last_refresh + timedelta(minutes=30) < datetime.now()):
-            self.log.emit(f"Refresh credentials")
+            AppLogger().info(f"Refresh credentials")
             try:
                 refresh_token()
                 self.creds = Credentials(
@@ -50,8 +49,8 @@ class MarketDb(QObject):
                 self.last_refresh = datetime.now()
             except:
                 traceback.print_exc()
-                self.error.emit("Error getting credentials")
-                self.error.emit(traceback.format_exc)
+                AppLogger().error("Error getting credentials")
+                AppLogger().error(traceback.format_exc)
 
     def add_entry(self, market_line: MarketLine):
         try:
@@ -77,7 +76,7 @@ class MarketDb(QObject):
                 raise Exception('NO_VALID_PRICE_FOUND')
 
             if (item_doc.exists == False):
-                self.log.emit(
+                AppLogger().info(
                     f"Create {Config().region}/{slugify(item['name'])}-{market_line.rarity}")
 
                 item['updatedAt'] = datetime.utcnow()
@@ -108,14 +107,14 @@ class MarketDb(QObject):
                 'watcher_version': Config().version
             })
 
-            self.log.emit(
+            AppLogger().info(
                 f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             if Config().play_audio:
                 playPulse()
         except:
-            self.error.emit(
+            AppLogger().error(
                 f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
-            self.error.emit(traceback.format_exc())
+            AppLogger().error(traceback.format_exc())
             if Config().play_audio:
                 playError()
 

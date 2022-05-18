@@ -28,7 +28,6 @@ class SingleInstance(object):
                 type, e, tb = sys.exc_info()
                 if e.errno == 13:
                     raise SingleInstanceException()
-                print(e.errno)
                 raise
         self.initialized = True
 
