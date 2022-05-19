@@ -111,6 +111,13 @@ class Config(metaclass=Singleton):
                 self.game_directory = find_lostark_directory()
                 changes = True
 
+            if self._config.has_option("Watcher", "debug"):
+                self.debug = self._config.get(
+                    "Watcher", "debug") == 'True'
+            else:
+                self.debug = False
+                changes = True
+
             self.get_game_region()
         else:
             self.play_audio = True
