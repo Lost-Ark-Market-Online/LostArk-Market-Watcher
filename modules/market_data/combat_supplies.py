@@ -7,10 +7,10 @@ combat_supplies = {
         'subcategory': 'Battle Item - Buff',
         'rarity': 3
     },
-    'Awakening Potion': {
-        'name': 'Awakening Potion',
+    'Stimulant': {
+        'name': 'Stimulant',
         'amount': 1,
-        'image': 'awakening-potion.webp',
+        'image': 'stimulant.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 3
