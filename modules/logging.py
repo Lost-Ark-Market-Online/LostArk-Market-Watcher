@@ -4,8 +4,6 @@ from datetime import datetime
 from modules.common.singleton import Singleton
 from modules.config import Config
 
-from PySide6.QtCore import Signal, QObject
-
 import logging
 import os
 
@@ -101,12 +99,12 @@ class AppLogger(metaclass=Singleton):
             self.signal_handler_info.addFilter(LoggingFilter(logging.INFO))
             self.logger.addHandler(self.signal_handler_info)
 
-        if self.file_handler_error is None:
-            self.file_handler_error = SignalHandler(signal)
-            self.file_handler_error.setFormatter(self.log_formatter)
-            self.file_handler_error.setLevel(logging.ERROR)
-            self.file_handler_error.addFilter(LoggingFilter(logging.ERROR))
-            self.logger.addHandler(self.file_handler_error)
+        if self.signal_handler_error is None:
+            self.signal_handler_error = SignalHandler(signal)
+            self.signal_handler_error.setFormatter(self.log_formatter)
+            self.signal_handler_error.setLevel(logging.ERROR)
+            self.signal_handler_error.addFilter(LoggingFilter(logging.ERROR))
+            self.logger.addHandler(self.signal_handler_error)
 
     def signal_disable(self):
         if self.signal_handler_info:

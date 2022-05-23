@@ -155,10 +155,10 @@ class LostArkMarketWatcher(QApplication):
             time.sleep(1)
             if Config().delete_screenshots == True:
                 os.remove(file)
-        except:
+        except Exception as ex:
             if Config().play_audio == True:
                 playError()
-            AppLogger().error(traceback.format_exc())
+            AppLogger().exception(ex)
 
     def new_version(self, new_version):
         self.message_box.emit({"type": "REGION", "new_version": new_version})

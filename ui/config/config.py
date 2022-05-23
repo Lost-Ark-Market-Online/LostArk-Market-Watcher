@@ -5,6 +5,7 @@ import traceback
 from PySide6.QtWidgets import QMainWindow, QFileDialog
 from PySide6.QtCore import QFile, Qt, Signal
 from PySide6.QtGui import QIcon
+from modules.logging import AppLogger
 from modules.sound import VolumeController
 
 from ui.common.draggablewindow import DraggableWindow
@@ -122,5 +123,5 @@ class LostArkMarketWatcherConfig(QMainWindow):
             self.cbPlaySounds.setChecked(Config().play_audio)
             self.slVolume.setValue(Config().volume)
             self.show()
-        except:
-            traceback.print_exc()
+        except Exception as ex:
+            AppLogger().exception(ex)

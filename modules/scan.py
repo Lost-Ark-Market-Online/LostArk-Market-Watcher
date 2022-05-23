@@ -330,7 +330,7 @@ def match_market(screenshot, tab="market") -> typing.Tuple[float, typing.Tuple[i
     _, maxVal, _, maxLoc = cv2.minMaxLoc(res)
 
     if Config().debug == True:
-        print(f"{tab}: {maxVal}")
+        AppLogger().debug(f"{tab}: {maxVal}")
         if maxVal > threshold:
             screenshot = cv2.rectangle(
                 screenshot, (maxLoc[0], maxLoc[1]), (maxLoc[0]+sample.shape[1], maxLoc[1]+sample.shape[0]), (0, 0, 255), 2)

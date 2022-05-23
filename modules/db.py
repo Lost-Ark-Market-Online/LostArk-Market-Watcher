@@ -14,6 +14,7 @@ from modules.process import process_item
 from modules.sound import playError, playPulse
 from PySide6.QtCore import Signal, QObject
 from packaging import version
+from google.api_core.exceptions import Unauthenticated
 
 project = 'lostarkmarket-79ddf'
 
@@ -34,11 +35,11 @@ class MarketDb(QObject):
             AppLogger().info(f"Got Watcher Region: '{Config().region}'")
             self.db.document(
                 "app-info/market-watcher").on_snapshot(self.new_version_cb)
-        except NoTokenError:
-            AppLogger().error(traceback.format_exc)
+        except NoTokenError as ex:
+            AppLogger().exception(ex)
 
-    def refresh_credentials(self):
-        if (self.last_refresh is None) or (self.last_refresh + timedelta(minutes=30) < datetime.now()):
+    def refresh_credentials(self, forced=False):
+        if (self.last_refresh is None) or (self.last_refresh + timedelta(minutes=30) < datetime.now()) or forced:
             AppLogger().info(f"Refresh credentials")
             try:
                 refresh_token()
@@ -47,12 +48,10 @@ class MarketDb(QObject):
                     refresh_token=Config().refresh_token
                 )
                 self.last_refresh = datetime.now()
-            except:
-                traceback.print_exc()
-                AppLogger().error("Error getting credentials")
-                AppLogger().error(traceback.format_exc)
+            except Exception as ex:
+                AppLogger().exception(ex)
 
-    def add_entry(self, market_line: MarketLine):
+    def add_entry(self, market_line: MarketLine, retries: int = 0):
         try:
             # Refresh credentials if needed
             self.refresh_credentials()
@@ -106,15 +105,19 @@ class MarketDb(QObject):
                 'author': Config().uid,
                 'watcher_version': Config().version
             })
-
             AppLogger().info(
                 f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             if Config().play_audio:
                 playPulse()
-        except:
+        except Unauthenticated:
+            self.refresh_credentials(True)
+            if retries < 3:
+                self.add_entry(market_line, retries + 1)
+
+        except Exception as ex:
             AppLogger().error(
                 f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
-            AppLogger().error(traceback.format_exc())
+            AppLogger().exception(ex)
             if Config().play_audio:
                 playError()
 
