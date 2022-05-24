@@ -255,6 +255,14 @@ enhancement_material={
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
     },
+    'Tailoring: Applied Mending': {
+        'name': 'Tailoring: Applied Mending',
+        'amount': 1,
+        'image': 'tailoring-basic-mending.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 4
+    },
     'Metallurgy: Basic Welding': {
         'name': 'Metallurgy: Basic Welding',
         'amount': 1,
@@ -262,6 +270,14 @@ enhancement_material={
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 3
+    },
+    'Metallurgy: Applied Welding': {
+        'name': 'Metallurgy: Applied Welding',
+        'amount': 1,
+        'image': 'metallurgy-basic-welding.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 4
     },
     'Powder of Sage': {
         'name': 'Powder of Sage',
