@@ -167,7 +167,7 @@ class LostArkMarketWatcher(QApplication):
 if __name__ == "__main__":
     AppLogger()
     try:
-        myappid = f'lostarkmarketonline.watcher.app.{Config().version}'
+        myappid = f'lamo.watcher.app.{Config().version}'
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
         app = LostArkMarketWatcher([])
         icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),

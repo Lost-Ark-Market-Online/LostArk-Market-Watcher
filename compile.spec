@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='LostArkMarketWatcher',
+    name='lamo-watcher',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -42,4 +42,5 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     icon='assets\\icons\\favicon.ico',
+    version='file_version_info.txt'
 )
