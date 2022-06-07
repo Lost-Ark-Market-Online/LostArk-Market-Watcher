@@ -1,13 +1,13 @@
 ## LostArk Market Watcher
 This app listens to the screenshot folder for new files.
-Starting on the version 0.3.0 this app needs to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
+This app is meant to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
 Each segment then is parsed usin Tesseract OCR and classified
 The information then is collected and published to the LostArk Marketplace firestore database.
 
 In order to contribute to the LostArk Marketplace database, the contributor must be authenticated and aproved. 
 
-### Dependencies
+### App Dependencies
 - TesseractOCR ( A compiled version for Windows x64 is included in this repository )
 - PyTesseract `pip install pytesseract`
 - OpenCV `pip install opencv-python`
@@ -20,10 +20,19 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 - lxml `pip install lxml`
 - pycaw `pip install pycaw`
 
+### Compilation Dependencies
+- PyInstaller `pip install PyInstaller`
+- pyinstaller-versionfile `pip install pyinstaller-versionfile`
+
 ### Assets
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.6.1
+- New compilation script
+- Added metadata to the app file
+- New versioning structure
+
 ### 0.8.5
 - Add T3 Books compatibility
 
