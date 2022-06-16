@@ -11,6 +11,7 @@ from modules.market_data.pets import pets
 from modules.market_data.mount import mount
 from modules.market_data.gem_chest import gem_chest
 from modules.market_data.currency_exchange import currency_exchange
+from modules.market_data.other import other
 
 market_map = {
     **engraving_recipe,
@@ -23,14 +24,17 @@ market_map = {
     **pets,
     **mount,
     **gem_chest,
-    **currency_exchange
+    **currency_exchange,
+    **other
 }
 
 
 def filter_market_item_name(raw_name: str) -> str | None:
+    if(raw_name in market_map):
+        return raw_name
     result, confidence = process.extractOne(
         raw_name, market_map.keys(), scorer=process.fuzz.token_sort_ratio)
-    if confidence < 55:
+    if confidence < 70:
         return None
     return result
 

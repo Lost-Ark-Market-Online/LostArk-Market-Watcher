@@ -218,10 +218,10 @@ def process_line_column(screenshot, tab, anchor, line_index, column_index) -> ty
 
     # If it is the first column, also detect rarity
     if column_index == 0:
-        rarity = get_rarity(
-            screenshot, rect)
         item = get_text(
             screenshot, rect, True)
+        rarity = get_rarity(
+            screenshot, rect)
         return rarity, item
     else:
         return get_text(

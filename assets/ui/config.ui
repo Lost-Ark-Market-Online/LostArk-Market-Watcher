@@ -257,6 +257,9 @@ QPushButton:pressed#btnGameFolder{
         </item>
         <item>
          <widget class="QLineEdit" name="txtCustomScreenshotFolder">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="placeholderText">
            <string>Custom Screenshots Folder</string>
           </property>
@@ -264,6 +267,9 @@ QPushButton:pressed#btnGameFolder{
         </item>
         <item>
          <widget class="QPushButton" name="btnCustomScreenshotFolder">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="styleSheet">
            <string notr="true">QPushButton#btnCustomScreenshotFolder{
 	background-image: url(:/resources/images/btnFileNormal.png);
@@ -340,7 +346,7 @@ QPushButton:pressed#btnCustomScreenshotFolder{
            <number>1</number>
           </property>
           <property name="maximum">
-           <number>3</number>
+           <number>10</number>
           </property>
          </widget>
         </item>
@@ -367,6 +373,13 @@ QPushButton:pressed#btnCustomScreenshotFolder{
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="cbOpenLogOnStart">
+        <property name="text">
+         <string>Open Log window on start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="cbPlaySounds">
         <property name="text">
          <string>Play sounds</string>
@@ -374,7 +387,7 @@ QPushButton:pressed#btnCustomScreenshotFolder{
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="hlVolume">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <property name="bottomMargin">
          <number>0</number>
         </property>
@@ -394,6 +407,9 @@ QPushButton:pressed#btnCustomScreenshotFolder{
     width: 18px;
     border-radius: 2px;
 }</string>
+          </property>
+          <property name="maximum">
+           <number>100</number>
           </property>
           <property name="value">
            <number>99</number>

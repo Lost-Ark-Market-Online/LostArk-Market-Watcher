@@ -10,6 +10,7 @@ import ctypes
 from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QMessageBox
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Signal
+from thefuzz import fuzz
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -50,6 +51,8 @@ class LostArkMarketWatcher(QApplication):
         self.volume_controller = VolumeController()
         self.config_form.config_updated.connect(self.spawn_observer)
         self.market_db.new_version.connect(self.new_version)
+        if Config().open_log_on_start:
+            self.open_log()
         self.spawn_observer()
 
     def build_menu(self):
@@ -119,7 +122,7 @@ class LostArkMarketWatcher(QApplication):
         AppLogger().info('New screenshoot found')
         Config().get_game_region()
         AppLogger().info(f'Game Region Detected: {Config().game_region}')
-        if Config().game_directory and (Config().game_region == Config().region):
+        if Config().game_directory and (fuzz.ratio(Config().game_region, Config().region) > 98):
             AppLogger().info('Region check successful')
             self.screenshot_executor.submit(
                 self.process_screenshot, event.src_path)

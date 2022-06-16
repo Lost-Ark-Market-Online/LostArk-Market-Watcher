@@ -8,7 +8,7 @@ import logging
 import os
 
 DATEFMT = '%Y-%m-%dT%H:%M:%S'
-LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
+LOG_FORMAT = '%(asctime)s - WATCHER - %(levelname)s - %(message)s'
 LOG_FILE_INFO = f'logs/{datetime.now().strftime("%m-%d-%Y")}.log'
 LOG_FILE_ERROR = f'logs/{datetime.now().strftime("%m-%d-%Y")}.err'
 

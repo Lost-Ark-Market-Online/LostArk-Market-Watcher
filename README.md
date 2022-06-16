@@ -21,13 +21,25 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 - pycaw `pip install pycaw`
 
 ### Compilation Dependencies
-- PyInstaller `pip install PyInstaller`
-- pyinstaller-versionfile `pip install pyinstaller-versionfile`
+- nuitka `pip install nuitka`
+- zstandard `pip install zstandard`
+- ordered-set `pip install ordered-set`
 
 ### Assets
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.8.4
+- Bugifx: Auth strategy made thread safe
+- Bugfix: Update Sound Manager compatibility with new compiler
+- Bugifx: Pre match item name before fuzzy match
+- Bugfix: Add other to market to prevent bad fuzzy matches
+- Adjust stricter fuzzy match from 55 to 70
+- Bugfix: Region match switched to fuzzy match instead of strict match
+
+### 0.8.7.1
+- Swap compiler to Nuitka
+
 ### 0.8.6.1
 - New compilation script
 - Added metadata to the app file

@@ -15,7 +15,7 @@ game_region_map = {
 
 
 class Config(metaclass=Singleton):
-    version = "0.8.6.1"
+    version = "0.8.8.1"
     region: str
     game_region: str
     debug = False
@@ -31,6 +31,7 @@ class Config(metaclass=Singleton):
     upload_threads: int
     screenshots_directory: str
     game_directory: str
+    open_log_on_start: bool
     _config: configparser.ConfigParser
 
     def __init__(self):
@@ -111,12 +112,21 @@ class Config(metaclass=Singleton):
                 self.game_directory = find_lostark_directory()
                 changes = True
 
+            if self._config.has_option("Watcher", "open_log_on_start"):
+                self.open_log_on_start = self._config.get(
+                    "Watcher", "open_log_on_start") == 'True'
+            else:
+                self.open_log_on_start = False
+                changes = True
+                
             if self._config.has_option("Watcher", "debug"):
                 self.debug = self._config.get(
                     "Watcher", "debug") == 'True'
             else:
                 self.debug = False
                 changes = True
+
+            
 
             self.get_game_region()
         else:
@@ -128,6 +138,7 @@ class Config(metaclass=Singleton):
             self.screenshot_threads = 1
             self.upload_threads = 2
             self.screenshots_directory = None
+            self.open_log_on_start = False
             self.game_directory = find_lostark_directory()
             changes = True        
 
@@ -171,6 +182,9 @@ class Config(metaclass=Singleton):
         self.set_or_remove_config_option(
             "Watcher", "screenshots_directory", self.screenshots_directory
         )
+        self.set_or_remove_config_option(
+            "Watcher", "open_log_on_start", self.open_log_on_start
+        )
         with open("config.ini", "w") as configfile:
             self._config.write(configfile)
 
@@ -205,6 +219,8 @@ class Config(metaclass=Singleton):
             self.screenshots_directory = new_config["screenshots_directory"]
         if "game_directory" in new_config:
             self.game_directory = new_config["game_directory"]
+        if "open_log_on_start" in new_config:
+            self.open_log_on_start = new_config["open_log_on_start"]
         self.update_config_file()
 
     def get_game_region(self):

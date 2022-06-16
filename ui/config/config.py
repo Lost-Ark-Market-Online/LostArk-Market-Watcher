@@ -92,6 +92,7 @@ class LostArkMarketWatcherConfig(QMainWindow):
             "scan_threads": self.sbScanningThreads.value(),
             "upload_threads": self.sbUploadingThreads.value(),
             "volume": self.slVolume.value(),
+            "open_log_on_start": self.cbOpenLogOnStart.isChecked(),
         })
         self.config_updated.emit()
         self.close()
@@ -119,6 +120,7 @@ class LostArkMarketWatcherConfig(QMainWindow):
             self.sbScreenshotThreads.setValue(Config().screenshot_threads)
             self.sbScanningThreads.setValue(Config().scan_threads)
             self.sbUploadingThreads.setValue(Config().upload_threads)
+            self.cbOpenLogOnStart.setChecked(Config().open_log_on_start)
 
             self.cbPlaySounds.setChecked(Config().play_audio)
             self.slVolume.setValue(Config().volume)

@@ -10,3 +10,8 @@ token.json
 *.log
 *.error
 logs/
+index.build/
+index.dist/
+index.onefile-build/
+lamo-watcher.exe
+lamo-watcher-debug.exe

@@ -8,5 +8,6 @@ python-slugify
 thefuzz[speedup]
 lxml
 pycaw
-PyInstaller
-pyinstaller-versionfile
+nuitka
+zstandard
+ordered-set
