@@ -15,7 +15,7 @@ game_region_map = {
 
 
 class Config(metaclass=Singleton):
-    version = "0.8.8.1"
+    version = "0.8.8.4"
     region: str
     game_region: str
     debug = False
