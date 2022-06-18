@@ -17,6 +17,7 @@ from modules.sound import playError, playPulse
 from PySide6.QtCore import Signal, QObject
 from packaging import version
 from google.api_core.exceptions import Unauthenticated
+from sentry_sdk import capture_exception
 
 project = 'lostarkmarket-79ddf'
 
@@ -43,6 +44,7 @@ class MarketDb(QObject):
                 "app-info/market-watcher").on_snapshot(self.new_version_cb)
         except NoTokenError as ex:
             AppLogger().exception(ex)
+            capture_exception(ex)
 
     def refresh_credentials(self, forced=False):
         if (Auth().last_refresh + timedelta(minutes=30) < datetime.now()) or forced:
@@ -55,6 +57,7 @@ class MarketDb(QObject):
                 )
             except Exception as ex:
                 AppLogger().exception(ex)
+                capture_exception(ex)
 
     def add_entries(self, market_lines: typing.List[MarketLine]):
         entry_futures = [self.entries_executor.submit(
@@ -120,16 +123,18 @@ class MarketDb(QObject):
                     f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
                 if Config().play_audio:
                     playPulse()
-        except Unauthenticated:
+        except Unauthenticated as ex:
             self.refresh_credentials(True)
             if retries < 3:
                 self.add_entry(market_line, retries + 1)
             else:
+                capture_exception(ex)
                 raise Exception("Can't Authenticate - Please restart the App")
         except Exception as ex:
             AppLogger().error(
                 f"Failed: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
             AppLogger().exception(ex)
+            capture_exception(ex)
             if Config().play_audio:
                 playError()
 

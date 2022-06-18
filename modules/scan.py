@@ -56,7 +56,7 @@ scanMap = {
 }
 
 
-def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False) -> str:
+def get_text(screenshot, rect: Rect, is_name: bool = False) -> str:
     """Detect Text inside rect within the screenshot"""
 
     # Crop image
@@ -139,7 +139,7 @@ def get_text(screenshot, rect: Rect, is_name: bool = False, debug: bool = False)
     return e_text
 
 
-def get_rarity(screenshot, rect: Rect, debug: bool = False) -> int:
+def get_rarity(screenshot, rect: Rect) -> int:
     """
     Detect Rarity inside rect within the screenshot based on color
     - 0 = Normal
@@ -249,19 +249,17 @@ def process_line(screenshot, tab, anchor, line_index) -> MarketLine | None:
     if name is None:
         return None
 
-    if Config().debug:
-        AppLogger().debug(f"Raw Name: {name}")
 
     name = re.sub(f"\n*[\(\[]Sold in bundles.*", "", name)
 
     name = re.sub(f"\n*[\(\[]Untradable upon.*", "", name)
 
-    if Config().debug:
-        AppLogger().debug(f"Filtered Name: {name}")
-        AppLogger().debug(f"=================================")
+    AppLogger().info(f"Scanned Name: {name}")
 
     # Filter name with whitelist
     name = filter_market_item_name(name)
+
+    AppLogger().info(f"Filtered Name: {name}")
 
     return MarketLine(
         rarity=columns[0][0],

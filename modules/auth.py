@@ -5,6 +5,7 @@ from modules.common.singleton import Singleton
 from modules.config import Config
 from modules.errors import NoTokenError
 from modules.logging import AppLogger
+from sentry_sdk import capture_exception
 
 api_key = 'AIzaSyBMTA0A2fy-dh4jWidbAtYseC7ZZssnsmk'
 
@@ -31,5 +32,6 @@ class Auth(metaclass=Singleton):
             self.lock.release()
         except Exception as ex:
             AppLogger().exception(ex)
+            capture_exception(ex)
             self.lock.release()
 

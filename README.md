@@ -29,6 +29,10 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.9.2
+- Add Sentry linked to GlitchTip
+- Minor logging changes
+
 ### 0.8.8.4
 - Bugifx: Auth strategy made thread safe
 - Bugfix: Update Sound Manager compatibility with new compiler

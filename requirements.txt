@@ -11,3 +11,4 @@ pycaw
 nuitka
 zstandard
 ordered-set
+sentry-sdk

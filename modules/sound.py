@@ -24,9 +24,10 @@ class PlaySoundThread(Thread):
     def playsound(self, file):
         if VolumeController().audio == None:
             VolumeController().searchProcess()
-        wave_obj = sa.WaveObject.from_wave_file(file)
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
+        if VolumeController().audio:
+            wave_obj = sa.WaveObject.from_wave_file(file)
+            play_obj = wave_obj.play()
+            play_obj.wait_done()
 
 
 def playSuccess():
@@ -66,7 +67,7 @@ class VolumeController(metaclass=Singleton):
         self.lock.acquire()
         try:            
             self.sessions = AudioUtilities.GetAllSessions()
-            AppLogger().info(f"VolumeController - FileName: {file_name} - retry: {retries}")            
+            AppLogger().debug(f"VolumeController - FileName: {file_name} - retry: {retries}")            
             for session in self.sessions:
                 if session.Process and session.Process.name() == file_name:
                     AppLogger().info(f"VolumeController - FileName: {file_name} - Found")

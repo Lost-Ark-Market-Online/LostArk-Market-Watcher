@@ -6,6 +6,8 @@ import time
 import os
 import traceback
 import ctypes
+import sentry_sdk
+from sentry_sdk import capture_exception
 
 from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QMessageBox
 from PySide6.QtGui import QIcon
@@ -162,6 +164,7 @@ class LostArkMarketWatcher(QApplication):
             if Config().play_audio == True:
                 playError()
             AppLogger().exception(ex)
+            capture_exception(ex)
 
     def new_version(self, new_version):
         self.message_box.emit({"type": "REGION", "new_version": new_version})
@@ -170,6 +173,7 @@ class LostArkMarketWatcher(QApplication):
 if __name__ == "__main__":
     AppLogger()
     try:
+        sentry_sdk.init("https://98549262f95b4971bcf964c15b6910f8@app.glitchtip.com/1403")
         myappid = f'lamo.watcher.app.{Config().version}'
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
         app = LostArkMarketWatcher([])
@@ -179,3 +183,4 @@ if __name__ == "__main__":
         sys.exit(app.exec())
     except Exception as e:
         AppLogger().exception(e)
+        capture_exception(e)
