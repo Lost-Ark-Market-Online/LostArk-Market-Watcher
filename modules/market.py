@@ -34,7 +34,7 @@ def filter_market_item_name(raw_name: str) -> str | None:
         return raw_name
     result, confidence = process.extractOne(
         raw_name, market_map.keys(), scorer=process.fuzz.token_sort_ratio)
-    if confidence < 70:
+    if confidence < 60:
         return None
     return result
 

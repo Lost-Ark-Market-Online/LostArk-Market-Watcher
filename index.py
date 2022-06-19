@@ -1,3 +1,4 @@
+from shutil import rmtree
 import modules.single_instance
 import faulthandler
 from datetime import datetime
@@ -180,6 +181,13 @@ if __name__ == "__main__":
         icon = QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                   "assets/icons/favicon.png")))
         app.setWindowIcon(icon)
+        
+        if Config().debug:
+            AppLogger().debug('Directories cleanup')
+            if os.path.isdir('debug'):
+                rmtree('debug')
+            os.mkdir('debug')
+            os.mkdir('debug/inspection')
         sys.exit(app.exec())
     except Exception as e:
         AppLogger().exception(e)
