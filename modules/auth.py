@@ -33,6 +33,6 @@ class Auth(metaclass=Singleton):
             self.lock.release()
         except Exception as ex:
             AppLogger().exception(ex)
-            AppLogger().client.capture_exception()
+            AppLogger().client.capture_exceptions()
             self.lock.release()
 

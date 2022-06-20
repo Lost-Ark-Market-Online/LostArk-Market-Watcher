@@ -164,7 +164,7 @@ class LostArkMarketWatcher(QApplication):
             if Config().play_audio == True:
                 playError()
             AppLogger().exception(ex)
-            AppLogger().client.capture_exception()
+            AppLogger().client.capture_exceptions()
 
     def new_version(self, new_version):
         self.message_box.emit({"type": "REGION", "new_version": new_version})
@@ -189,4 +189,4 @@ if __name__ == "__main__":
         sys.exit(app.exec())
     except Exception as e:
         AppLogger().exception(e)
-        AppLogger().client.capture_exception()
+        AppLogger().client.capture_exceptions()

@@ -44,5 +44,5 @@ def process_number(n):
             return int(n.replace('.', ''))
     except Exception as ex:
         AppLogger().exception(ex)
-        AppLogger().client.capture_exception()
+        AppLogger().client.capture_exceptions()
         return None

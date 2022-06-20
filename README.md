@@ -29,6 +29,10 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.10.3
+- bugfix currency exchange scan
+- bugfix error logging typo
+
 ### 0.8.10.2
 - Refactor scan
 - Fix debug files creation
