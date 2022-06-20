@@ -33,6 +33,7 @@ Audio files from [MixKit](https://mixkit.co/)
 - Refactor scan
 - Fix debug files creation
 - Name filter flexibility fix
+- Fix audio process startup detection
 
 ### 0.8.9.2
 - Add Sentry linked to GlitchTip
