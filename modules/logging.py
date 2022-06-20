@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from raven import Client
 
 from modules.common.singleton import Singleton
 from modules.config import Config
@@ -35,6 +36,7 @@ class LoggingFilter(object):
 
 
 class AppLogger(metaclass=Singleton):
+    client: Client = None
     logger: logging.Logger = None
     file_handler_info: logging.FileHandler = None
     file_handler_error: logging.FileHandler = None
@@ -43,7 +45,9 @@ class AppLogger(metaclass=Singleton):
     log_formatter: logging.Formatter = logging.Formatter(
         datefmt=DATEFMT, fmt=LOG_FORMAT)
 
-    def __init__(self) -> None:
+    def __init__(self) -> None:        
+        self.client = Client("https://98549262f95b4971bcf964c15b6910f8@app.glitchtip.com/1403")
+        self.client.user_context({"id":Config().uid})
         self.logger = logging.getLogger('LostArkMarketWatcher')
 
         stream_handler = logging.StreamHandler()

@@ -1,8 +1,10 @@
 import os
 import sys
 import threading
+import wave
 from time import sleep
 import simpleaudio as sa
+import simpleaudio.functionchecks as fc
 from threading import Thread
 from pycaw.pycaw import AudioUtilities
 
@@ -56,6 +58,10 @@ class VolumeController(metaclass=Singleton):
     lock = threading.Lock()
 
     def __init__(self):
+        wave_obj = sa.WaveObject.from_wave_file(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                 "../assets/sounds/silent.wav")))
+        play_obj = wave_obj.play()
+        play_obj.wait_done()
         self.sessions = AudioUtilities.GetAllSessions()
         spt = Thread(target=self.searchProcess)
         spt.start()

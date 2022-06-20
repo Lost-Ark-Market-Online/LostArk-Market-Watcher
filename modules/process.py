@@ -2,7 +2,6 @@ import re
 from modules.common.market_line import MarketLine
 from modules.logging import AppLogger
 from modules.market import get_market_item_by_name
-from sentry_sdk import capture_exception
 
 
 def process_item(market_line: MarketLine) -> dict:
@@ -45,5 +44,5 @@ def process_number(n):
             return int(n.replace('.', ''))
     except Exception as ex:
         AppLogger().exception(ex)
-        capture_exception(ex)
+        AppLogger().client.capture_exception()
         return None
