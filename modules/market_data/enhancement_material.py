@@ -31,18 +31,18 @@ enhancement_material={
         'subcategory': 'Honing Materials',
         'rarity': 0
     },
-    'Guardian Stone Crystal': {
-        'name': 'Guardian Stone Crystal',
+    'Crystallized Guardian Stone': {
+        'name': 'Crystallized Guardian Stone',
         'amount': 10,
-        'image': 'guardian-stone-crystal.webp',
+        'image': 'crystallized-guardian-stone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0
     },
-    'Destruction Stone Crystal': {
-        'name': 'Destruction Stone Crystal',
+    'Crystallized Destruction Stone': {
+        'name': 'Crystallized Destruction Stone',
         'amount': 10,
-        'image': 'destruction-stone-crystal.webp',
+        'image': 'crystallized-destruction-stone.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
         'rarity': 0

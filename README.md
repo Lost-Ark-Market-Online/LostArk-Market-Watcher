@@ -29,6 +29,9 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.11.1
+- Crystal name change
+
 ### 0.8.10.3
 - bugfix currency exchange scan
 - bugfix error logging typo

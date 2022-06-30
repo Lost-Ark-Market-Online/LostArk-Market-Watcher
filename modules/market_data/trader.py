@@ -135,10 +135,10 @@ trader = {
         'subcategory': 'Hunting Loot',
         'rarity': 0
     },
-    'Hunting Crystal': {
-        'name': 'Hunting Crystal',
+    'Crystallized Hunting Bauble': {
+        'name': 'Crystallized Hunting Bauble',
         'amount': 10,
-        'image': 'hunting-crystal.webp',
+        'image': 'crystallized-hunting-bauble.webp',
         'category': 'Trader',
         'subcategory': 'Hunting Loot',
         'rarity': 3
@@ -183,10 +183,10 @@ trader = {
         'subcategory': 'Fishing Loot',
         'rarity': 0
     },
-    'Fishing Crystal': {
-        'name': 'Fishing Crystal',
+    'Crystallized Fishing Bauble': {
+        'name': 'Crystallized Fishing Bauble',
         'amount': 10,
-        'image': 'fishing-crystal.webp',
+        'image': 'crystallized-fishing-bauble.webp',
         'category': 'Trader',
         'subcategory': 'Fishing Loot',
         'rarity': 3
@@ -215,10 +215,10 @@ trader = {
         'subcategory': 'Excavating Loot',
         'rarity': 1
     },
-    'Excavating Crystal': {
-        'name': 'Excavating Crystal',
+    'Crystallized Excavating Bauble': {
+        'name': 'Crystallized Excavating Bauble',
         'amount': 10,
-        'image': 'excavating-crystal.webp',
+        'image': 'crystallized-excavating-bauble.webp',
         'category': 'Trader',
         'subcategory': 'Excavating Loot',
         'rarity': 3
