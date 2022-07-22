@@ -29,6 +29,10 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.12.1
+- Fix thousands parsing of currency exchange
+- Add missing engraving books
+
 ### 0.8.11.1
 - Crystal name change
 

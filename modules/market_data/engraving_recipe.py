@@ -113,7 +113,7 @@ engraving_recipe = {
         'category': 'Engraving Recipe',
         'subcategory': None
     },
-    '[Scrapper] Ultimate Skill: Taijutsu Engraving Recipe': {
+    '[Scrapper] Ultimate Skill: Taijutsu ...': {
         'name': '[Scrapper] Ultimate Skill: Taijutsu Engraving Recipe',
         'amount': 1,
         'category': 'Engraving Recipe',
@@ -187,6 +187,30 @@ engraving_recipe = {
     },
     '[Wardancer] First Intention Engraving Recipe': {
         'name': '[Wardancer] First Intention Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Destroyer] Gravity Training ...': {
+        'name': '[Destroyer] Gravity Training Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Destroyer] Rage Hammer Engravin...': {
+        'name': '[Destroyer] Rage Hammer Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Arcanist] Grace of the Empress ...': {
+        'name': '[Arcanist] Grace of the Empress Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Arcanist] Order of the Emperor ...': {
+        'name': '[Arcanist] Order of the Emperor Engraving Recipe',
         'amount': 1,
         'category': 'Engraving Recipe',
         'subcategory': None

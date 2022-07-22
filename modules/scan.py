@@ -235,7 +235,7 @@ class Scan():
         rect = Rect(rect_start.x, rect_start.y,
                     rect_start.x + scanMap[self.tab]['w'], rect_start.y + scanMap[self.tab]['h'])
 
-        price = int(self.get_text(rect, False))
+        price = int(self.get_text(rect, False).replace(".","").replace(",",""))
 
         if Config().debug:
             self.debug_screenshot = cv2.rectangle(
