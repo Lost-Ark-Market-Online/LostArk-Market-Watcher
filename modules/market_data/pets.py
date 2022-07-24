@@ -94,5 +94,77 @@ pets = {
     "category": "Pets",
     "subcategory": "Pets",
     "amount": 1
-  }
+  },
+  "Starfish Pet Selection Chest":{
+    "name": "Starfish Pet Selection Chest",
+    "image": "cat-pet-selection-chest.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pet Chest",
+    "amount": 1
+  },
+  "Panther Pet Selection Chest":{
+    "name": "Panther Pet Selection Chest",
+    "image": "cat-pet-selection-chest.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pet Chest",
+    "amount": 1
+  },
+  "Pet: Starfish Dugo":{
+    "name": "Pet: Starfish Dugo",
+    "image": "pet-starfish-dugo.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
+  "Pet: Starfish Hook":{
+    "name": "Pet: Starfish Hook",
+    "image": "pet-starfish-hook.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
+  "Pet: Starfish Archie":{
+    "name": "Pet: Starfish Archie",
+    "image": "pet-starfish-archie.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
+  "Pet: Starfish Sway":{
+    "name": "Pet: Starfish Sway",
+    "image": "pet-starfish-sway.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
+  "Pet: Starfish Pinkie":{
+    "name": "Pet: Starfish Pinkie",
+    "image": "pet-starfish-pinkie.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
+  "Pet: Bilbrin Panther":{
+    "name": "Pet: Bilbrin Panther",
+    "image": "pet-bilbrin-panther.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
+  "Pet: Voldis Leopard":{
+    "name": "Pet: Voldis Leopard",
+    "image": "pet-voldis-leopard.webp",
+    "rarity": 3,
+    "category": "Pets",
+    "subcategory": "Pets",
+    "amount": 1
+  },
 }

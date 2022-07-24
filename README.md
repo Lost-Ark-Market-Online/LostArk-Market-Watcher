@@ -29,6 +29,9 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.13.1
+- Add new pets and mounts of the summer update
+
 ### 0.8.12.1
 - Fix thousands parsing of currency exchange
 - Add missing engraving books

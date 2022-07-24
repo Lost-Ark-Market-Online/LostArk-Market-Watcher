@@ -159,5 +159,53 @@ mount = {
         "category": "Mount",
         "subcategory": "Mount Chest",
         "amount": 1
+    },
+    "Armor Wagon Selection Chest": {
+        "name": "Armor Wagon Selection Chest",
+        "image": "ghost-horse-selection-chest.webp",
+        "rarity": 4,
+        "category": "Mount",
+        "subcategory": "Mount Chest",
+        "amount": 1
+    },
+    "Mount: Coral Armor Wagon": {
+        "name": "Mount: Coral Armor Wagon",
+        "image": "mount-coral-armor-wagon.webp",
+        "rarity": 4,
+        "category": "Mount",
+        "subcategory": "Mount",
+        "amount": 1
+    },
+    "Mount: Pearl Armor Wagon": {
+        "name": "Mount: Pearl Armor Wagon",
+        "image": "mount-pear-armor-wagon.webp",
+        "rarity": 4,
+        "category": "Mount",
+        "subcategory": "Mount",
+        "amount": 1
+    },
+    "Mount: Opal Armor Wagon": {
+        "name": "Mount: Opal Armor Wagon",
+        "image": "mount-opal-armor-wagon.webp",
+        "rarity": 4,
+        "category": "Mount",
+        "subcategory": "Mount",
+        "amount": 1
+    },
+    "Mount: Ruby Armor Wagon": {
+        "name": "Mount: Ruby Armor Wagon",
+        "image": "mount-ruby-armor-wagon.webp",
+        "rarity": 4,
+        "category": "Mount",
+        "subcategory": "Mount",
+        "amount": 1
+    },
+    "Mount: Onyx Armor Wagon": {
+        "name": "Mount: Onyx Armor Wagon",
+        "image": "mount-onyx-armor-wagon.webp",
+        "rarity": 4,
+        "category": "Mount",
+        "subcategory": "Mount",
+        "amount": 1
     }
 }
