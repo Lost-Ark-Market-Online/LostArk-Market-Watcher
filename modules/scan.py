@@ -276,7 +276,7 @@ class Scan():
             return None
 
 
-        name = re.sub(f"\n.*Sold in bundles.*", "", name)
+        name = re.sub(f"\n.*S[oa][il]d in bund[il]es.*", "", name)
 
         name = re.sub(f"\n.*Untradable upon.*", "", name)
 

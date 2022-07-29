@@ -29,6 +29,9 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.13.2
+- Fuzier match for items secondary text
+
 ### 0.8.13.1
 - Add new pets and mounts of the summer update
 
