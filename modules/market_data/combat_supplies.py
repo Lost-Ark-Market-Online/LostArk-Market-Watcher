@@ -207,10 +207,10 @@ combat_supplies = {
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
     },
-    'Splendid Lightening Grenade': {
-        'name': 'Splendid Lightening Grenade',
+    'Splendid Electric Grenade': {
+        'name': 'Splendid Electric Grenade',
         'amount': 1,
-        'image': 'splendid-lightening-grenade.webp',
+        'image': 'splendid-electric-grenade.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Offense',
         'rarity': 2
@@ -375,10 +375,10 @@ combat_supplies = {
         'subcategory': 'Battle Item - Utility',
         'rarity': 2
     },
-    'Splendid Disguise Robe': {
-        'name': 'Splendid Disguise Robe',
+    'Splendid Camouflage Robe': {
+        'name': 'Splendid Camouflage Robe',
         'amount': 1,
-        'image': 'splendid-disguise-robe.webp',
+        'image': 'splendid-camouflage-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Utility',
         'rarity': 2

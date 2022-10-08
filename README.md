@@ -1,6 +1,6 @@
 ## LostArk Market Watcher
 This app listens to the screenshot folder for new files.
-This app is meant to be launched through the [Lost Ark Market Launcher](https://github.com/gogodr/LostArk-Market-Launcher)
+This app is meant to be launched through the [Lost Ark Market Launcher](https://github.com/Lost-Ark-Market-Online/LostArk-Market-Launcher)
 Each new file is scanned and if the market window is detected in the picture then the image is segmented.
 Each segment then is parsed usin Tesseract OCR and classified
 The information then is collected and published to the LostArk Marketplace firestore database.
@@ -29,6 +29,9 @@ In order to contribute to the LostArk Marketplace database, the contributor must
 Audio files from [MixKit](https://mixkit.co/)
 
 ### Changelog
+### 0.8.13.3
+- Update Combat supplies names: Splendid Camouflage Robe and Splendid Electric Grenade
+
 ### 0.8.13.2
 - Fuzier match for items secondary text
 
