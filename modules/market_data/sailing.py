@@ -30,5 +30,13 @@ sailing = {
     "category": "Sailing",
     "amount": 1,
     "subcategory": None,
+  },
+  "Ship Skin: Jack-O'Lantern the ...":{
+    "name": "Ship Skin: Jack-O'Lantern the Wanderer",
+    "image": "ship-skin-jack-o-lantern-the-wanderer.webp",
+    "rarity": 3,
+    "category": "Sailing",
+    "amount": 1,
+    "subcategory": None,
   }
 }

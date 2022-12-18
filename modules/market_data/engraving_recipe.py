@@ -215,6 +215,30 @@ engraving_recipe = {
         'category': 'Engraving Recipe',
         'subcategory': None
     },
+    '[Machinist] Arthetinean Skill ...': {
+        'name': '[Machinist] Arthetinean Skill Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Machinist] Evolutionary Legacy ...': {
+        'name': '[Machinist] Evolutionary Legacy Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Reaper] Hunger Engraving Recipe': {
+        'name': '[Reaper] Hunger Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Reaper] Lunar Voice Engraving ...': {
+        'name': '[Reaper] Lunar Voice Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
     'Adrenaline Engraving Recipe': {
         'name': 'Adrenaline Engraving Recipe',
         'amount': 1,

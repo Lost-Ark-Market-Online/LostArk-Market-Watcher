@@ -287,4 +287,52 @@ enhancement_material={
         'subcategory': 'Other Materials',
         'rarity': 3
     },
+    'Protection Stone': {
+        'name': 'Protection Stone',
+        'amount': 1,
+        'image': 'protection-stone.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Honing Materials',
+        'rarity': 1
+    },
+    'Obliteration Stone': {
+        'name': 'Obliteration Stone',
+        'amount': 1,
+        'image': 'obliteration-stone.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Honing Materials',
+        'rarity': 1
+    },
+    'Superior Oreha Fusion Material': {
+        'name': 'Superior Oreha Fusion Material',
+        'amount': 1,
+        'image': 'superior-oreha-fusion-material.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Honing Materials',
+        'rarity': 4
+    },
+    'Marvelous Honor Leapstone': {
+        'name': 'Marvelous Honor Leapstone',
+        'amount': 1,
+        'image': 'marvelous-honor-leapstone.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 3
+    },
+    'Tailoring: Advanced Mending': {
+        'name': 'Tailoring: Advanced Mending',
+        'amount': 1,
+        'image': 'tailoring-advanced-mending.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 5
+    },
+    'Metallurgy: Advanced Welding': {
+        'name': 'Metallurgy: Advanced Welding',
+        'amount': 1,
+        'image': 'metallurgy-advanced-welding.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 5
+    },
 }
