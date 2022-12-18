@@ -1,8 +1,8 @@
 combat_supplies = {  
-    'Adrophine Potion': {
-        'name': 'Adrophine Potion',
+    'Atropine Potion': {
+        'name': 'Atropine Potion',
         'amount': 1,
-        'image': 'adrophine-potion.webp',
+        'image': 'atropine-potion.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 3
@@ -47,18 +47,18 @@ combat_supplies = {
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
     },
-    'Splendid Swift Robe': {
-        'name': 'Splendid Swift Robe',
+    'Splendid Sprinter\'s Robe': {
+        'name': 'Splendid Sprinter\'s Robe',
         'amount': 1,
-        'image': 'splendid-swift-robe.webp',
+        'image': 'splendid-sprinter-s-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2
     },
-    'Swiftness Robe': {
-        'name': 'Swiftness Robe',
+    'Sprinter\'s Robe': {
+        'name': 'Sprinter\'s Robe',
         'amount': 1,
-        'image': 'swiftness-robe.webp',
+        'image': 'sprinter-s-robe.webp',
         'category': 'Combat Supplies',
         'subcategory': 'Battle Item - Buff',
         'rarity': 2

@@ -80,13 +80,6 @@ class MarketDb(QObject):
                     f"{Config().region}/{slugify(item['name'])}-{market_line.rarity}")
                 item_doc = item_doc_ref.get()
 
-                if (
-                    market_line.lowest_price == None or
-                    market_line.recent_price == None or
-                    market_line.cheapest_remaining == None
-                ):
-                    raise Exception('NO_VALID_PRICE_FOUND')
-
                 if (item_doc.exists == False):
                     AppLogger().info(
                         f"Create {Config().region}/{slugify(item['name'])}-{market_line.rarity}")
@@ -110,10 +103,10 @@ class MarketDb(QObject):
                     item_doc_ref.update(to_update)
 
                 item_doc_ref.collection('entries').add({
-                    'avgPrice': market_line.avg_price,
+                    'avgPrice': market_line.avg_price if market_line.avg_price is not None else market_line.lowest_price,
                     'cheapestRemaining': market_line.cheapest_remaining,
                     'lowPrice': market_line.lowest_price,
-                    'recentPrice': market_line.recent_price,
+                    'recentPrice': market_line.recent_price if market_line.recent_price is not None else market_line.lowest_price,
                     'createdAt': datetime.utcnow(),
                     'author': Config().uid,
                     'watcher_version': Config().version
