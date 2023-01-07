@@ -75,6 +75,12 @@ class MarketDb(QObject):
                 # Update rarity based on market dictionary
                 market_line.rarity = item['rarity']
 
+                # Fill info if missing
+                if market_line.recent_price is None:
+                    market_line.recent_price = market_line.lowest_price
+                if market_line.avg_price is None:
+                    market_line.avg_price = market_line.lowest_price
+
                 # Get Doc
                 item_doc_ref = self.db.document(
                     f"{Config().region}/{slugify(item['name'])}-{market_line.rarity}")
@@ -103,10 +109,10 @@ class MarketDb(QObject):
                     item_doc_ref.update(to_update)
 
                 item_doc_ref.collection('entries').add({
-                    'avgPrice': market_line.avg_price if market_line.avg_price is not None else market_line.lowest_price,
+                    'avgPrice': market_line.avg_price,
                     'cheapestRemaining': market_line.cheapest_remaining,
                     'lowPrice': market_line.lowest_price,
-                    'recentPrice': market_line.recent_price if market_line.recent_price is not None else market_line.lowest_price,
+                    'recentPrice': market_line.recent_price,
                     'createdAt': datetime.utcnow(),
                     'author': Config().uid,
                     'watcher_version': Config().version

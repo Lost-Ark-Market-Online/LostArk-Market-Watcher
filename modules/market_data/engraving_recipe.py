@@ -239,6 +239,18 @@ engraving_recipe = {
         'category': 'Engraving Recipe',
         'subcategory': None
     },
+    '[Summoner] Communication ...': {
+        'name': '[Summoner] Communication Overflow Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Summoner] Master Summoner ...': {
+        'name': '[Summoner] Master Summoner Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
     'Adrenaline Engraving Recipe': {
         'name': 'Adrenaline Engraving Recipe',
         'amount': 1,
