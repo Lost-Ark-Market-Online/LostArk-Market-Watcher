@@ -3,7 +3,9 @@ from shutil import rmtree
 from PySide6.QtWidgets import QApplication, QFileDialog
 from modules.logging import AppLogger
 from modules.scan import scan_file
+from modules.config import Config
 
+Config().debug = True
 app = QApplication([])
 file,_ = QFileDialog.getOpenFileName(None,
                                       "Select the Lost Ark Screenshot to test", None, "Image Files (*.jpg)")

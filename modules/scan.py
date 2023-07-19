@@ -350,7 +350,7 @@ class Scan():
                 f'{self.debug_file}/inspection/text-{rect.y1}-{rect.x1}-3-scaled.jpg', pimg)
 
         # Adjust image white levels for feature isolation
-        pimg = cv2.addWeighted(pimg, 1.85, pimg, 0, -102)
+        pimg = cv2.addWeighted(pimg, 1.65, pimg, 0, -120)
 
         if Config().debug:
             cv2.imwrite(
@@ -402,6 +402,7 @@ class Scan():
                 pimg, lang='eng', config='--psm 13 --oem 1 -c tessedit_char_whitelist=0123456789.').strip()
 
         if Config().debug:
+            AppLogger().debug(f"Text Scan: {e_text}")
             self.debug_screenshot = cv2.rectangle(
                 self.debug_screenshot, (rect.x1, rect.y1), (rect.x2, rect.y2), (0, 255, 255), 2)
         return e_text
@@ -415,6 +416,8 @@ class Scan():
         - 3 = Epic
         - 4 = Legendary
         - 5 = Relic
+        - 6 = Ancient
+        - 7 = Sidereal
         """
         # Get sample rect from the bottom left corner
         sample_rect = Rect(rect.x1, rect.y2, rect.x1, rect.y2).add(-5, -5, 5, 5)
@@ -433,7 +436,13 @@ class Scan():
         # Split values and keep Hue and Saturation
         rarity_img_h, rarity_img_s, _ = cv2.split(rarity_img)
 
+        # Get value averages for Hue and for Saturation
+        color_value = np.average(rarity_img_h)
+        saturation_value = np.average(rarity_img_s)
+
         if Config().debug:
+            AppLogger().debug(f"Rarity Scan {rect.y1}-{rect.x1}: color_value({color_value})")
+            AppLogger().debug(f"Rarity Scan {rect.y1}-{rect.x1}: saturation_value({color_value})")
             self.debug_screenshot = cv2.rectangle(
                 self.debug_screenshot, (sample_rect.x1, sample_rect.y1), (sample_rect.x2, sample_rect.y2), (255, 255, 255), 1)
             cv2.imwrite(
@@ -441,9 +450,6 @@ class Scan():
             cv2.imwrite(
                 f'{self.debug_file}/inspection/text-{rect.y1}-{rect.x1}-9-rarity-saturation.jpg', rarity_img_s)
 
-        # Get value averages for Hue and for Saturation
-        color_value = np.average(rarity_img_h)
-        saturation_value = np.average(rarity_img_s)
 
         # Classify rarity by the Hue and Saturation
         if(saturation_value < 50):
@@ -455,6 +461,8 @@ class Scan():
                 return 4
             elif(color_value < 50):
                 return 1
+            elif(color_value < 89):
+                return 7
             elif(color_value < 100):
                 return 2
             elif(color_value < 150):

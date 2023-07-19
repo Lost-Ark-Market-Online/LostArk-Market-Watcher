@@ -309,7 +309,7 @@ enhancement_material={
         'image': 'superior-oreha-fusion-material.webp',
         'category': 'Enhancement Material',
         'subcategory': 'Honing Materials',
-        'rarity': 4
+        'rarity': 3
     },
     'Marvelous Honor Leapstone': {
         'name': 'Marvelous Honor Leapstone',
@@ -334,5 +334,29 @@ enhancement_material={
         'category': 'Enhancement Material',
         'subcategory': 'Additional Honing Materials',
         'rarity': 5
+    },
+    'Tailoring: Expert Mending': {
+        'name': 'Tailoring: Expert Mending',
+        'amount': 1,
+        'image': 'tailoring-expert-mending.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 5
+    },
+    'Metallurgy: Expert Welding': {
+        'name': 'Metallurgy: Expert Welding',
+        'amount': 1,
+        'image': 'metallurgy-expert-welding.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Additional Honing Materials',
+        'rarity': 5
+    },
+    'Sidereal Energy': {
+        'name': 'Sidereal Energy',
+        'amount': 1,
+        'image': 'sidereal-energy.webp',
+        'category': 'Enhancement Material',
+        'subcategory': 'Weapon Evolution Materials',
+        'rarity': 7
     },
 }

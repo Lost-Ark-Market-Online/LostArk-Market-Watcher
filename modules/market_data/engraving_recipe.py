@@ -251,6 +251,30 @@ engraving_recipe = {
         'category': 'Engraving Recipe',
         'subcategory': None
     },
+    '[Artist] Full Bloom Engraving Recip...': {
+        'name': '[Artist] Full Bloom Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Artist] Recurrence Engraving Recip...': {
+        'name': '[Artist] Recurrence Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Slayer] Predator Engraving Recipe': {
+        'name': '[Slayer] Predator Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Slayer] Punisher Engraving Recipe': {
+        'name': '[Slayer] Punisher Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
     'Adrenaline Engraving Recipe': {
         'name': 'Adrenaline Engraving Recipe',
         'amount': 1,
