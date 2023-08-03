@@ -21,15 +21,19 @@ class PlaySoundThread(Thread):
         self.sound_file = sound_file
 
     def run(self):
-        self.playsound(self.sound_file)
+        if Config().play_audio:
+            self.playsound(self.sound_file)
 
     def playsound(self, file):
-        if VolumeController().audio == None:
-            VolumeController().searchProcess()
-        if VolumeController().audio:
-            wave_obj = sa.WaveObject.from_wave_file(file)
-            play_obj = wave_obj.play()
-            play_obj.wait_done()
+        try:
+            if VolumeController().audio == None:
+                VolumeController().searchProcess()
+            if VolumeController().audio:
+                wave_obj = sa.WaveObject.from_wave_file(file)
+                play_obj = wave_obj.play()
+                play_obj.wait_done()        
+        except Exception as ex:
+            AppLogger().exception(ex)
 
 
 def playSuccess():

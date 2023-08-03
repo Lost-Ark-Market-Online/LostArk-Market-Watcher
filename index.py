@@ -38,7 +38,6 @@ class LostArkMarketWatcher(QApplication):
     message_box = Signal(dict)
     open_config = Signal()
     message_box_handler: MessageBoxHandler
-    volume_controller: VolumeController
 
     def __init__(self, *args, **kwargs):
         QApplication.__init__(self, *args, **kwargs)
@@ -50,7 +49,6 @@ class LostArkMarketWatcher(QApplication):
         self.log_view = LostArkMarketWatcherLog()
         AppLogger().signal_enable(self.log_view.signal)
         self.config_form = LostArkMarketWatcherConfig(self.open_config)
-        self.volume_controller = VolumeController()
         self.config_form.config_updated.connect(self.spawn_observer)
         self.market_db.new_version.connect(self.new_version)
         if Config().open_log_on_start:
