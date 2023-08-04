@@ -1,15 +1,12 @@
 from shutil import rmtree
 import modules.single_instance
 import faulthandler
-from datetime import datetime
 import sys
 import time
 import os
-import traceback
 import ctypes
-from raven import Client
 
-from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QMessageBox
+from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import Signal
 from thefuzz import fuzz
@@ -24,7 +21,7 @@ from modules.logging import AppLogger
 from modules.db import MarketDb
 from modules.messagebox import MessageBoxHandler
 from modules.scan import scan_file
-from modules.sound import VolumeController, playCheck, playError, playSuccess
+from modules.sound import playCheck, playError, playSuccess
 
 from ui.config.config import LostArkMarketWatcherConfig
 from ui.log.log import LostArkMarketWatcherLog

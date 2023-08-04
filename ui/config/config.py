@@ -60,7 +60,10 @@ class LostArkMarketWatcherConfig(QMainWindow):
             self.slVolume.setVisible(1)
 
     def update_volume(self, value):
-        VolumeController().setVolume(value / 100)
+        try:
+            VolumeController().setVolume(value / 100)
+        except Exception as ex:
+            AppLogger().exception(ex)
 
     def screenshot_folder_toggle(self, value):
         if value == 0:
