@@ -275,6 +275,18 @@ engraving_recipe = {
         'category': 'Engraving Recipe',
         'subcategory': None
     },
+    '[Aeromancer] Wind Fury Engraving Recipe': {
+        'name': '[Aeromancer] Wind Fury Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
+    '[Aeromancer] Drizzle Engraving Recipe': {
+        'name': '[Aeromancer] Drizzle Engraving Recipe',
+        'amount': 1,
+        'category': 'Engraving Recipe',
+        'subcategory': None
+    },
     'Adrenaline Engraving Recipe': {
         'name': 'Adrenaline Engraving Recipe',
         'amount': 1,
