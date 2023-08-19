@@ -1,14 +1,10 @@
 import os
 import sys
 import threading
-import wave
 from time import sleep
 import simpleaudio as sa
-import simpleaudio.functionchecks as fc
 from threading import Thread
 from pycaw.pycaw import AudioUtilities
-
-from PySide6.QtCore import QObject
 
 from modules.common.singleton import Singleton
 from modules.config import Config

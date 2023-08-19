@@ -12,3 +12,4 @@ nuitka
 zstandard
 ordered-set
 sentry-sdk
+raven

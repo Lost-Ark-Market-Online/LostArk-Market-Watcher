@@ -226,6 +226,8 @@ class Scan():
 
         # Consolidate results
         self.result = [line_future.result() for line_future in line_futures if line_future.result()]
+        for res in self.result:
+            AppLogger().debug(res)
 
     def process_crystal_table(self):
         rect_start = Point(

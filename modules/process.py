@@ -25,7 +25,7 @@ def process_item(market_line: MarketLine) -> dict:
         'image': item['image'] if 'image' in item else image,
         'category': item['category'],
         'subcategory': item['subcategory'],
-        'rarity': item['rarity'] if 'rarity' in item else market_line.rarity,
+        'rarity': item['rarity'] if ('rarity' in item and item['rarity'] is not None) else market_line.rarity,
         'avgPrice': market_line.avg_price,
         'recentPrice': market_line.recent_price,
         'lowPrice': market_line.lowest_price,

@@ -82,8 +82,8 @@ class MarketDb(QObject):
                     market_line.avg_price = market_line.lowest_price
 
                 # Get Doc
-                item_doc_ref = self.db.document(
-                    f"{Config().region}/{slugify(item['name'])}-{market_line.rarity}")
+                item_doc_id = f"{Config().region}/{slugify(item['name'])}-{market_line.rarity}"
+                item_doc_ref = self.db.document(item_doc_id)
                 item_doc = item_doc_ref.get()
 
                 if (item_doc.exists == False):
@@ -118,7 +118,7 @@ class MarketDb(QObject):
                     'watcher_version': Config().version
                 })
                 AppLogger().info(
-                    f"Updated: {market_line.name} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
+                    f"Updated: {item_doc_id} | {market_line.avg_price} | {market_line.recent_price} | {market_line.lowest_price} | {market_line.cheapest_remaining}")
                 if Config().play_audio:
                     playPulse()
         except Unauthenticated as ex:
