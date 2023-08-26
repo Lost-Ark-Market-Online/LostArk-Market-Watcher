@@ -1,5 +1,6 @@
 import configparser
 import os
+import re
 from modules.common.singleton import Singleton
 from modules.errors import NoTokenError
 from modules.find_game import find_lostark_directory
@@ -106,8 +107,8 @@ class Config(metaclass=Singleton):
                 self.screenshots_directory = None
 
             if self._config.has_option("Watcher", "game_directory"):
-                self.game_directory = self._config.get(
-                    "Watcher", "game_directory")
+                self.game_directory = self.clean_game_directory(self._config.get(
+                    "Watcher", "game_directory"))
             else:
                 self.game_directory = find_lostark_directory()
                 changes = True
@@ -177,7 +178,7 @@ class Config(metaclass=Singleton):
             "Watcher", "upload_threads", self.upload_threads
         )
         self.set_or_remove_config_option(
-            "Watcher", "game_directory", self.game_directory
+            "Watcher", "game_directory", self.clean_game_directory(self.game_directory)
         )
         self.set_or_remove_config_option(
             "Watcher", "screenshots_directory", self.screenshots_directory
@@ -223,6 +224,9 @@ class Config(metaclass=Singleton):
             self.open_log_on_start = new_config["open_log_on_start"]
         self.update_config_file()
 
+    def clean_game_directory(self, game_directory):
+        return re.sub(r'EFGame[/\\]?(Screenshots[/\\]?)?$', '', game_directory)
+        
     def get_game_region(self):
         try:
             tree = ET.parse(os.path.abspath(os.path.join(
