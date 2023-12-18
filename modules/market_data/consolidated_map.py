@@ -2295,6 +2295,14 @@ consolidated_map = {
     "subcategory": "Battle Item - Recovery",
     "amount": 1
   },
+  "Splendid Electric Grenade": {
+    "name": "Splendid Electric Grenade",
+    "rarity": 2,
+    "image": "splendid-electric-grenade.webp",
+    "category": "Combat Supplies",
+    "subcategory": "Battle Item - Offense",
+    "amount": 1
+  },
   "Splendid Flame Grenade": {
     "name": "Splendid Flame Grenade",
     "rarity": 2,
@@ -2323,14 +2331,6 @@ consolidated_map = {
     "name": "Splendid Frost Grenade",
     "rarity": 2,
     "image": "splendid-frost-grenade.webp",
-    "category": "Combat Supplies",
-    "subcategory": "Battle Item - Offense",
-    "amount": 1
-  },
-  "Splendid Lightening Grenade": {
-    "name": "Splendid Lightening Grenade",
-    "rarity": 2,
-    "image": "splendid-lightening-grenade.webp",
     "category": "Combat Supplies",
     "subcategory": "Battle Item - Offense",
     "amount": 1
@@ -2623,7 +2623,7 @@ consolidated_map = {
     "subcategory": None,
     "amount": 10
   },
-  "[Masterwork] Specialist Traditional Omelet": {
+  "[Masterwork] Specialist Traditional ...": {
     "name": "[Masterwork] Specialist Traditional Omelet",
     "rarity": 1,
     "image": "masterwork-specialist-traditional-omelet.webp",
@@ -2631,7 +2631,7 @@ consolidated_map = {
     "subcategory": None,
     "amount": 10
   },
-  "[Masterwork] Specialist Beef Tenderloin Steak Meal": {
+  "[Masterwork] Specialist Beef ...": {
     "name": "[Masterwork] Specialist Beef Tenderloin Steak Meal",
     "rarity": 2,
     "image": "masterwork-specialist-beef-tenderloin-steak-meal.webp",
@@ -3527,6 +3527,22 @@ consolidated_map = {
     "subcategory": "Additional Honing Materials",
     "amount": 1
   },
+  "Metallurgy: Applied Casting": {
+    "name": "Metallurgy: Applied Casting",
+    "rarity": 4,
+    "image": "metallurgy-applied-casting.webp",
+    "category": "Enhancement Material",
+    "subcategory": "Additional Honing Materials",
+    "amount": 1
+  },
+    "Metallurgy: Basic Casting": {
+    "name": "Metallurgy: Basic Casting",
+    "rarity": 3,
+    "image": "metallurgy-basic-casting.webp",
+    "category": "Enhancement Material",
+    "subcategory": "Additional Honing Materials",
+    "amount": 1
+  },
   "Metallurgy: Basic Folding": {
     "name": "Metallurgy: Basic Folding",
     "rarity": 3,
@@ -3651,6 +3667,14 @@ consolidated_map = {
     "name": "Tailoring: Advanced Mending",
     "rarity": 5,
     "image": "tailoring-advanced-mending.webp",
+    "category": "Enhancement Material",
+    "subcategory": "Additional Honing Materials",
+    "amount": 1
+  },
+    "Metallurgy: Advanced Casting": {
+    "name": "Metallurgy: Advanced Casting",
+    "rarity": 5,
+    "image": "metallurgy-advanced-casting.webp",
     "category": "Enhancement Material",
     "subcategory": "Additional Honing Materials",
     "amount": 1
